@@ -1,0 +1,1 @@
+from frontend.tests.chat_handler import *

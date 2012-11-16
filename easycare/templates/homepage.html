@@ -1,0 +1,18 @@
+{% extends "base/homepage_base.html" %}
+{% load url from future %}
+
+{% block script-local %}
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-unit">
+	<h2>สวัสดีครับ, </h2>
+	<p>ยินดีต้อนรับเข้าสู้ระบบตอบรับอัตโนมัติสำหรับผู้ป่วยโรคหัวใจล้มเหลว</p>
+	<p><a href="{% url 'record-create' %}" class="btn btn-primary btn-large">ส่งข้อมูลรายวัน</a></p>
+</div>
+
+
+{% endblock %}

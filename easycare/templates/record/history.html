@@ -1,0 +1,88 @@
+{% extends "base/homepage_base.html" %}
+{% load url from future %}
+{% load tz %}
+
+{% block script-local %}
+<script>
+$(function() {
+    $(function() {
+        $( "#id_from_date" ).datepicker({
+        	dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            onClose: function( selectedDate ) {
+            	var newDate = new Date(selectedDate);
+            	newDate.setDate(newDate.getDate()+1);
+                $( "#id_to_date" ).datepicker( "option", "minDate", newDate);
+            }
+        });
+        $( "#id_to_date" ).datepicker({
+        	dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            onClose: function( selectedDate ) {
+            	var newDate = new Date(selectedDate);
+            	newDate.setDate(newDate.getDate()-1);
+                $( "#id_from_date" ).datepicker( "option", "maxDate", newDate);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="span12">
+		<div class="row-fluid">
+			<div class="span2">
+				{% include "dashboard/navlist.html" with page="history" %}
+			</div>
+			<div class="span9">
+				<legend>สืบค้นประวัติ</legend>
+				{% include 'record/generic.message.html' %}
+				<table>
+					<tr>
+					    <td width="70%">
+					       	<label><strong>ค้นหาจากรหัสผู้ป่วยนอก</strong></label>
+					       	<form class="form-inline">
+		           				{% for field in hn_form %}
+		           					{{ field }}
+		           				{% endfor %}
+	           					<button type="submit" class="btn btn-inverse" >ค้นหา</button>
+					       	</form>
+					    </td>
+					    <td >
+							<label><strong>ค้นหาจากเลขอ้างอิง</strong></label>
+							<form  class="form-inline">
+		           				{% for field in record_form %}
+			           				{{ field }}
+		           				{% endfor %}       				
+	           					<button type="submit" class="btn btn-inverse" >ค้นหา</button>
+					       	</form>
+					    </td>
+					</tr>
+				</table>
+				<table>
+				{% include 'record/generic.table.list.html' %}
+				<div class="pagination">
+				  <ul>
+				  	{% if page_obj.has_previous %}
+				    <li ><a href="{{ previous_page_url }}">ย้อนกลับ</a></li>
+				    {% else %}
+				    <li class="disabled"><a href="">ย้อนกลับ</a></li>
+				    {% endif %}
+				    <li class="active"><a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
+				    {% if page_obj.has_next %}
+				    <li ><a href="{{ next_page_url }}">ถัดไป</a></li>
+				    {% else %}
+				    <li class="disabled"><a href="">ถัดไป</a></li>
+				    {% endif %}
+				  </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+<!-- Blocks for logged in user -->

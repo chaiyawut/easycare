@@ -1,0 +1,107 @@
+{% load tz %}
+{% load thai_name %}
+{% load url from future %}
+
+<tr>
+	<td width="30%"><strong>หมายเลขอ้างอิง</strong></td>
+	<td>{{ record.id }}</td>
+</tr>
+<tr>
+	<td width="30%"><strong>วันที่/เวลา</strong></td>
+	{% localtime on %}
+	<td>{{ record.datetime }}</td>
+	{% endlocaltime %}
+</tr>
+<tr>
+	<td width="30%"><strong>หมายเลขผู้ป่วยนอก</strong></td>
+	<td>{{ record.patient.hn }}</td>
+</tr>
+<tr>
+	<td width="30%"><strong>คนไข้</strong></td>
+	<td>{{ record.patient.fullname }}</td>
+</tr>
+{% if record.weight_set.all %}
+<tr>
+	<td width="30%"><strong>น้ำหนัก</strong></td>
+	<td>
+		<table class="table table-bordered">
+			<tbody>
+				{% for data in record.weight_set.all %}
+				<tr class="info">
+					<td width="30%">{{ data.period|to_thai }}</td>
+					<td> {{ data.weight }} กิโลกรัม </td>
+				</tr>
+				{% endfor %}
+			<tbody>
+		</table>
+	</td>
+</tr>
+{% endif %}
+{% if record.drug_set.all %}
+<tr>
+	<td width="30%"><strong>ยา</strong></td>
+	<td>
+		<table class="table table-bordered">
+			<tbody>
+				{% for data in record.drug_set.all %}
+				<tr class="info">
+					<td width="30%">{{ data.period|to_thai }}</td>
+					<td> {{ data.size }} มก .</td>
+					<td> {{ data.amount }} เม็ด </td>
+				</tr>
+				{% endfor %}
+			<tbody>
+		</table>
+	</td>
+</tr>
+{% endif %}
+{% if record.pressure_set.all %}
+<tr>
+	<td width="30%"><strong>ความดัน</strong></td>
+	<td>
+		<table class="table table-bordered">
+			<tbody>
+				{% for data in record.pressure_set.all %}
+				<tr class="info">
+					<td width="30%">{{ data.period|to_thai }}</td>
+					<td> {{ data.up }}/{{ data.down }} มม.ปรอท</td>
+				</tr>
+				{% endfor %}
+			<tbody>
+		</table>
+	</td>
+</tr>
+{% endif %}
+{% if record.voicemail %}
+<tr>
+	<td width="30%"><strong>ข้อความเสียง</strong></td>
+	<td>
+		<table class="table table-bordered">
+			<tbody>
+				<tr class="info">
+					<td>
+						<div class="span3">
+							<object id="MediaPlayer1" CLASSID="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" 
+							standby="Loading Microsoft Windows® Media Player components..." type="application/x-oleobject" width="280" height="256"> 
+							<param name="fileName" value="{{ record.voicemail }}"> 
+							<param name="animationatStart" value="true"> 
+							<param name="transparentatStart" value="true"> 
+							<param name="autoStart" value="flase"> 
+							<param name="showControls" value="true"> 
+							<param name="Volume" value="-450"> 
+							<embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="{{ MEDIA_URL }}voices/{{ record.voicemail }}" name="MediaPlayer1" width=280 height=256 autostart=0 showcontrols=1 volume=-450> 
+							</object>
+						<div>
+					</td>
+				</tr>
+			<tbody>
+		</table>
+	</td>
+</tr>
+{% endif %}
+<tr>
+	<td width="30%"><strong>สถานะ</strong></td>
+	<td>
+		<div class="well">{{ record.status }}</div>
+	</td>
+</tr>

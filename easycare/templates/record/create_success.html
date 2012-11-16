@@ -1,0 +1,30 @@
+{% extends "base/homepage_base.html" %}
+{% load url from future %}
+
+{% block style-local %}
+
+.table th , .table td {
+text-align: center;
+}
+.bordered {
+border:1px solid #DDD;
+}
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="span10 offset1">
+		<div class="row-fluid">
+			<div class="span7">
+				<legend><strong>สรุปข้อมูล</strong></legend>
+				<table class="table table-bordered">
+					<tbody>
+					{% include 'record/generic.table.row.detail.html' %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

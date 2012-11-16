@@ -1,0 +1,30 @@
+{% load url from future %}
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    	<div class="container">
+			<!-- Be sure to leave the brand out there if you want it shown -->
+			<span class="brand">ยินดีต้อนรับ</span>
+			<ul class="nav">
+		    	<li><a href="{% url 'homepage' %}">หน้าหลัก</a></li>
+				<li><a href="{% url 'record-create' %}">ส่งข้อมูล</a></li>
+				{% if user.is_authenticated %}
+				<li><a href="{% url 'record-pending' %}">แผงควบคุม</a></li>
+				{% endif %}
+		    </ul>
+		    {% if not user.is_authenticated %}
+			<div class="navbar-form pull-right">
+				<a class="btn btn-inverse" href="{% url 'login' %}">เข้าสู่ระบบ</a>
+			</div>
+			{% else %}
+			<form class="navbar-form pull-right" method="post" action="{% url 'django.contrib.auth.views.logout' %}">
+				{% csrf_token %}
+				<button class="btn btn-danger" type="submit" value="logout" >
+					<i class="icon-off icon-white"></i>&#032;ออกจากระบบ
+				</button>
+				<input type="hidden" name="next" value="" />
+			</form>
+			{% endif %}
+    	</div>
+    </div>
+</div>

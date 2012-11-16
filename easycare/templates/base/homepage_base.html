@@ -1,0 +1,71 @@
+{% load url from future %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>หน้าหลัก</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Le styles -->
+	<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+	<style type="text/css">
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+	{% block style-local %}{% endblock %}
+	</style>
+	<link href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	  <![endif]-->
+
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
+	{% block head-local %}{% endblock %}
+	</head>
+
+	<body>
+		{% include "base/navbar.html" %}
+		<div class="container">
+			{% block content %}{% endblock %}
+
+			<div class="navbar navbar-fixed-bottom">
+				<div class="navbar-inner">
+					<div class="container">
+						<div class="nav-collapse">
+							<ul class="nav pull-right">
+								<li><a>ระบบตอบรับอัตโนมัติสำหรับผู้ป่วยโรคหัวใจล้มเหลว, SIT KMUTT, 2012</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+</div><!-- /container -->
+
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="{{ STATIC_URL }}js/jquery-1.8.2.js"></script>
+	<script src="{{ STATIC_URL }}js/jquery-ui-1.9.1.custom.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap.js"></script> 
+	<script src="{{ STATIC_URL }}Highcharts-2.3.3/js/highcharts.js"></script> 
+	<script src="{{ STATIC_URL }}Highcharts-2.3.3/js/modules/exporting.js"></script> 
+	<!-- local script -->
+	{% block script-local %}{% endblock %}
+
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+{% extends "base/homepage_base.html" %}
+{% load url from future %}
+
+{% block script-local %}
+<script type="text/javascript">document.getElementById("id_username").focus();</script>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+	<div class="span6 offset3">
+	<h1>สำหรับเจ้าหน้าที่</h1>
+	<hr>
+</div>
+<div class="span6 offset3">
+	<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
+	    <fieldset>
+			<div class="control-group">
+				<label for="username" class="control-label">ชื่อผู้ใช้งาน</label>
+				<div class="controls">
+					<input id="id_username" type="text" name="username" maxlength="30" />
+					{% if form.username.errors %}
+						{% for error in form.username.errors %}
+							<strong>{{ error|escape }}</strong>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="password" class="control-label">รหัสผ่าน</label>
+				<div class="controls">
+					<input type="password" name="password" id="id_password" />
+					{% if form.password.errors %}
+						{% for error in form.password.errors %}
+							<strong>{{ error|escape }}</strong>
+						{% endfor %}
+					{% endif %}
+				 </div>
+		    </div>
+			{% if form.non_field_errors %}
+				<p><div class="alert alert-error">
+				<h4 class="alert-heading">{{ form.non_field_errors }}</h4>
+				</div></p>
+			{% endif %}
+			<div class="form-actions">
+		      	<div class="">
+				  	<button class="btn btn-primary" type="submit" value="login" >เข้าสู่ระบบ</button>
+		        </div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+</div>
+
+{% endblock %}

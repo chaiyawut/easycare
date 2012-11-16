@@ -1,0 +1,33 @@
+{% extends "base/homepage_base.html" %}
+{% load url from future %}
+
+
+{% block content %}
+<div class="row">
+	<div class="span12">
+		<div class="row-fluid">
+			<div class="span2">
+				{% include "dashboard/navlist.html"%}
+			</div>
+			<div class="span10">
+				<legend>คุณต้องการลบข้อมูลนี้?</legend>
+				<div class="row-fluid">
+					<div class="span7">
+						<table class="table table-bordered">
+							<tbody>
+								{% include 'record/generic.table.row.detail.html' %}
+							</tbody>
+						</table>
+						<form action="" method='post' >{% csrf_token %}
+							{{ form }}
+							<div class="form-actions">
+								<button class="btn btn-danger btn-block" type='submit' >ลบเดี๋ยวนี้</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div
+		</div>
+	</div>
+</div>
+{% endblock %}

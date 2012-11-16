@@ -1,0 +1,22 @@
+{% load url from future %}
+
+<div style="padding: 8px 0;" class="well">
+	<ul class="nav nav-list">
+		<li class="nav-header">
+			ลงทะเบียน
+		</li>
+		<li class="{% if page == 'register' %}active{% endif %}">
+			<a href="{% url 'patient-register' %}"><i class="icon-plus"></i> เพิ่มผู้ป่วย</a>
+		</li>
+		<li class="divider"></li>		
+		<li class="nav-header">
+			คำร้องขอ
+		</li>
+		<li class="{% if page == 'pending' %}active{% endif %}"> 
+			<a href="{% url 'record-pending' %}" ><i class="icon-tasks"></i> รอการตอบกลับ</a>
+		</li>
+		<li class="{% if page == 'history' %}active{% endif %}">
+			<a href="{% url 'record-history' %}"><i class="icon-book"></i> ประวัติ</a>
+		</li>
+	</ul>
+</div>
