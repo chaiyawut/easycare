@@ -1,5 +1,7 @@
 #-*-coding: utf-8 -*-
 from ESL import *
+import string
+import sys
 
 # def sendSMS(contact_number, messages):
 # 	con = ESLconnection("127.0.0.1", "8021", "ClueCon")
@@ -16,7 +18,7 @@ from ESL import *
 # 		con.disconnect()
 
 def sendSMSFromWeb(contact_number, messages):
-	con = ESLconnection("127.0.0.1", "8021", "ClueCon")
+	con = ESLconnection("10.4.18.7", "8021", "ClueCon")
 	if con.connected():
 		for message in messages:
 			if not len(message.decode('utf-8')) > 70:
