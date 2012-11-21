@@ -128,7 +128,7 @@ class CallHandler:
 			if voicemail:
 				record.voicemail = voicemail['path']
 				record.save()
-			messages =  ["บันทึกข้อมูล " + entry_messages, "หมายเลขอ้างอิง = " + str(record.id)]
+			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
 		sent = sendSMSFromWeb(contact_number, messages)
 		if not sent:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
@@ -327,5 +327,5 @@ class ChatHandler:
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip(period, drug=drug)
 				entry_messages = entry_messages + "l" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
-			messages =  ["บันทึกข้อมูล " + entry_messages, "หมายเลขอ้างอิง = " + str(record.id)]
+			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
 		return record, messages

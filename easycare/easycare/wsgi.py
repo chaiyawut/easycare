@@ -14,6 +14,11 @@ framework.
 
 """
 import os
+import sys
+
+path = '/usr/src/freeswitch/libs/esl/python'
+if path not in sys.path:
+    sys.path.insert(0, path)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "easycare.settings")
 
