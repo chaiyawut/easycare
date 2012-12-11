@@ -31,8 +31,10 @@ application = get_wsgi_application()
 import django.core.handlers.wsgi
 _application = django.core.handlers.wsgi.WSGIHandler()
 def application(environ, start_response):
-  os.environ['DJANGO_ENV'] = environ['DJANGO_ENV']
-  return _application(environ, start_response)
+	if 'DJANGO_ENV' in environ:
+		os.environ['DJANGO_ENV'] = environ['DJANGO_ENV']
+	return _application(environ, start_response)
+
 
 
 
