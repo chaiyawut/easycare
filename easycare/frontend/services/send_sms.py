@@ -1,30 +1,29 @@
 #-*-coding: utf-8 -*-
-from easycare.settings import current_env
 import string
 import sys
-from django.http import HttpResponse
 
-if current_env == 'production':
-        def sendSMSFromWeb(contact_number, messages):
+def sendSMSFromWeb(contact_number, messages):
+        try:
                 from ESL import *
-                con = ESLconnection("10.4.18.7", "8021", "ClueCon")
-        	if con.connected():
-                        for message in messages:
-                                if not len(message.decode('utf-8')) > 70:
-                                        api = "chat SMS|gsm01|"+contact_number+"| "+ message.decode('utf-8')
-                                        con.send("api " + api.encode('utf-8'))
-                                else:
-                                        api = "chat SMS|gsm01|"+contact_number+"|exceed maximum lenght"
-                                        con.send("api " + api.encode('utf-8'))
-                        api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
-                        con.send("api " + api.encode('utf-8'))
-                        con.disconnect()
-                        return True
+                con = ESLconnection("202.44.9.119", "8021", "ClueCon")
+		if con.connected():
+                	for message in messages:
+                        	if not len(message.decode('utf-8')) > 70:
+					api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
+                                	#api = "chat SMS|gsm01|"+contact_number+"| "+ message.decode('utf-8')
+                                	con.send("api " + api.encode('utf-8'))
+                        	else:
+                                	api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
+					#api = "chat SMS|gsm01|"+contact_number+"|exceed maximum lenght"
+                                	con.send("api " + api.encode('utf-8'))
+                	api = "gsmopen_sendsms gsm01 "+ contact_number + " Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
+			#api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
+                	con.send("api " + api.encode('utf-8'))
+                	con.disconnect()
+                	return True
+        	return False
+	except Exception, e:
                 return False
-else:
-     def sendSMSFromWeb(contact_number, messages):
-        pass
-        return True   
 
 # def sendSMS(contact_number, messages):
 # 	con = ESLconnection("127.0.0.1", "8021", "ClueCon")

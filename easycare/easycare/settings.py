@@ -1,13 +1,10 @@
 # Django settings for easycare project.
 import os, sys
+gettext = lambda s: s
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 
 #Settings 
 LOGIN_REDIRECT_URL = "/records/pending/"
-
-
-#Howto
-#DJANGO_ENV=production python manage.py migrate store_manage
 
 ################### Production/Development settings ###########################
 # This snippet loads configuration from either:
@@ -38,7 +35,6 @@ except ImportError:
        has been imported." % current_env
 ###############################################################################
 
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -50,6 +46,17 @@ MANAGERS = ADMINS
 
 DATABASE_OPTIONS = { "charset": "utf8", "init_command": "SET storage_engine=InnoDB", }
 DEFAULT_CHARSET='utf-8'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'easycare',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': 'wmp;ui;y<oN',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -133,6 +140,18 @@ WSGI_APPLICATION = 'easycare.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates"),
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'south',
+    'frontend',
 )
 
 # A sample logging configuration. The only tangible logging
