@@ -24,7 +24,7 @@ def json_encode_decimal(obj):
 	raise TypeError(repr(obj) + " is not JSON serializable")
 
 def homepage(request):
-	if request.path == "/":`
+	if request.path == "/":
 		return redirect('/homepage/')
 	return render(request, 'homepage.html')
 

@@ -3,7 +3,7 @@ import string
 import sys
 from django.core.mail import send_mail, BadHeaderError
 
-def send_messages_to_patient(msg_type, contact_number, contect_email, messages):
+def send_messages_to_patient(msg_type, contact_number, contact_email, messages):
         if msg_type == 'sms' or msg_type == 'both':
                 try:
                         from ESL import *
@@ -26,7 +26,7 @@ def send_messages_to_patient(msg_type, contact_number, contect_email, messages):
                 	return False
         	except Exception, e:
                         return False
-        else if msg_type == 'email' or msg_type == 'both':
+        elif msg_type == 'email' or msg_type == 'both':
                 try:
                         subject = 'Subject here'
                         send_mail(subject, messages, 'easycare.sit@gmail.com',[contact_email], fail_silently=False)
