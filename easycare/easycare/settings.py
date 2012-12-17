@@ -131,6 +131,23 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates"),
 )
 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'south',
+    'frontend',
+)
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'easycare.sit@gmail.com'
+EMAIL_HOST_PASSWORD = 'wmp;ui;y<oN'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
