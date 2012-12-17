@@ -25,7 +25,7 @@ def json_encode_decimal(obj):
 
 def homepage(request):
 	if request.path == "/":
-		send_messages_to_patient('email', '', 'chaiyawut.so@gmail.com', 'test_email')			
+		#send_messages_to_patient('email', '', 'chaiyawut.so@gmail.com', 'test_email')			
 		return redirect('/homepage/')
 	return render(request, 'homepage.html')
 
@@ -76,7 +76,7 @@ def record_create(request):
 						save_drugs = new_record.create_entry_for_record_from_web(entry='drug', formset= lasix_drug_formset )
 						save_pressures = new_record.create_entry_for_record_from_web(entry='pressure', formset= pressure_formset )
 						if save_weights and save_drugs and save_pressures:
-							mail_body = render_to_string('record/create_success.html', { 'record': new_record })
+							mail_body = render_to_string('record/email_success.html', { 'record': new_record })
 							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, mail_body)
 							return render(request, 'record/create_success.html', { 'record': new_record })
 						else:
