@@ -30,7 +30,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, messages):
         
         if msg_type == 'email' or msg_type == 'both':
                 try:
-                        subject, from_email, to = 'hello', 'easycare.sit@gmail.com', contact_email
+                        subject, from_email, to = 'สรุปข้อมูลที่ท่านส่งมาให้ค่ะ', 'easycare.sit@gmail.com', contact_email
                         text_content = 'สรุปข้อมูลที่ท่านส่งมาให้ค่ะ'
                         html_content = messages
                         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
