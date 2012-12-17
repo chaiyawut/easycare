@@ -26,7 +26,8 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, messages):
                 	return False
         	except Exception, e:
                         return False
-        elif msg_type == 'email' or msg_type == 'both':
+        
+        if msg_type == 'email' or msg_type == 'both':
                 try:
                         subject = 'Subject here'
                         send_mail(subject, messages, 'easycare.sit@gmail.com',[contact_email], fail_silently=False)

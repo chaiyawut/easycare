@@ -25,6 +25,7 @@ def json_encode_decimal(obj):
 
 def homepage(request):
 	if request.path == "/":
+		send_messages_to_patient('email', '', 'chaiyawut.so@gmail.com', 'test_email')			
 		return redirect('/homepage/')
 	return render(request, 'homepage.html')
 
