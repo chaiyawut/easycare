@@ -2,6 +2,7 @@
 import string
 import sys
 from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import EmailMultiAlternatives
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, messages):
         if msg_type == 'sms' or msg_type == 'both':
@@ -29,8 +30,12 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, messages):
         
         if msg_type == 'email' or msg_type == 'both':
                 try:
-                        subject = 'Subject here'
-                        send_mail(subject, messages, 'easycare.sit@gmail.com',[contact_email], fail_silently=False)
+                        subject, from_email, to = 'hello', 'easycare.sit@gmail.com', contact_email
+                        text_content = 'สรุปข้อมูลที่ท่านส่งมาให้ค่ะ'
+                        html_content = messages
+                        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        msg.attach_alternative(messages, "text/html")
+                        msg.send()
                 except Exception, e:
                         return False
 
