@@ -3,6 +3,14 @@ from django.db import models
 import datetime
 from pytz import timezone
 from django.contrib.auth.models import User
+from django.core.mail import send_mail, BadHeaderError
+
+
+CONFIRM_BY = (
+	('email', 'อีเมลล์'),
+	('sms', 'เอสเอ็มเอส'),
+	('both', 'อีเมลล์ & เอสเอ็มเอส'),
+)
 
 PEROIDS = (
 	('morning', 'เช้า'),
@@ -38,9 +46,14 @@ class Patient(models.Model):
 	contact_number = models.CharField(unique=True, max_length=200, verbose_name='หมายเลขติดต่อ')
 	firstname = models.CharField(blank=True ,max_length=200, verbose_name='ชื่อ')
 	lastname = models.CharField(blank=True, max_length=200, verbose_name='นามสกุล')
+	email = models.CharField(unique=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
+	confirm_by = models.CharField(max_length=200, choices=CONFIRM_BY, verbose_name='ติดต่อโดย')
 
 	def __unicode__(self):
 		return self.hn+" "+self.fullname
+
+	def send_email(self, subject, message):
+		send_mail(subject, message, 'easycare.sit@gmail.com',[self.email], fail_silently=False)
 
 	def _get_full_name(self):
 		return self.firstname+" "+self.lastname
