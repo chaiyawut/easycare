@@ -6,7 +6,7 @@ from django.core.management import setup_environ
 from ESL import *
 from decimal import Decimal
 
-PROJECT_PATH = "/home/easycare/workspace/easycare"
+PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
 
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
 import settings
