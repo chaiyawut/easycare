@@ -119,7 +119,7 @@ class PressureForm(forms.ModelForm):
 		self.fields['down'].validators.append(validators.MaxValueValidator(200))
 
 class RecordForm(forms.Form):
-	hn = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'xx-xxxx'}))
+	hn = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'xxxxx/xx'}))
 
 	def get_patient_from_hn(self):
 		hn = self.cleaned_data['hn']

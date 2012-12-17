@@ -4,7 +4,7 @@ from frontend.models import *
 import os
 from frontend.utils.words import *
 from easycare.settings import PROJECT_PATH
-from frontend.services.send_sms import sendSMSFromWeb
+from frontend.services.send_messages_to_patient import send_messages_to_patient
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'services', 'sounds'))
 
@@ -129,7 +129,7 @@ class CallHandler:
 				record.voicemail = voicemail['path']
 				record.save()
 			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
-		sent = sendSMSFromWeb(contact_number, messages)
+		sent = send_messages_to_patient('email', '', '', messages)
 		if not sent:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 			record.save()

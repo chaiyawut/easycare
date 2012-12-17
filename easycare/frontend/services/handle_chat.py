@@ -14,7 +14,7 @@ setup_environ(settings)
 from frontend.models import *
 from frontend.handlers import ChatHandler
 from freeswitch import *
-from frontend.services.send_sms import sendSMSFromWeb
+from frontend.services.send_messages_to_patient import send_messages_to_patient
 from frontend.utils.words import *
 
 def chat(message, args):
@@ -30,7 +30,7 @@ def chat(message, args):
 		messages =  ["ท่านระบุช่วงเวลาไม่ถูกต้อง"]
 	elif not contact_number in storeNumber:
 		messages =  ["เบอร์ของท่านไม่ได้ลงทะเบียนในระบบ"]
-	sent = sendSMSFromWeb(contact_number, messages)
+	sent = send_messages_to_patient('email', '', '', messages)
 	if not sent:
 		record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 		record.save()

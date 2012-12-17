@@ -15,7 +15,8 @@ import json
 import decimal
 import re
 from django.utils import simplejson
-from frontend.services.send_sms import sendSMSFromWeb
+from frontend.services.send_messages_to_patient import send_messages_to_patient
+from django.template.loader import render_to_string
 
 def json_encode_decimal(obj):
 	if isinstance(obj, decimal.Decimal):
@@ -23,9 +24,7 @@ def json_encode_decimal(obj):
 	raise TypeError(repr(obj) + " is not JSON serializable")
 
 def homepage(request):
-	#from django.core.mail import send_mail, BadHeaderError
-	#send_mail('Subject here', 'Here is the message.', 'easycare.sit@gmail.com',['chaiyawut.so@gmail.com'], fail_silently=False)
-	if request.path == "/":
+	if request.path == "/":`
 		return redirect('/homepage/')
 	return render(request, 'homepage.html')
 
@@ -76,6 +75,8 @@ def record_create(request):
 						save_drugs = new_record.create_entry_for_record_from_web(entry='drug', formset= lasix_drug_formset )
 						save_pressures = new_record.create_entry_for_record_from_web(entry='pressure', formset= pressure_formset )
 						if save_weights and save_drugs and save_pressures:
+							mail_body = render_to_string('record/create_success.html', { 'record': new_record })
+							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, mail_body)
 							return render(request, 'record/create_success.html', { 'record': new_record })
 						else:
 							messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
