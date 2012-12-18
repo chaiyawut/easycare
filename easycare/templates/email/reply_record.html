@@ -1,31 +1,16 @@
 {% load tz %}
 {% load url from future %}
 
-
-<table class="table table-bordered">
-	<tbody>
+<html>
+<table width="600" style="border:1px solid #333">
+  	<tbody>
 		{% include 'record/generic.table.row.detail.html' %}
 		{% if record.response %}
 		<tr>
-			<td width="30%"><strong>ผลการตอบกลับ</strong></td>
-			<td>
-				<table class="table table-bordered">
-					<tbody>
-						{% if record.response.deleted %}
-						<tr class="error">
-							<td width="30%">{{ record.response.nurse.first_name }}</td>
-							<td>ลบ</td>
-						</tr>
-						{% else %}
-						<tr class="success">
-							<td width="30%">{{ record.response.nurse.first_name }}</td>
-							<td>{{ record.response.reply_text }}</td>
-						</tr>
-						{% endif %}
-						<tbody>
-						</table>
-					</td>
-				</tr>
-				{% endif %}
-			</tbody>
-		</table>
+			<td><strong>ผลการตอบกลับ</strong></td>
+			<td>{{ record.response.reply_text }}</td>
+		</tr>
+		{% endif %}
+	</tbody>
+</table>
+</html>
