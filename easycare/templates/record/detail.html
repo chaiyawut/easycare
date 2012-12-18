@@ -14,47 +14,49 @@ border:1px solid #DDD;
 
 {% block content %}
 
-<div class="row">
-	<div class="span12">
-		<div class="row-fluid">
-			<div class="span2">
-				{% include "dashboard/navlist.html" %}
-			</div>
-			<div class="span10">
-				<legend>สรุปข้อมูล</legend>
-				<div class="row-fluid">
-					<div class="span7">
-						<table class="table table-bordered">
-							<tbody>
-								{% include 'record/generic.table.row.detail.html' %}
-								{% if record.response %}
-								<tr>
-									<td width="30%"><strong>ผลการตอบกลับ</strong></td>
-									<td>
-										<table class="table table-bordered">
-											<tbody>
-												{% if record.response.deleted %}
-												<tr class="error">
-													<td width="30%">{{ record.response.nurse.first_name }}</td>
-													<td>ลบ</td>
-												</tr>
-												{% else %}
-												<tr class="success">
-													<td width="30%">{{ record.response.nurse.first_name }}</td>
-													<td>{{ record.response.reply_text }}</td>
-												</tr>
-												{% endif %}
-											<tbody>
-										</table>
-									</td>
-								</tr>
-								{% endif %}
-							</tbody>
-						</table>
+<section>
+	<div class="row">
+		<div class="span12">
+			<div class="row-fluid">
+				<div class="span2">
+					{% include "dashboard/navlist.html" %}
+				</div>
+				<div class="span10">
+					<legend>สรุปข้อมูล</legend>
+					<div class="row-fluid">
+						<div class="span9">
+							<table class="table table-bordered">
+								<tbody>
+									{% include 'record/generic.table.row.detail.html' %}
+									{% if record.response %}
+									<tr>
+										<td width="30%"><strong>ผลการตอบกลับ</strong></td>
+										<td>
+											<table class="table table-bordered">
+												<tbody>
+													{% if record.response.deleted %}
+													<tr class="error">
+														<td width="30%">{{ record.response.nurse.first_name }}</td>
+														<td>ลบ</td>
+													</tr>
+													{% else %}
+													<tr class="success">
+														<td width="30%">{{ record.response.nurse.first_name }}</td>
+														<td>{{ record.response.reply_text }}</td>
+													</tr>
+													{% endif %}
+												<tbody>
+											</table>
+										</td>
+									</tr>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 {% endblock %}

@@ -83,8 +83,8 @@ def record_create(request):
 						save_drugs = new_record.create_entry_for_record_from_web(entry='drug', formset= lasix_drug_formset )
 						save_pressures = new_record.create_entry_for_record_from_web(entry='pressure', formset= pressure_formset )
 						if save_weights and save_drugs and save_pressures:
-							mail_body = render_to_string('record/email_success.html', { 'record': new_record })
-							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, mail_body)
+							html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
+							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, '', html_messages)
 							return render(request, 'record/create_success.html', { 'record': new_record })
 						else:
 							messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
@@ -95,7 +95,7 @@ def record_create(request):
 				else:
 					messages.error(request, 'ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล', extra_tags='alert alert-error')	
 			if not patient:
-				messages.error(request, 'ไม่พบเลขผู้ป่วยนอกที่ระบุ', extra_tags='alert alert-error')
+				messages.error(request, 'หมายเลขโทรศัพท์ของท่านยังไม่ได้ทำการลงทะเบียนเอาไว้ค่ะ', extra_tags='alert alert-error')
 		else:
 			messages.error(request, 'ท่านกรอกข้อมูลไม่ถูกต้อง', extra_tags='alert alert-error')
 	else:
@@ -251,20 +251,27 @@ class RecordResponseView(CreateView):
 		return context
 
 	def form_valid(self, form):
+		redirect_url = super(RecordResponseView, self).form_valid(form)
+		self.record.change_status('ตอบกลับแล้ว')
+
 		contact_number = self.record.patient.contact_number
+		contact_email = self.record.patient.email
+		msg_type = self.record.patient.confirm_by
+
 		reply_messages = form.cleaned_data['reply_text'].split('|')
 		reply_messages = filter(None, reply_messages)
 		for i in range(len(reply_messages)):
 			reply_messages[i] = reply_messages[i].encode('utf-8')
 		reply_messages.insert(0,'ตอบกลับหมายเลขอ้างอิง: ' + str(self.record.id))
-		sent = sendSMSFromWeb(contact_number, reply_messages)
+	
+		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
+		sent = send_messages_to_patient(msg_type, contact_number, contact_email, '', html_messages)
+
 		if sent:
-			redirect_url = super(RecordResponseView, self).form_valid(form)
-			self.record.change_status('ตอบกลับแล้ว')
 			messages.success(self.request, "คำร้องขอถูกตอบกลับเรียบร้อยแล้ว", extra_tags='alert alert-success')
 			return redirect_url
 		else:
-			messages.success(self.request, "ระบบส่ง SMS ผิดพลาด ไม่สามารถตอบกลับได้", extra_tags='alert alert-error')
+			messages.success(self.request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
 			return redirect(self.success_url)
 
 class RecordDeleteView(CreateView):

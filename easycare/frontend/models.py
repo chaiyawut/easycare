@@ -54,7 +54,7 @@ class Patient(models.Model):
 	lastname = models.CharField(blank=True, max_length=200, verbose_name='นามสกุล')
 	email = models.CharField(blank=True, unique=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
 	confirm_by = models.CharField(max_length=200, choices=CONFIRM_BY, verbose_name='ติดต่อโดย')
-	sound_for_name = models.FileField(upload_to=get_file_path)
+	sound_for_name = models.FileField(upload_to=get_file_path, verbose_name='ไฟล์เสียงสำหรับชื่อคนไข้')
 
 	def __unicode__(self):
 		return self.hn+" "+self.fullname

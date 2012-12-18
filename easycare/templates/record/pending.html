@@ -7,34 +7,37 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-	<div class="span12">
-		<div class="row-fluid">
-			<div class="span2">
-				{% include "dashboard/navlist.html" with page="pending" %}
-			</div>
-			<div class="span9">
-				{% include 'record/generic.message.html' %}
-				<legend>คำร้องขอที่รอการตอบกลับ</legend>
-				{% include 'record/generic.table.list.html' %}
-				<div class="pagination">
-				  <ul>
-				  	{% if page_obj.has_previous %}
-				    <li ><a href="{{ previous_page_url }}">ย้อนกลับ</a></li>
-				    {% else %}
-				    <li class="disabled"><a href="">ย้อนกลับ</a></li>
-				    {% endif %}
-				    <li class="active"><a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
-				    {% if page_obj.has_next %}
-				    <li ><a href="{{ next_page_url }}">ถัดไป</a></li>
-				    {% else %}
-				    <li class="disabled"><a href="">ถัดไป</a></li>
-				    {% endif %}
-				  </ul>
+<section>
+	<div class="row">
+		<div class="span12">
+			<div class="row-fluid">
+				<div class="span2">
+					{% include "dashboard/navlist.html" with page="pending" %}
+				</div>
+				<div class="span10">
+					{% include 'record/generic.message.html' %}
+					<legend>คำร้องขอที่รอการตอบกลับ</legend>
+					{% include 'record/generic.table.list.html' %}
+					<div class="pagination">
+					  <ul>
+					  	{% if page_obj.has_previous %}
+					    <li ><a href="{{ previous_page_url }}">ย้อนกลับ</a></li>
+					    {% else %}
+					    <li class="disabled"><a href="">ย้อนกลับ</a></li>
+					    {% endif %}
+					    <li class="active"><a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
+					    {% if page_obj.has_next %}
+					    <li ><a href="{{ next_page_url }}">ถัดไป</a></li>
+					    {% else %}
+					    <li class="disabled"><a href="">ถัดไป</a></li>
+					    {% endif %}
+					  </ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
+
 {% endblock %}
 <!-- Blocks for logged in user -->

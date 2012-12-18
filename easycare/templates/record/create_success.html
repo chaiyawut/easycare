@@ -10,21 +10,28 @@ text-align: center;
 border:1px solid #DDD;
 }
 
+.bs-docs-example::after {
+content: "สำหรับผู้ป่วยที่ลงทะเบียนแล้วเท่านั้น";
+}
 {% endblock %}
 
+
 {% block content %}
+
 <div class="row">
-	<div class="span10 offset1">
-		<div class="row-fluid">
-			<div class="span7">
-				<legend><strong>สรุปข้อมูล</strong></legend>
-				<table class="table table-bordered">
-					<tbody>
-					{% include 'record/generic.table.row.detail.html' %}
-					</tbody>
-				</table>
+	<div class="span12">
+		<form class="bs-docs-example">
+			<legend><strong>สรุปข้อมูล</strong></legend>
+			<div class="row">
+				<div class="span10 offset1">
+					<table class="table table-bordered">
+						<tbody>
+							{% include 'record/generic.table.row.detail.html' %}
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 {% endblock %}
