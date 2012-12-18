@@ -76,7 +76,7 @@ class DrugForm(forms.ModelForm):
 		widgets = {
 			'period': forms.HiddenInput(),
 			'name': forms.HiddenInput(),
-			'size': forms.Select(attrs={'class': 'input-medium',}),
+			'size': forms.Select(attrs={'class': 'input-small',}),
 			'amount': forms.Select(attrs={'class': 'input-small',}),
 		}
 
@@ -129,12 +129,12 @@ class PressureForm(forms.ModelForm):
 		self.fields['down'].validators.append(validators.MaxValueValidator(200))
 
 class RecordForm(forms.Form):
-	hn = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'xxxxx/xx'}))
+	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder':'หมายเลขโทรศัพท์ - 08xx, 02xx'}))
 
 	def get_patient_from_hn(self):
-		hn = self.cleaned_data['hn']
+		contact_number = self.cleaned_data['contact_number']
 		try:
-			return Patient.objects.get(hn=hn)
+			return Patient.objects.get(contact_number=contact_number)
 		except Exception, e:
 			return False
 

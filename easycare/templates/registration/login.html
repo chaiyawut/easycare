@@ -5,51 +5,70 @@
 <script type="text/javascript">document.getElementById("id_username").focus();</script>
 {% endblock %}
 
+{% block style-local %}
+
+.form-signin {
+max-width: 300px;
+padding: 19px 29px 29px;
+margin: 0 auto 20px;
+background-color: #fff;
+border: 1px solid #e5e5e5;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+margin-bottom: 10px;
+}
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+font-size: 16px;
+height: auto;
+margin-bottom: 15px;
+padding: 7px 9px;
+}
+
+{% endblock %}
 
 {% block content %}
-<div class="row">
-	<div class="span6 offset3">
-	<h1>สำหรับเจ้าหน้าที่</h1>
-	<hr>
-</div>
-<div class="span6 offset3">
-	<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
-	    <fieldset>
-			<div class="control-group">
-				<label for="username" class="control-label">ชื่อผู้ใช้งาน</label>
-				<div class="controls">
-					<input id="id_username" type="text" name="username" maxlength="30" />
-					{% if form.username.errors %}
-						{% for error in form.username.errors %}
-							<strong>{{ error|escape }}</strong>
-						{% endfor %}
-					{% endif %}
-				</div>
-			</div>
-			<div class="control-group">
-				<label for="password" class="control-label">รหัสผ่าน</label>
-				<div class="controls">
-					<input type="password" name="password" id="id_password" />
-					{% if form.password.errors %}
-						{% for error in form.password.errors %}
-							<strong>{{ error|escape }}</strong>
-						{% endfor %}
-					{% endif %}
-				 </div>
-		    </div>
-			{% if form.non_field_errors %}
+<hr class="soften">
+
+<div class='row'>
+	<div class="span12">
+		<section>
+			<form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form-signin">{% csrf_token %}
+				<h2 class="form-signin-heading">สำหรับเจ้าหน้าที่</h2>
+				<input id="id_username" type="text" name="username" maxlength="30" class="input-block-level" placeholder="ชื่อผู้ใช้งาน">
+				{% if form.username.errors %}
+				{% for error in form.username.errors %}
 				<p><div class="alert alert-error">
-				<h4 class="alert-heading">{{ form.non_field_errors }}</h4>
+					<h4 class="alert-heading">{{ error|escape }}</h4>
 				</div></p>
-			{% endif %}
-			<div class="form-actions">
-		      	<div class="">
-				  	<button class="btn btn-primary" type="submit" value="login" >เข้าสู่ระบบ</button>
-		        </div>
-			</div>
-		</fieldset>
-	</form>
+				{% endfor %}
+				{% endif %}
+				<input type="password" name="password" id="id_password" class="input-block-level" placeholder="รหัสผ่าน">
+				{% if form.password.errors %}
+				{% for error in form.password.errors %}
+				<p><div class="alert alert-error">
+					<h4 class="alert-heading">{{ error|escape }}</h4>
+				</div></p>
+				{% endfor %}
+				{% endif %}
+				<button class="btn btn-primary btn-large" type="submit" value="login" >เข้าสู่ระบบ</button>
+				{% if form.non_field_errors %}
+				<p><div class="alert alert-error">
+					<h4 class="alert-heading">{{ form.non_field_errors }}</h4>
+				</div></p>
+				{% endif %}
+			</form>
+		</section>
+	</div>
 </div>
-</div>
+
+<hr class="soften">
 
 {% endblock %}

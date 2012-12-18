@@ -3,30 +3,39 @@
 
 
 {% block content %}
-<div class="jumbotron masthead">
-  <div class="container">
-  	<img class="marketing-img" src="{{ STATIC_URL }}assets/img/2.png">
-    <h1>Bootstrap</h1>
-    <p>Sleek, intuitive, and powerful front-end framework for faster and easier web development.</p>
-    <p>
-      <a href="assets/bootstrap.zip" class="btn btn-primary btn-large" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Download', 'Download 2.2.2']);">Download Bootstrap</a>
-    </p>
-    <ul class="masthead-links">
-      <li>
-        <a href="http://github.com/twitter/bootstrap" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Jumbotron links', 'GitHub project']);">GitHub project</a>
-      </li>
-      <li>
-        <a href="./getting-started.html#examples" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Jumbotron links', 'Examples']);">Examples</a>
-      </li>
-      <li>
-        <a href="./extend.html" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Jumbotron links', 'Extend']);">Extend</a>
-      </li>
-      <li>
-        Version 2.2.2
-      </li>
-    </ul>
-  </div>
+
+<div class='row'>
+	<div class="span12">
+		<section>
+			<ul class="thumbnails">
+				<li class="span12">
+					<span class="thumbnail">
+						<img  width="1000" src="{{ STATIC_URL }}assets/img/bg1.png" alt="">
+					</span>
+				</li>
+			</ul>
+		</section>
+	</div>
 </div>
+<div class="row">
+	<div class="span12">
+
+		<h2>เกี่ยวกับเรา</h2>
+		<br>
+		<p>คลินิกผู้ป่วยโรคหัวใจล้มเหลว ศูนย์โรคหัวใจโรงพยาบาลจุฬาลงกรณ์จัดตั้งขึ้นเมื่อปี 2555 มีวัตถุประสงค์เพื่อให้บริการผู้ป่วยโรคหัวใจล้มเหลวอย่างครบวงจรแบบสหสาขา โดยมีแพทย์พยาบาลและเภสัชกรประจำคลินิกให้การดูแล รักษา ผู้ป่วยโรคหัวใจล้มเหลวอย่างใกล้ชิด  ให้คำแนะนำการปฏิบัติตัว การรับประทานยา การใช้ชีวิตประจำวัน กับ ญาติและผู้ป่วย มีการติดตามผู้ป่วยทางโทรศัพท์ เพื่อประเมินอาการ น้ำหนัก และการปรับยา ผู้ป่วยในคลินิกจะได้รับการดูแลรักษาอย่างใกล้ชิดในระดับมาตรฐานสากล </p>
+		<br>
+		<p>จุดมุ่งหวังของคลินิกคือ 1. ลดอัตราการเสียชีวิตของผู้ป่วยจากโรคหัวใจล้มเหลว 2. ลดการนอนโรงพยาบาลซ้ำด้วยภาวะหัวใจล้มเหลวกำเริบ 3. ให้ผู้ป่วยมีคุณภาพชีวิตที่ดี ใช้ชีวิตประจำวันได้อย่างมีความสุข </p>
+		<br>
+		<p>วันทำการคลินิก: วันพุธ 8.00-12.00 น. และ 13.00-15.00 น. ณ ห้องตรวจอายุรศาสตร์ชั้น 1 ห้อง 110 </p>
+		<br>
+		<p>แพทย์ประจำคลินิก : อ. พญ. ศริญญา ภูวนันท์  </p>
+		<p>พยาบาลประจำคลินิก (พยาบาลผู้เชี่ยวชาญด้านโรคหัวใจล้มเหลว) : นางอรวิกาญจน์ ชัยมงคล</p>
+		<p>เภสัชกรประจำคลินิก : เภสัชกรหญิง ธสิกานต์ แช่มช้อย </p>
+
+		<hr class="soften">
+	</div>
+</div>
+
 {% endblock %}
 
 
