@@ -10,16 +10,17 @@
 	<meta name="author" content="">
 
 	<!-- Le styles -->
+	<link href="{{ STATIC_URL }}bootstrap_docs.css" rel="stylesheet">
 	<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
 	<style type="text/css">
-	body {
-		padding-top: 60px;
-		padding-bottom: 40px;
+
+	body > .navbar .brand {
+		float: left;
 	}
 	{% block style-local %}{% endblock %}
 	</style>
-	<link href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
-	<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -33,6 +34,7 @@
 	<body>
 		{% include "base/navbar.html" %}
 		<div class="container">
+			
 			{% block content %}{% endblock %}
 
 			<div class="navbar navbar-fixed-bottom">
@@ -40,7 +42,7 @@
 					<div class="container">
 						<div class="nav-collapse">
 							<ul class="nav pull-right">
-								<li><a>ระบบตอบรับอัตโนมัติสำหรับผู้ป่วยโรคหัวใจล้มเหลว, SIT KMUTT, 2012</a></li>
+								<li><a>คลินิกโรคหัวใจล้มเหลว ศูนย์โรคหัวใจ โรงพยาบาลจุฬาลงกรณ์  Email: kcmh.hf@gmail.com  หมายเลขโทรศัพท์ : 081-383-9302</a></li>
 							</ul>
 						</div>
 					</div>
@@ -53,8 +55,8 @@
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="{{ STATIC_URL }}js/jquery-1.8.2.js"></script>
-	<script src="{{ STATIC_URL }}js/jquery-ui-1.9.1.custom.js"></script>
+	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-1.8.3.js"></script>
+	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
 	<script src="{{ STATIC_URL }}js/bootstrap.js"></script> 
 	<script src="{{ STATIC_URL }}Highcharts-2.3.3/js/highcharts.js"></script> 
 	<script src="{{ STATIC_URL }}Highcharts-2.3.3/js/modules/exporting.js"></script> 

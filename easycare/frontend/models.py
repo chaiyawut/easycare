@@ -4,6 +4,7 @@ import datetime
 from pytz import timezone
 from django.contrib.auth.models import User
 from django.core.mail import send_mail, BadHeaderError
+import os
 
 
 CONFIRM_BY = (
@@ -41,13 +42,19 @@ DRUG_AMOUNTS = (
 	(5, '5 เม็ด'),
 )
 
+def get_file_path(instance, filename):
+	path = 'voices/sounds_for_name/'
+	format = instance.hn  + ".wav"
+	return os.path.join(path, format)
+
 class Patient(models.Model):
 	hn = models.CharField(unique=True, max_length=200, verbose_name='หมายเลขผู้ป่วยนอก')
 	contact_number = models.CharField(unique=True, max_length=200, verbose_name='หมายเลขติดต่อ')
 	firstname = models.CharField(blank=True ,max_length=200, verbose_name='ชื่อ')
 	lastname = models.CharField(blank=True, max_length=200, verbose_name='นามสกุล')
-	email = models.CharField(unique=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
+	email = models.CharField(blank=True, unique=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
 	confirm_by = models.CharField(max_length=200, choices=CONFIRM_BY, verbose_name='ติดต่อโดย')
+	sound_for_name = models.FileField(upload_to=get_file_path)
 
 	def __unicode__(self):
 		return self.hn+" "+self.fullname

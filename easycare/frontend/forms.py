@@ -3,6 +3,7 @@ from frontend.models import Patient, Record, Weight, Pressure, Drug, Response
 from django import forms
 from frontend.fields import ResponseAutoCompleteField
 from django.core import validators 
+import os
 
 AUTO_REPLY = (
 	('', '----------'),
@@ -44,6 +45,15 @@ class DeleteForm(forms.ModelForm):
 class PatientForm(forms.ModelForm):
 	class Meta:
 		model = Patient
+
+	def clean_sound_for_name(self):
+		uploaded_file = self.cleaned_data['sound_for_name']
+		fileName, fileExtension = os.path.splitext(uploaded_file.name)
+		if fileExtension != '.wav':
+			raise forms.ValidationError("ไฟล์เสียงสำหรับชื่อต้องเป็น .wav เท่านั้น")
+		return uploaded_file
+
+
 
 class WeightForm(forms.ModelForm):
 	class Meta:

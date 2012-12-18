@@ -17,6 +17,7 @@ import re
 from django.utils import simplejson
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
+import os
 
 def json_encode_decimal(obj):
 	if isinstance(obj, decimal.Decimal):
@@ -28,6 +29,12 @@ def homepage(request):
 		#send_messages_to_patient('email', '', 'chaiyawut.so@gmail.com', 'test_email')			
 		return redirect('/homepage/')
 	return render(request, 'homepage.html')
+
+def aboutus(request):
+	return render(request, 'aboutus.html')
+
+def contactus(request):
+	return render(request, 'contactus.html')
 
 def record_create(request):
 	WeightFormSet = formset_factory(WeightForm, extra=0)

@@ -19,12 +19,12 @@
 				{% endif %}
 				<div class="row-fluid">
 					<div class="span5">
-						<form method="post" >{% csrf_token %} 
+						<form enctype="multipart/form-data" method="post" >{% csrf_token %} 
 							{{ form.non_field_errors }}
 							<table class="table table-bordered table-striped">
 								<tbody>
 									{% for field in form %}
-									<tr class="{% cycle 'warning' 'warning' '' '' %}">
+									<tr class="{% cycle 'warning' 'warning' '' '' '' %}">
 										<td width="100%">{{ field.label_tag }}</td>
 										<td>{{ field }}{% if field.errors %}
 										<span class="help-inline alert alert-error">{{ field.errors }}</span>

@@ -1,13 +1,14 @@
 {% load url from future %}
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
     	<div class="container">
 			<!-- Be sure to leave the brand out there if you want it shown -->
-			<span class="brand">ยินดีต้อนรับ</span>
 			<ul class="nav">
 		    	<li><a href="{% url 'homepage' %}">หน้าหลัก</a></li>
-				<li><a href="{% url 'record-create' %}">ส่งข้อมูล</a></li>
+		    	<li><a href="{% url 'about-us' %}">เกี่ยวกับเรา</a></li>
+		    	<li><a href="{% url 'contact-us' %}">ติดต่อเรา</a></li>
+				<li><a href="{% url 'record-create' %}">ส่งข้อมูลถึงเรา</a></li>
 				{% if user.is_authenticated %}
 				<li><a href="{% url 'record-pending' %}">แผงควบคุม</a></li>
 				{% endif %}
