@@ -30,7 +30,8 @@ def chat(message, args):
 		messages =  ["ท่านระบุช่วงเวลาไม่ถูกต้อง"]
 	elif not contact_number in storeNumber:
 		messages =  ["เบอร์ของท่านไม่ได้ลงทะเบียนในระบบ"]
-	sent = send_messages_to_patient('email', '', '', messages)
+	html_messages = render_to_string('email/confirm_record.html', { 'record': record })
+	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 	if not sent:
 		record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 		record.save()
