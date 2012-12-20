@@ -33,6 +33,7 @@ class CallHandler:
 		self.__init__(self.session)
 		self.contact_number = self.get_contact_number()
 		storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
+		print self.contact_number
 		if self.contact_number in storeNumber:
 			patient = self.get_patient()
 			self.session.sleep(200)
