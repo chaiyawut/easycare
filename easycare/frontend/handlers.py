@@ -147,10 +147,8 @@ class CallHandler:
 				record.save()
 			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
 
-		html_messages = render_to_string('email/confirm_record.html', { 'record': record })
-		send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
-
-		sent = send_messages_to_patient(patient.confirm_by, '', '', html_messages)
+		html_messages = render_to_string('email/confirm_record.html', { 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
+		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 			record.save()
