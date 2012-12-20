@@ -41,7 +41,7 @@ class CallHandler:
 		else:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'not_found.wav'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
-			self.session.hangup()
+			self.session.destroy()
 
 	def period_menu(self):
 		self.period = self.get_period()
@@ -164,7 +164,7 @@ class CallHandler:
 
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
-			9, 10, 3, 4000, "#",
+			8, 12, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'login', '1.wav'),
 			os.path.join(VOICE_PATH, 'fail.wav'),
 			"[123]" )
