@@ -37,7 +37,7 @@ class CallHandler:
 		if self.contact_number in storeNumber:
 			patient = self.get_patient()
 			self.session.sleep(1000)
-			self.session.streamFile(os.path.join(PROJECT_PATH, 'media', str(patient.sound_for_name.name))
+			self.session.streamFile(str(patient.sound_for_name.path))
 			self.session.sleep(1000)
 			return self.period_menu
 		else:
@@ -45,7 +45,7 @@ class CallHandler:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
 			self.session.destroy()
 
-	def period_menu(self, period):
+	def period_menu(self, period): #must have 2 arguemnts because while loop
 		self.period = self.get_period()
 		if self.period in ['morning', 'afternoon', 'evening']:
 			return self.weight_menu
