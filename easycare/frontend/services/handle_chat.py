@@ -26,6 +26,7 @@ def chat(message, args):
 	period = handler.get_period()
 	storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
 	if contact_number in storeNumber and period:
+		patient = handler.get_patient()
 		record, messages = handler.save_and_get_messages(period = period)
 	elif not period:
 		messages =  ["ท่านระบุช่วงเวลาไม่ถูกต้อง"]
