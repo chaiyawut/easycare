@@ -312,6 +312,9 @@ class ChatHandler:
 		weight = self.get_weight()
 		pressure = self.get_pressure()
 		drug = self.get_drug()
+
+		print patient, weight, patient.get_today_submitted_periods(entry='weight')
+
 		if period == '':
 			html_messages = 'ท่านทำรายการไม่ถูกต้อง'
 			messages = ["ท่านทำรายการไม่ถูกต้อง"]
