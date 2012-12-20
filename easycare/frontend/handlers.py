@@ -41,6 +41,7 @@ class CallHandler:
 		else:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'not_found.wav'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
+			self.session.hangup()
 
 	def period_menu(self):
 		self.period = self.get_period()
