@@ -23,12 +23,10 @@ def input_callback_record_file_pound_stop(session, type, obj):
 def handler(session, args):
 	#All mobile incomming calls are now disabled by freeswitch dialplan.
 	#All calls are from phone line and no call_id.
-
 	session.answer()
-    session.setInputCallback(input_callback_record_file_pound_stop)
-    handler = CallHandler(session)
-    handler.main_menu()
-
+	session.setInputCallback(input_callback_record_file_pound_stop)
+	handler = CallHandler(session)
+	handler.main_menu()
 	# storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
 	# if session.getVariable("caller_id_number") in storeNumber:
 	# 	session.answer()
