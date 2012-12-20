@@ -35,9 +35,9 @@ class CallHandler:
 		storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
 		if self.contact_number in storeNumber:
 			patient = self.get_patient()
-			self.session.sleep(1000)
-			self.session.streamFile(os.path.join(VOICE_PATH, 'sawadee.wav'))
 			self.session.sleep(500)
+			self.session.streamFile(os.path.join(VOICE_PATH, 'sawadee.wav'))
+			self.session.sleep(100)
 			self.session.streamFile(str(patient.sound_for_name.path))
 			self.session.sleep(1000)
 			return self.period_menu
