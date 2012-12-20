@@ -9,6 +9,7 @@ PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
 
 from django.core.management import setup_environ
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
+os.environ['DJANGO_ENV'] = 'production'
 import settings
 setup_environ(settings)
 

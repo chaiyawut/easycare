@@ -3,11 +3,11 @@ import string
 import sys
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
-from ESL import *
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
         if msg_type == 'sms' or msg_type == 'both':
                 try:
+                        from ESL import *
                         con = ESLconnection("202.44.9.119", "8021", "ClueCon")
         		if con.connected():
                         	for message in reply_messages:
