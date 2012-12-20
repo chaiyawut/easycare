@@ -37,7 +37,7 @@ class CallHandler:
 		if self.contact_number in storeNumber:
 			patient = self.get_patient()
 			self.session.sleep(200)
-			self.session.streamFile(patient.sound_for_name.path)
+			self.session.streamFile(str(patient.sound_for_name.path))
 			return self.period_menu
 		else:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'not_found.wav'))
@@ -168,7 +168,7 @@ class CallHandler:
 			8, 12, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'login', '1.wav'),
 			os.path.join(VOICE_PATH, 'fail.wav'),
-			"[123]" )
+			"" )
 		if contact_number:
 			return contact_number
 
