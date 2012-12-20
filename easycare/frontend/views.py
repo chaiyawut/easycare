@@ -93,7 +93,7 @@ def record_create(request):
 								weight_message = "น้ำหนัก"
 								for data in new_record.weight_set.all():
 									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight)
-								reply_messages.append(data.period+' '+str(data.weight))
+								reply_messages.append(weight_message)
 							if new_record.drug_set.all():
 								drug_message = "ยาลาซิก"
 								for data in new_record.drug_set.all():
@@ -104,7 +104,7 @@ def record_create(request):
 								for data in new_record.pressure_set.all():
 									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down)
 								reply_messages.append(pressure_message)
-							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
+							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, reply_messages)
 							return render(request, 'record/create_success.html', { 'record': new_record })
 						else:
 							messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
