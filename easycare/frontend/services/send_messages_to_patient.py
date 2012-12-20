@@ -12,15 +12,15 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
         		if con.connected():
                         	for message in reply_messages:
                                 	if not len(message.decode('utf-8')) > 70:
-        					api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
-                                        	#api = "chat SMS|gsm01|"+contact_number+"| "+ message.decode('utf-8')
+        					#api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
+                                        	api = "chat SMS|gsm01|"+contact_number+"| "+ message.decode('utf-8')
                                         	con.send("api " + api.encode('utf-8'))
                                 	else:
-                                        	api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
-        					#api = "chat SMS|gsm01|"+contact_number+"|exceed maximum lenght"
+                                        	#api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
+        					api = "chat SMS|gsm01|"+contact_number+"|exceed maximum lenght"
                                         	con.send("api " + api.encode('utf-8'))
-                        	api = "gsmopen_sendsms gsm01 "+ contact_number + " Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
-        			#api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
+                        	#api = "gsmopen_sendsms gsm01 "+ contact_number + " Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
+        			api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
                         	con.send("api " + api.encode('utf-8'))
                         	con.disconnect()
                         	return True
@@ -37,5 +37,6 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
                         return True
                 except Exception, e:
                         return False
+
 
 
