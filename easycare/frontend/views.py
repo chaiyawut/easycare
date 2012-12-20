@@ -18,6 +18,7 @@ from django.utils import simplejson
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
 import os
+from frontend.utils.words import PERIODS
 
 def json_encode_decimal(obj):
 	if isinstance(obj, decimal.Decimal):
@@ -84,7 +85,26 @@ def record_create(request):
 						save_pressures = new_record.create_entry_for_record_from_web(entry='pressure', formset= pressure_formset )
 						if save_weights and save_drugs and save_pressures:
 							html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
-							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, '', html_messages)
+
+							reply_messages = []
+							reply_messages.append('หมายเลขอ้างอิง: ' + str(new_record.id))
+
+							if new_record.weight_set.all():
+								weight_message = "น้ำหนัก"
+								for data in new_record.weight_set.all():
+									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight)
+								reply_messages.append(data.period+' '+str(data.weight))
+							if new_record.drug_set.all():
+								drug_message = "ยาลาซิก"
+								for data in new_record.drug_set.all():
+									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'/'+str(data.amount)
+								reply_messages.append(drug_message)
+							if new_record.pressure_set.all():
+								pressure_message = "ความดัน"
+								for data in new_record.pressure_set.all():
+									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down)
+								reply_messages.append(pressure_message)
+							send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
 							return render(request, 'record/create_success.html', { 'record': new_record })
 						else:
 							messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
@@ -265,7 +285,7 @@ class RecordResponseView(CreateView):
 		reply_messages.insert(0,'ตอบกลับหมายเลขอ้างอิง: ' + str(self.record.id))
 	
 		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
-		sent = send_messages_to_patient(msg_type, contact_number, contact_email, '', html_messages)
+		sent = send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages)
 
 		if sent:
 			messages.success(self.request, "คำร้องขอถูกตอบกลับเรียบร้อยแล้ว", extra_tags='alert alert-success')
