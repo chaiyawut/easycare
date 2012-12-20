@@ -312,13 +312,20 @@ class ChatHandler:
 		weight = self.get_weight()
 		pressure = self.get_pressure()
 		drug = self.get_drug()
-		if weight and period in patient.get_today_submitted_periods(entry='weight'):
+		if period == '':
+			html_messages = 'ท่านทำรายการไม่ถูกต้อง'
+			messages = ["ท่านทำรายการไม่ถูกต้อง"]
+		elif weight and period in patient.get_today_submitted_periods(entry='weight'):
+			html_messages = 'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว'
 			messages = ["ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว"]
 		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
+			html_messages = 'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว'
 			messages = ["ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"]
 		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
+			html_messages = 'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว'
 			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
 		elif not weight and not pressure and not drug:
+			html_messages = 'ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล'
 			messages =  ["ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"]
 		else:
 			record = patient.create_new_record()
@@ -333,4 +340,9 @@ class ChatHandler:
 				drug_entry = record.create_entry_for_record_from_voip(period, drug=drug)
 				entry_messages = entry_messages + "l" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
 			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
-		return record, messages
+			html_messages = render_to_string('email/confirm_record.html', { 'record': record })
+			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
+			record.save()
+		
+		send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
+			

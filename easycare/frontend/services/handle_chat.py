@@ -28,12 +28,7 @@ def chat(message, args):
 	storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
 	print received_number, received_body, contact_number, patient, period
 	if contact_number in storeNumber and period:
-		record, messages = handler.save_and_get_messages(period = period)
-		html_messages = render_to_string('email/confirm_record.html', { 'record': record })
-		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
-		if not sent:
-			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
-			record.save()
+		handler.save_and_get_messages(period = period)
 	else:
 		send_messages_to_patient('sms', contact_number, '', 'ท่านทำรายการไม่ถูกต้อง', '')
 
