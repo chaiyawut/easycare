@@ -44,7 +44,7 @@ DRUG_AMOUNTS = (
 
 def get_file_path(instance, filename):
 	path = 'voices/sounds_for_name/'
-	format = instance.hn  + ".wav"
+	format = str(instance.hn).replace('/', '_')  + ".wav"
 	return os.path.join(path, format)
 
 class Patient(models.Model):
