@@ -3,6 +3,7 @@ import string
 import sys, os
 import datetime
 import re
+from django.template.loader import render_to_string
 
 PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
 
