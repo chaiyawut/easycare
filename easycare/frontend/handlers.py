@@ -12,6 +12,7 @@ VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'services
 class CallHandler:
 	def __init__(self, session):
 		self.session = session
+		self.contact_number = ''
 		self.period = ''
 		self.weight = {}
 		self.drug = {}
@@ -22,14 +23,26 @@ class CallHandler:
 		self.session.sleep(200)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'welcome.wav'))
 		self.session.sleep(1000)
-		next_menu = self.period_menu(self.period)
+		next_menu = self.period_menu()
 		while next_menu:
 		   next_menu = next_menu(self.period)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'fail.wav'))
 		self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
-		
-	def period_menu(self, period):
+
+	def login_menu(self):
 		self.__init__(self.session)
+		self.contact_number = self.get_contact_number()
+		storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
+		if self.contact_number in storeNumber:
+			patient = self.get_patient()
+			self.session.sleep(200)
+			self.session.streamFile(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn'.wav'))
+			return self.period_menu
+		else:
+			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'not_found.wav'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
+
+	def period_menu(self):
 		self.period = self.get_period()
 		if self.period in ['morning', 'afternoon', 'evening']:
 			return self.weight_menu
@@ -148,10 +161,18 @@ class CallHandler:
 		return self.period_menu
 
 
+	def get_contact_number(self):
+		contact_number = self.session.playAndGetDigits(
+			9, 10, 3, 4000, "#",
+			os.path.join(VOICE_PATH, 'login', '1.wav'),
+			os.path.join(VOICE_PATH, 'fail.wav'),
+			"[123]" )
+		if contact_number:
+			return contact_number
+
 	def get_patient(self):
 		try:
-			contact_number = self.session.getVariable("caller_id_number")
-			patient = Patient.objects.get(contact_number=contact_number)
+			patient = Patient.objects.get(contact_number=self.contact_number)
 		except Exception, e:
 			return None
 		return patient
@@ -223,8 +244,8 @@ class CallHandler:
 				return self.drug
 
 	def get_voicemail(self):
-		filename = str(datetime.datetime.now().date()) + "_" + str(datetime.datetime.now().strftime("%H-%M-%S")) + "_" + self.session.getVariable("caller_id_number") + ".wav"
-		file_path = os.path.join(PROJECT_PATH, 'media', 'voices', filename)
+		filename = str(datetime.datetime.now().date()) + "_" + str(datetime.datetime.now().strftime("%H-%M-%S")) + "_" + self.contact_number + ".wav"
+		file_path = os.path.join(PROJECT_PATH, 'media', 'voices', 'voicemails', filename)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '2.wav'))
 		self.session.execute("sleep", "1500")
 		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '3.wav'))
