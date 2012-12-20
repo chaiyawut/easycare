@@ -23,17 +23,17 @@ def chat(message, args):
 	received_body = message.getBody()
 	handler = ChatHandler(received_number, received_body)
 	contact_number = handler.get_contact_number()
+	patient = handler.get_patient()
 	period = handler.get_period()
 	storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
+	print received_number, received_body, contact_number, patient, period
 	if contact_number in storeNumber and period:
-		patient = handler.get_patient()
 		record, messages = handler.save_and_get_messages(period = period)
-	elif not period:
-		messages =  ["ท่านระบุช่วงเวลาไม่ถูกต้อง"]
-	elif not contact_number in storeNumber:
-		messages =  ["เบอร์ของท่านไม่ได้ลงทะเบียนในระบบ"]
-	html_messages = render_to_string('email/confirm_record.html', { 'record': record })
-	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
-	if not sent:
-		record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
-		record.save()
+		html_messages = render_to_string('email/confirm_record.html', { 'record': record })
+		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
+		if not sent:
+			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
+			record.save()
+	else:
+		send_messages_to_patient('sms', contact_number, '', 'ท่านทำรายการไม่ถูกต้อง', '')
+
