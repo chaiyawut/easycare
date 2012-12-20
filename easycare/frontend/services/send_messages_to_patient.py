@@ -23,7 +23,6 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
         			api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
                         	con.send("api " + api.encode('utf-8'))
                         	con.disconnect()
-                        	return True
                 	return False
         	except Exception, e:
                         return False
@@ -34,9 +33,9 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
                         msg = EmailMultiAlternatives(subject, '', from_email, [to])
                         msg.attach_alternative(html_messages, "text/html")
                         msg.send()
-                        return True
                 except Exception, e:
                         return False
+        return True
 
 
 
