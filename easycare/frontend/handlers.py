@@ -45,7 +45,7 @@ class CallHandler:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
 			self.session.destroy()
 
-	def period_menu(self):
+	def period_menu(self, period):
 		self.period = self.get_period()
 		if self.period in ['morning', 'afternoon', 'evening']:
 			return self.weight_menu
