@@ -29,7 +29,7 @@ class CallHandler:
 		self.session.streamFile(os.path.join(VOICE_PATH, 'fail.wav'))
 		self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
 
-	def login_menu(self):
+	def login_menu(self, period):
 		self.__init__(self.session)
 		self.contact_number = self.get_contact_number()
 		storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
@@ -45,7 +45,7 @@ class CallHandler:
 		else:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'not_found.wav'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
-			self.session.destroy()
+			return self.login_menu
 
 	def period_menu(self, period): #must have 2 arguemnts because while loop
 		self.period = self.get_period()
