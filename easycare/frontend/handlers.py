@@ -21,7 +21,7 @@ class CallHandler:
 
 	def main_menu(self):
 		self.session.sleep(200)
-		self.session.streamFile(os.path.join(VOICE_PATH, 'welcome.wav'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'welcome.mp3'))
 		self.session.sleep(1000)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
