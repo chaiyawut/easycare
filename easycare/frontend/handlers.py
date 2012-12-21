@@ -135,7 +135,7 @@ class CallHandler:
 	def voicemail_menu(self, period):
 		response = self.session.playAndGetDigits(
 			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'voicemail', '1-'+ period +'.mp3'),
+			os.path.join(VOICE_PATH, 'voicemail', '1.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[12]")
 		if response == "1":
