@@ -21,13 +21,13 @@ class CallHandler:
 
 	def main_menu(self):
 		self.session.sleep(200)
-		self.session.streamFile(os.path.join(VOICE_PATH, 'welcome.mp3'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'welcome.mp3'))
 		self.session.sleep(1000)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
 		   next_menu = next_menu(self.period)
-		self.session.streamFile(os.path.join(VOICE_PATH, 'fail.wav'))
-		self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'fail.mp3'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'thankyou.mp3'))
 
 	def login_menu(self, period):
 		self.__init__(self.session)
@@ -36,13 +36,13 @@ class CallHandler:
 		if self.contact_number in storeNumber:
 			patient = self.get_patient()
 			self.session.sleep(500)
-			self.session.streamFile(os.path.join(VOICE_PATH, 'sawadee.wav'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'sawadee.mp3'))
 			self.session.sleep(100)
 			self.session.streamFile(str(patient.sound_for_name.path))
 			self.session.sleep(1000)
 			return self.period_menu
 		else:
-			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'not_found.wav'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'user_not_found.mp3'))
 			return self.login_menu
 
 	def period_menu(self, period): #must have 2 arguemnts because while loop
@@ -51,36 +51,19 @@ class CallHandler:
 			return self.weight_menu
 
 	def weight_menu(self, period):
-		response = self.session.playAndGetDigits(
-			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'weight', '1-'+ period +'.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
-			"[123]")          
-		if response == "1":
-			weight = self.get_weight()
-			if weight:
-				self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
-				return self.pressure_menu
-		elif response == "2":
-			return self.pressure_menu
-		elif response == "3":
-			return self.period_menu
-
-	def pressure_menu(self, period):
-		response = self.session.playAndGetDigits(
-			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'pressure', '1-'+ period +'.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
-			"[123]")
-		if response == "1":
-			pressure = self.get_pressure()
-			if pressure:
-				self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '1-'+ period +'.mp3'))
+		weight = self.get_weight()
+		if weight:
+			response = self.session.playAndGetDigits(
+				1, 1, 3, 4000, "",
+				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
+				os.path.join(VOICE_PATH, 'fail.mp3'),
+				"[12]")          
+			if response == "1":
 				return self.drug_menu
-		elif response == "2":
-			return self.drug_menu
-		elif response == "3":
-			return self.weight_menu
+			elif response == "2":
+				return self.weight_menu
+
 
 	def drug_menu(self, period):
 		response = self.session.playAndGetDigits(
@@ -97,6 +80,22 @@ class CallHandler:
 			return self.voicemail_menu
 		elif response == "3":
 			return self.pressure_menu
+
+	def pressure_menu(self, period):
+		response = self.session.playAndGetDigits(
+			1, 1, 3, 4000, "",
+			os.path.join(VOICE_PATH, 'pressure', '1-'+ period +'.wav'),
+			os.path.join(VOICE_PATH, 'fail.wav'),
+			"[123]")
+		if response == "1":
+			pressure = self.get_pressure()
+			if pressure:
+				self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
+				return self.drug_menu
+		elif response == "2":
+			return self.drug_menu
+		elif response == "3":
+			return self.weight_menu
 
 	def voicemail_menu(self, period):
 		response = self.session.playAndGetDigits(
@@ -165,8 +164,8 @@ class CallHandler:
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
 			8, 12, 3, 4000, "#",
-			os.path.join(VOICE_PATH, 'login', '1.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
+			os.path.join(VOICE_PATH, 'login', '1.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"" )
 		if contact_number:
 			return contact_number
@@ -180,10 +179,10 @@ class CallHandler:
 
 
 	def get_period(self):
-		self.session.streamFile(os.path.join(VOICE_PATH, 'period', '1.wav'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'period', '1.mp3'))
 		period = self.session.playAndGetDigits(
 			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'period', '2.wav'),
+			os.path.join(VOICE_PATH, 'period', '2.mp3'),
 			os.path.join(VOICE_PATH, 'fail.wav'),
 			"[123]" )
 		if period:
@@ -192,15 +191,22 @@ class CallHandler:
 	def get_weight(self):
 		weight = self.session.playAndGetDigits(
 			2, 5, 3, 4000, "#",
-			os.path.join(VOICE_PATH, 'weight', '2.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
+			os.path.join(VOICE_PATH, 'weight', '2.mp3'),
+			os.path.join(VOICE_PATH, 'fail.mp3'),
 			"[0-9]*" )                
 		if weight:  
 			weight_int, weight_dec = re.match(r"(\d+)\*?(\d+)?", weight).group(1), re.match(r"(\d+)\*?(\d+)?", weight).group(2)
 			if weight_dec:
 				self.weight['weight'] = weight_int + '.' + weight_dec
+				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'dot.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_dec + '.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
 			else:
 				self.weight['weight'] = weight_int
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
 			return self.weight
 	
 	def get_pressure(self):

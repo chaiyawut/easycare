@@ -44,7 +44,7 @@ DRUG_AMOUNTS = (
 
 def get_file_path(instance, filename):
 	path = 'voices/sounds_for_name/'
-	format = str(instance.hn).replace('/', '_')  + ".wav"
+	format = str(instance.hn).replace('/', '_')  + ".mp3"
 	return os.path.join(path, format)
 
 class Patient(models.Model):
@@ -210,7 +210,7 @@ class Pressure(RecordElementBase):
 		verbose_name = "ความดัน"
 
 class Weight(RecordElementBase):
-	weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='น้ำหนัก')
+	weight = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name='น้ำหนัก')
 
 	def __unicode__(self):
 		return "Record: " + str(self.record.id) + " " + self.period + " " + str(self.weight)

@@ -49,8 +49,8 @@ class PatientForm(forms.ModelForm):
 	def clean_sound_for_name(self):
 		uploaded_file = self.cleaned_data['sound_for_name']
 		fileName, fileExtension = os.path.splitext(uploaded_file.name)
-		if fileExtension != '.wav':
-			raise forms.ValidationError("ไฟล์เสียงสำหรับชื่อต้องเป็น .wav เท่านั้น")
+		if fileExtension != '.mp3':
+			raise forms.ValidationError("ไฟล์เสียงสำหรับชื่อต้องเป็น .mp3 เท่านั้น")
 		return uploaded_file
 
 
