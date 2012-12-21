@@ -230,6 +230,7 @@ class CallHandler:
 			weight_int, weight_dec = re.match(r"(\d+)\*?(\d+)?", weight).group(1), re.match(r"(\d+)\*?(\d+)?", weight).group(2)
 			if weight_dec:
 				self.weight['weight'] = weight_int + '.' + weight_dec
+				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'dot.mp3'))
@@ -237,6 +238,7 @@ class CallHandler:
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
 			else:
 				self.weight['weight'] = weight_int
+				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
@@ -251,6 +253,7 @@ class CallHandler:
 			"[0-9]" )                
 		if drug_size:  
 			self.drug['size'] = drug_size
+			self.session.sleep(200)
 			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '3.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_size + '.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'mg.mp3'))
@@ -267,6 +270,7 @@ class CallHandler:
 			drug_amount_int, drug_amount_dec = re.match(r"(\d+)\*?(\d+)?", drug_amount).group(1), re.match(r"(\d+)\*?(\d+)?", drug_amount).group(2)
 			if drug_amount_dec:
 				self.drug['amount'] = drug_amount_int + '.' + drug_amount_dec
+				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'dot.mp3'))
@@ -274,6 +278,7 @@ class CallHandler:
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
 			else:
 				self.drug['amount'] = drug_amount_int
+				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
@@ -288,6 +293,7 @@ class CallHandler:
 			"[0-9]" )                
 		if pressure_up:  
 			self.pressure['up'] = pressure_up
+			self.session.sleep(200)
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '4.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_up + '.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
@@ -301,6 +307,7 @@ class CallHandler:
 			"[0-9]" )                
 		if pressure_down:  
 			self.pressure['down'] = pressure_down
+			self.session.sleep(200)
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '7.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
