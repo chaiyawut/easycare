@@ -141,9 +141,9 @@ class CallHandler:
 		if response == "1":
 			voicemail = self.get_voicemail()
 			if voicemail:
-				return self.save_menu
+				return self.conclude_menu
 		elif response == "2":
-			return self.save_menu
+			return self.conclude_menu
 
 
 	def save_menu(self, period):
@@ -183,14 +183,16 @@ class CallHandler:
 		if not sent:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 			record.save()
-		return self.conclude_menu
+		
+		#end the call
+		self.session.destroy()
 
 
 	def conclude_menu(self, period):
 		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '1-'+period+'.mp3'))
 		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '2.mp3'))
 		self.session.sleep(2000)
-		self.session.destroy()
+		return self.save_menu
 
 
 	def get_contact_number(self):
