@@ -156,15 +156,15 @@ class CallHandler:
 
 		if weight and period in patient.get_today_submitted_periods(entry='weight'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง <br>','record': submitted_record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
 			messages = ["ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว "]
 		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง <br>','record': submitted_record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
 			messages = ["ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"]
 		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง <br>','record': submitted_record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
 			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
 		else:
 			record = patient.create_new_record()
@@ -418,15 +418,15 @@ class ChatHandler:
 			messages = ["ท่านทำรายการไม่ถูกต้อง"]
 		elif weight and period in patient.get_today_submitted_periods(entry='weight'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง <br>','record': submitted_record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
 			messages = ["ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว"]
 		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง <br>','record': submitted_record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
 			messages = ["ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"]
 		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง <br>','record': submitted_record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
 			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
 		elif not weight and not pressure and not drug:
 			html_messages = "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
