@@ -106,7 +106,7 @@ class CallHandler:
 			return self.voicemail_menu
 
 	def pressure_up_menu(self, period):
-		self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '2.mp3'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '2-'+ period +'.mp3'))
 		pressure_up = self.get_pressure_up()
 		if pressure_up:
 			response = self.session.playAndGetDigits(
