@@ -153,14 +153,19 @@ class CallHandler:
 		pressure = self.pressure
 		drug = self.drug
 		voicemail = self.voicemail
+
 		if weight and period in patient.get_today_submitted_periods(entry='weight'):
+			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','record': submitted_record })
 			messages = ["ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว"]
 		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
+			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว','record': submitted_record })
 			messages = ["ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"]
 		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
+			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว','record': submitted_record })
 			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
-		elif not voicemail and not weight and not pressure and not drug:
-			messages =  ["ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"]
 		else:
 			record = patient.create_new_record()
 			entry_messages = "p:" + PERIODS[period] + " "
@@ -423,6 +428,9 @@ class ChatHandler:
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว','record': submitted_record })
 			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
+		elif not weight and not pressure and not drug:
+			html_messages = "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
+			messages =  ["ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"]
 		else:
 			record = patient.create_new_record()
 			entry_messages = "p:" + PERIODS[period] + " "
