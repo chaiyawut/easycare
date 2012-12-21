@@ -252,7 +252,7 @@ class CallHandler:
 		if drug_size:  
 			self.drug['size'] = drug_size
 			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '3.mp3'))
-			self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_size + '.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'mg.mp3'))
 		return self.drug['size']
 
