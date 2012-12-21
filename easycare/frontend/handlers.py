@@ -57,61 +57,93 @@ class CallHandler:
 			response = self.session.playAndGetDigits(
 				1, 1, 3, 4000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
-				os.path.join(VOICE_PATH, 'fail.mp3'),
+				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 				"[12]")          
 			if response == "1":
-				return self.drug_menu
+				return self.drug_size_menu
 			elif response == "2":
 				return self.weight_menu
 
+	def drug_size_menu(self, period):
+		#hardcode drug name
+		self.drug['name'] = DRUG_NAMES['l']
 
-	def drug_menu(self, period):
-		response = self.session.playAndGetDigits(
-			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'drug', '1-'+ period +'.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
-			"[123]")
-		if response == "1":
-			drug = self.get_drug()
-			if drug:
-				self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
-				return self.voicemail_menu
-		elif response == "2":
-			return self.voicemail_menu
-		elif response == "3":
-			return self.pressure_menu
+		self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '1-'+ period +'.mp3'))
+		drug_size = self.get_drug_size()
+		if drug_size:
+			response = self.session.playAndGetDigits(
+				1, 1, 3, 4000, "",
+				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
+				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+				"[12]")          
+			if response == "1":
+				return self.drug_amount_menu
+			elif response == "2":
+				return self.drug_size_menu
+
+	def drug_amount_menu(self, period):
+		drug_amount = self.get_drug_amount()
+		if drug_amount:
+			response = self.session.playAndGetDigits(
+				1, 1, 3, 4000, "",
+				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
+				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+				"[12]")          
+			if response == "1":
+				return self.pressure_menu
+			elif response == "2":
+				return self.drug_amount_menu
 
 	def pressure_menu(self, period):
 		response = self.session.playAndGetDigits(
 			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'pressure', '1-'+ period +'.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
+			os.path.join(VOICE_PATH, 'pressure', '1-'+ period +'.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[123]")
 		if response == "1":
-			pressure = self.get_pressure()
-			if pressure:
-				self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
-				return self.drug_menu
+			return self.pressure_up_menu
 		elif response == "2":
-			return self.drug_menu
-		elif response == "3":
-			return self.weight_menu
+			return self.voicemail_menu
+
+	def pressure_up_menu(self, period):
+		self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '2.mp3'))
+		pressure_up = self.get_pressure_up()
+		if pressure_up:
+			response = self.session.playAndGetDigits(
+				1, 1, 3, 4000, "",
+				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
+				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+				"[12]")          
+			if response == "1":
+				return self.pressure_down_menu
+			elif response == "2":
+				return self.pressure_up_menu
+
+	def pressure_down_menu(self, period):
+		pressure_down = self.get_pressure_down()
+		if pressure_down:
+			response = self.session.playAndGetDigits(
+				1, 1, 3, 4000, "",
+				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
+				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+				"[12]")          
+			if response == "1":
+				return self.voicemail_menu
+			elif response == "2":
+				return self.pressure_down_menu
 
 	def voicemail_menu(self, period):
 		response = self.session.playAndGetDigits(
 			1, 1, 3, 4000, "",
-			os.path.join(VOICE_PATH, 'voicemail', '1-'+ period +'.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
-			"[123]")
+			os.path.join(VOICE_PATH, 'voicemail', '1-'+ period +'.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+			"[12]")
 		if response == "1":
 			voicemail = self.get_voicemail()
 			if voicemail:
-				self.session.streamFile(os.path.join(VOICE_PATH, 'thankyou.wav'))
 				return self.save_menu
 		elif response == "2":
 			return self.save_menu
-		elif response == "3":
-			return self.drug_menu
 
 
 	def save_menu(self, period):
@@ -155,15 +187,15 @@ class CallHandler:
 
 
 	def conclude_menu(self, period):
-		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '1-'+period+'.wav'))
-		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '2.wav'))
-		self.session.sleep(4000)
-		return self.period_menu
+		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '1-'+period+'.mp3'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '2.mp3'))
+		self.session.sleep(2000)
+		self.session.destroy()
 
 
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
-			8, 12, 3, 4000, "#",
+			8, 15, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'login', '1.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"" )
@@ -183,16 +215,16 @@ class CallHandler:
 		period = self.session.playAndGetDigits(
 			1, 1, 3, 4000, "",
 			os.path.join(VOICE_PATH, 'period', '2.mp3'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[123]" )
 		if period:
 			return NUMS_TO_PERIODS[period]
 
 	def get_weight(self):
 		weight = self.session.playAndGetDigits(
-			2, 5, 3, 4000, "#",
+			2, 7, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'weight', '2.mp3'),
-			os.path.join(VOICE_PATH, 'fail.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]*" )                
 		if weight:  
 			weight_int, weight_dec = re.match(r"(\d+)\*?(\d+)?", weight).group(1), re.match(r"(\d+)\*?(\d+)?", weight).group(2)
@@ -205,57 +237,82 @@ class CallHandler:
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
 			else:
 				self.weight['weight'] = weight_int
+				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
 			return self.weight
 	
-	def get_pressure(self):
-		pressure_up = self.session.playAndGetDigits(
-			2, 3, 3, 4000, "#",
-			os.path.join(VOICE_PATH, 'pressure', '2.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
-			"[0-9]" )                
-		if pressure_up:  
-			self.session.sleep(1000)
-			pressure_down = self.session.playAndGetDigits(
-				2, 3, 3, 4000, "#",
-				os.path.join(VOICE_PATH, 'pressure', '3.wav'),
-				os.path.join(VOICE_PATH, 'fail.wav'),
-				"" )     
-			if pressure_down:
-				self.pressure['up'] = pressure_up
-				self.pressure['down'] = pressure_down
-				return self.pressure
 
-	def get_drug(self):
+	def get_drug_size(self):
 		drug_size = self.session.playAndGetDigits(
 			1, 5, 3, 4000, "#",
-			os.path.join(VOICE_PATH, 'drug', '2.wav'),
-			os.path.join(VOICE_PATH, 'fail.wav'),
+			os.path.join(VOICE_PATH, 'drug', '2.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]" )                
 		if drug_size:  
-			self.session.sleep(1000)
-			drug_amount = self.session.playAndGetDigits(
-				1, 5, 3, 4000, "#",
-				os.path.join(VOICE_PATH, 'drug', '3.wav'),
-				os.path.join(VOICE_PATH, 'fail.wav'),
-				"" )     
-			if drug_amount:
-				drug_amount_int, drug_amount_dec = re.match(r"(\d+)\*?(\d+)?", drug_amount).group(1), re.match(r"(\d+)\*?(\d+)?", drug_amount).group(2)
-				if drug_amount_dec:
-					self.drug['amount'] = drug_amount_int + '.' + drug_amount_dec
-				else:
-					self.drug['amount'] = drug_amount_int
-				self.drug['name'] = DRUG_NAMES['l']
-				self.drug['size'] = drug_size
-				return self.drug
+			self.drug['size'] = drug_size
+			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '3.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'mg.mp3'))
+		return self.drug['size']
+
+
+	def get_drug_amount(self):
+		drug_amount = self.session.playAndGetDigits(
+			1, 5, 3, 4000, "#",
+			os.path.join(VOICE_PATH, 'drug', '4.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+			"[0-9]*" ) 
+		if drug_amount:
+			drug_amount_int, drug_amount_dec = re.match(r"(\d+)\*?(\d+)?", drug_amount).group(1), re.match(r"(\d+)\*?(\d+)?", drug_amount).group(2)
+			if drug_amount_dec:
+				self.drug['amount'] = drug_amount_int + '.' + drug_amount_dec
+				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'dot.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_dec + '.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
+			else:
+				self.drug['amount'] = drug_amount_int
+				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
+		return self.drug['amount']
+
+
+	def get_pressure_up(self):
+		pressure_up = self.session.playAndGetDigits(
+			2, 5, 3, 4000, "#",
+			os.path.join(VOICE_PATH, 'pressure', '3.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+			"[0-9]" )                
+		if pressure_up:  
+			self.pressure['up'] = pressure_up
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '4.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_up + '.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
+		return self.pressure['up']
+
+	def get_pressure_down(self):
+		pressure_down = self.session.playAndGetDigits(
+			2, 5, 3, 4000, "#",
+			os.path.join(VOICE_PATH, 'pressure', '6.mp3'),
+			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
+			"[0-9]" )                
+		if pressure_down:  
+			self.pressure['down'] = pressure_down
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '7.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
+		return self.pressure['down']
+
 
 	def get_voicemail(self):
-		filename = str(datetime.datetime.now().date()) + "_" + str(datetime.datetime.now().strftime("%H-%M-%S")) + "_" + self.contact_number + ".wav"
+		filename = str(datetime.datetime.now().date()) + "_" + str(datetime.datetime.now().strftime("%H-%M-%S")) + "_" + self.contact_number + ".mp3"
 		file_path = os.path.join(PROJECT_PATH, 'media', 'voices', 'voicemails', filename)
-		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '2.wav'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '2.mp3'))
 		self.session.execute("sleep", "1500")
-		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '3.wav'))
+		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'beep.mp3'))
 		#self.session.setInputCallback(self.input_callback_record_file_pound_stop)
 		self.session.recordFile(file_path, 240, 500, 4) 
 		self.voicemail['path'] = filename
