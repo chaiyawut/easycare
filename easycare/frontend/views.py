@@ -19,6 +19,7 @@ from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
 import os
 from frontend.utils.words import PERIODS
+from easycare.settings import PROJECT_PATH
 
 def json_encode_decimal(obj):
 	if isinstance(obj, decimal.Decimal):
@@ -192,6 +193,17 @@ class PatientReisterCreateView(CreateView):
 
 	def form_valid(self, form):
 		messages.success(self.request, "ประวัติคนไข้ถูกสร้างแล้ว", extra_tags='alert alert-success')
+
+		if not form.cleaned_data['sound_for_name']:
+			import requests
+			r = requests.get('http://translate.google.co.th/translate_tts?ie=UTF-8&q=%E0%B8%84%E0%B8%B8%E0%B8%93'+ form.cleaned_data['firstname'] +'&tl=th&total=1&idx=0&textlen=6&prev=input&sa=N', stream=True)
+			sound = r.raw.read()
+			myFile = open(PROJECT_PATH + '/media/voices/sounds_for_name/'+ form.cleaned_data['hn'].replace('/', '_') +'.mp3', 'w')
+			myFile.write(sound)
+			myFile.close() 
+			
+
+
 		return super(PatientReisterCreateView, self).form_valid(form)
 
 

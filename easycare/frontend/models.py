@@ -50,11 +50,11 @@ def get_file_path(instance, filename):
 class Patient(models.Model):
 	hn = models.CharField(unique=True, max_length=200, verbose_name='หมายเลขผู้ป่วยนอก')
 	contact_number = models.CharField(unique=True, max_length=200, verbose_name='หมายเลขติดต่อ')
-	firstname = models.CharField(blank=True ,max_length=200, verbose_name='ชื่อ')
-	lastname = models.CharField(blank=True, max_length=200, verbose_name='นามสกุล')
-	email = models.CharField(blank=True, unique=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
+	firstname = models.CharField(max_length=200, verbose_name='ชื่อ')
+	lastname = models.CharField( max_length=200, verbose_name='นามสกุล')
+	email = models.CharField( unique=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
 	confirm_by = models.CharField(max_length=200, choices=CONFIRM_BY, verbose_name='ติดต่อโดย')
-	sound_for_name = models.FileField(upload_to=get_file_path, verbose_name='ไฟล์เสียงสำหรับชื่อคนไข้')
+	sound_for_name = models.FileField(blank=True, upload_to=get_file_path, verbose_name='ไฟล์เสียงสำหรับชื่อคนไข้')
 
 	def __unicode__(self):
 		return self.hn+" "+self.fullname

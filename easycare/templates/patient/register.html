@@ -27,7 +27,7 @@
 								<table class="table ">
 									<tbody>
 										{% for field in form %}
-										<tr class="{% cycle 'well' 'well' '' '' '' %}">
+										<tr >
 											<td width="100%">{{ field.label_tag }}</td>
 											<td>{{ field }}{% if field.errors %}
 												<span class="help-inline alert alert-error">{{ field.errors }}</span>
