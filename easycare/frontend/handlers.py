@@ -25,7 +25,7 @@ class CallHandler:
 		self.session.sleep(1000)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
-			if session.ready():
+			if self.session.ready():
 				next_menu = next_menu(self.period)
 			else:
 				self.session.destroy()
