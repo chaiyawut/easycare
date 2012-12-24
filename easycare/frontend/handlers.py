@@ -25,9 +25,13 @@ class CallHandler:
 		self.session.sleep(1000)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
-		   next_menu = next_menu(self.period)
+			if session.ready():
+				next_menu = next_menu(self.period)
+			else:
+				self.session.destroy()
 		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'fail.mp3'))
 		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'thankyou.mp3'))
+		self.session.destroy()
 
 	def login_menu(self, period):
 		self.__init__(self.session)
@@ -108,7 +112,9 @@ class CallHandler:
 		if response == "1":
 			return self.pressure_up_menu
 		elif response == "2":
+			#####################################
 			#พัง
+			######################################
 			return self.voicemail_menu
 
 	def pressure_up_menu(self, period):
