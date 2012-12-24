@@ -40,8 +40,8 @@ class CallHandler:
 			self.session.sleep(100)
 			if patient.sound_for_name:
 				self.session.streamFile(str(patient.sound_for_name.path))
-			elif os.path.exists(PROJECT_PATH + '/media/voices/sounds_for_name/'+ patient.hn.replace('/', '_') +'.mp3'):
-				self.session.streamFile(PROJECT_PATH + '/media/voices/sounds_for_name/'+ patient.hn.replace('/', '_') +'.mp3')
+			elif os.path.exists(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')):
+				self.session.streamFile(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')
 			else:
 				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'no_name.mp3'))
 			self.session.sleep(1000)
