@@ -108,6 +108,7 @@ class CallHandler:
 		if response == "1":
 			return self.pressure_up_menu
 		elif response == "2":
+			#พัง
 			return self.voicemail_menu
 
 	def pressure_up_menu(self, period):
