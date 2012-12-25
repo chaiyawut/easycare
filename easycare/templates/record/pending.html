@@ -1,11 +1,6 @@
 {% extends "base/homepage_base.html" %}
 {% load url from future %}
 
-{% block script-local %}
-
-
-{% endblock %}
-
 {% block content %}
 <section>
 	<div class="row">
@@ -19,19 +14,19 @@
 					<legend>คำร้องขอที่รอการตอบกลับ</legend>
 					{% include 'record/generic.table.list.html' %}
 					<div class="pagination">
-					  <ul>
-					  	{% if page_obj.has_previous %}
-					    <li ><a href="{{ previous_page_url }}">ย้อนกลับ</a></li>
-					    {% else %}
-					    <li class="disabled"><a href="">ย้อนกลับ</a></li>
-					    {% endif %}
-					    <li class="active"><a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
-					    {% if page_obj.has_next %}
-					    <li ><a href="{{ next_page_url }}">ถัดไป</a></li>
-					    {% else %}
-					    <li class="disabled"><a href="">ถัดไป</a></li>
-					    {% endif %}
-					  </ul>
+						<ul>
+							{% if page_obj.has_previous %}
+							<li ><a href="{{ previous_page_url }}">ย้อนกลับ</a></li>
+							{% else %}
+							<li class="disabled"><a href="">ย้อนกลับ</a></li>
+							{% endif %}
+							<li class="active"><a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
+							{% if page_obj.has_next %}
+							<li ><a href="{{ next_page_url }}">ถัดไป</a></li>
+							{% else %}
+							<li class="disabled"><a href="">ถัดไป</a></li>
+							{% endif %}
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -40,4 +35,3 @@
 </section>
 
 {% endblock %}
-<!-- Blocks for logged in user -->

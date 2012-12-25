@@ -10,62 +10,56 @@
 	<meta name="author" content="">
 
 	<!-- Le styles -->
+
+	<link href="{{ STATIC_URL }}jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
 	<link href="{{ STATIC_URL }}bootstrap_docs.css" rel="stylesheet">
 	<link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
-	<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
 	<style type="text/css">
 
-	body > .navbar .brand {
-		float: left;
+	html,
+	body {
+		height: 100%;
 	}
 
-	#footer {
-		background-color: #f5f5f5;
-	}
-
-	#footer {
-		height: 60px;
-	}
-
-	.footerContainer {
-		width: auto;
-		max-width: 680px;
+	/* Wrapper for page content to push down footer */
+	#warp_content {
+		min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		/* Negative indent footer by it's height */
+		margin: 0 auto -60px;
 	}
 
 	{% block style-local %}{% endblock %}
+
 	</style>
-	<link href="{{ STATIC_URL }}jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
-	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	  <![endif]-->
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-	  <!-- Le fav and touch icons -->
-	  {% block head-local %}{% endblock %}
-	</head>
+	<!-- Le fav and touch icons -->
 
-	<body>
-		{% include "base/navbar.html" %}
+	{% block head-local %}{% endblock %}
+</head>
+
+<body>
+	{% include "base/navbar.html" %}
+	<div id="warp_content">
 		<div class="container">
-			
 			{% block content %}{% endblock %}
+		</div>
+	</div>
 
-			<hr class="soften">
-		</div>
-		
-		<div class="navbar navbar-statics-bottom">
-			<div class="navbar-inner">
-				<div class="container">
-					<div class="nav-collapse">
-						<ul class="nav pull-right">
-							<li><a>คลินิกโรคหัวใจล้มเหลว ศูนย์โรคหัวใจ โรงพยาบาลจุฬาลงกรณ์  Email: kcmh.hf@gmail.com  หมายเลขโทรศัพท์ : 081-383-9302</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
+	<div class="footer">
+		<p>คลินิกโรคหัวใจล้มเหลว ศูนย์โรคหัวใจ โรงพยาบาลจุฬาลงกรณ์  Email: kcmh.hf@gmail.com  หมายเลขโทรศัพท์ : 081-383-9302
+		</p>
+		<div>
+		</body>
 
 	<!-- Le javascript
 	================================================== -->
@@ -78,5 +72,5 @@
 	<!-- local script -->
 	{% block script-local %}{% endblock %}
 
-</html>
+	</html>
 
