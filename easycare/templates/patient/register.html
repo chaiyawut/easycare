@@ -1,6 +1,15 @@
 {% extends "base/homepage_base.html" %}
 {% load url from future %}
 
+{% block style-local %}
+
+.bs-docs-example::after {
+content: "ลงทะเบียนผู้ป่วย";
+}
+
+{% endblock %}
+
+
 {% block content %}
 
 
@@ -12,7 +21,7 @@
 					{% include "dashboard/navlist.html" with page="register" %}
 				</div>
 				<div class="span10">
-					<legend>ลงทะเบียนผู้ป่วยใหม่</legend>
+					<legend>เพิ่มผู้ป่วยใหม่</legend>
 					{% if messages %}
 					{% for message in messages %}
 					<div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
@@ -20,25 +29,24 @@
 					</div>
 					{% endfor %}
 					{% endif %}
+
 					<div class="row-fluid">
-						<div class="span6">
-							<form enctype="multipart/form-data" method="post" >{% csrf_token %} 
-								{{ form.non_field_errors }}
-								<table class="table ">
-									<tbody>
-										{% for field in form %}
-										<tr >
-											<td width="100%">{{ field.label_tag }}</td>
-											<td>{{ field }}{% if field.errors %}
-												<span class="help-inline alert alert-error">{{ field.errors }}</span>
-												{% endif %}
-											</td>
-										</tr>
-										{% endfor %}
-									</tbody>
-								</table>
-								<button type="submit" class="btn btn-large btn-block btn-primary">ลงทะเบียน</button>
-							</form>
+						<div class="span8">
+							<form class="bs-docs-example form-horizontal" enctype="multipart/form-data" method="post" >{% csrf_token %} 
+					            {{ form.non_field_errors }}
+					            {% for field in form %}
+					            <div class="control-group">
+					              <label class="control-label" >{{ field.label }}</label>
+					              <div class="controls">
+					                {{ field }}
+					                {% if field.errors %}
+					                <span class="help-inline">{{ field.errors }}</span>
+					                {% endif %}
+					              </div>
+					            </div>
+					            {% endfor %}
+					            <button type="submit" class="btn btn-large btn-block btn-primary">ลงทะเบียน</button>
+					          </form>
 						</div>
 					</div>
 				</div>
