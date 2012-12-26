@@ -28,22 +28,6 @@ def json_encode_decimal(obj):
 
 def homepage(request):
 	if request.path == "/":
-		#need httplib2 lib to work
-		from pysimplesoap.client import SoapClient
-
-		Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
-		Mobile = '0860216060'
-		Message = 'test'
-
-		#print Mobile, Message
-
-		client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
-		
-		print client
-
-		response = client.SendSMS(Key, Mobile, Message)	
-		print response
-			
 		return redirect('/homepage/')
 	return render(request, 'homepage.html')
 

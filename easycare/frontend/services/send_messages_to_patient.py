@@ -15,14 +15,13 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
                         Mobile = contact_number
                         Message = reply_messages
 
-                        print Mobile, Message
-
                         client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
                         response = client.SendSMS(Key, Mobile, Message)
-
-                        print Mobile, Message, reponse
+                        if response['SendSMSResult'] == 'No Error, the request is successful':
+                                return True
+                        else:
+                                return False
                 except Exception, e:
-                        print e
                         return False
                 
                 """
@@ -55,9 +54,10 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
                         msg = EmailMultiAlternatives(subject, '', from_email, [to])
                         msg.attach_alternative(html_messages, "text/html")
                         msg.send()
+                        return True
                 except Exception, e:
                         return False
-        return True
+        return False
 
 
 
