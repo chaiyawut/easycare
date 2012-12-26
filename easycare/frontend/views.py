@@ -293,7 +293,7 @@ class RecordResponseView(CreateView):
 		contact_email = self.record.patient.email
 		msg_type = self.record.patient.confirm_by
 
-		reply_messages = '#'+ str(self.record.id) + ' ' + str(form.cleaned_data['reply_text'])
+		reply_messages = '#'+ str(self.record.id) + ' ' + form.cleaned_data['reply_text'].encode('utf-8')
 	
 		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
 		sent = send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages)
