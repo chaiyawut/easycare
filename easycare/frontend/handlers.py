@@ -240,7 +240,10 @@ class CallHandler:
 		if weight:  
 			weight_int, weight_dec = re.match(r"(\d+)\*?(\d+)?", weight).group(1), re.match(r"(\d+)\*?(\d+)?", weight).group(2)
 			weight_int_sound_path = os.path.join(VOICE_PATH, 'number', weight_int + '.mp3')
-			weight_dec_sound_path = os.path.join(VOICE_PATH, 'number', weight_dec + '.mp3')
+			if weight_dec:
+				weight_dec_sound_path = os.path.join(VOICE_PATH, 'number', weight_dec + '.mp3')
+			else:
+				weight_dec_sound_path = ''
 			if os.path.exists(weight_int_sound_path) and os.path.exists(weight_dec_sound_path):
 				self.weight['weight'] = weight_int + '.' + weight_dec
 				self.session.sleep(200)
@@ -295,7 +298,10 @@ class CallHandler:
 		if drug_amount:
 			drug_amount_int, drug_amount_dec = re.match(r"(\d+)\*?(\d+)?", drug_amount).group(1), re.match(r"(\d+)\*?(\d+)?", drug_amount).group(2)
 			drug_amount_int_sound_path = os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3')
-			drug_amount_dec_sound_path = os.path.join(VOICE_PATH, 'number', drug_amount_dec + '.mp3')
+			if drug_amount_dec:
+				drug_amount_dec_sound_path = os.path.join(VOICE_PATH, 'number', drug_amount_dec + '.mp3')
+			else:
+				drug_amount_dec_sound_path = ''
 			if os.path.exists(drug_amount_int_sound_path) and os.path.exists(drug_amount_dec_sound_path):
 				self.drug['amount'] = drug_amount_int + '.' + drug_amount_dec
 				self.session.sleep(200)
