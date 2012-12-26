@@ -61,7 +61,7 @@ class CallHandler:
 		weight = self.get_weight()
 		if weight:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 4000, "",
+				1, 1, 2, 4000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 				"[12]")          
@@ -78,7 +78,7 @@ class CallHandler:
 		drug_size = self.get_drug_size()
 		if drug_size:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 4000, "",
+				1, 1, 2, 4000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 				"[12]")          
@@ -91,7 +91,7 @@ class CallHandler:
 		drug_amount = self.get_drug_amount()
 		if drug_amount:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 4000, "",
+				1, 1, 2, 4000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 				"[12]")          
@@ -102,7 +102,7 @@ class CallHandler:
 
 	def pressure_menu(self, period):
 		response = self.session.playAndGetDigits(
-			1, 1, 3, 4000, "",
+			1, 1, 2, 4000, "",
 			os.path.join(VOICE_PATH, 'pressure', '1-'+ period +'.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[123]")
@@ -116,7 +116,7 @@ class CallHandler:
 		pressure_up = self.get_pressure_up()
 		if pressure_up:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 4000, "",
+				1, 1, 2, 4000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 				"[12]")          
@@ -129,7 +129,7 @@ class CallHandler:
 		pressure_down = self.get_pressure_down()
 		if pressure_down:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 4000, "",
+				1, 1, 2, 4000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 				"[12]")          
@@ -140,7 +140,7 @@ class CallHandler:
 
 	def voicemail_menu(self, period):
 		response = self.session.playAndGetDigits(
-			1, 1, 3, 4000, "",
+			1, 1, 2, 4000, "",
 			os.path.join(VOICE_PATH, 'voicemail', '1.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[12]")
@@ -206,7 +206,7 @@ class CallHandler:
 
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
-			8, 15, 3, 4000, "#",
+			8, 15, 2, 4000, "#",
 			os.path.join(VOICE_PATH, 'login', '1.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"" )
@@ -224,7 +224,7 @@ class CallHandler:
 	def get_period(self):
 		self.session.streamFile(os.path.join(VOICE_PATH, 'period', '1.mp3'))
 		period = self.session.playAndGetDigits(
-			1, 1, 3, 4000, "",
+			1, 1, 2, 4000, "",
 			os.path.join(VOICE_PATH, 'period', '2.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[123]" )
@@ -233,7 +233,7 @@ class CallHandler:
 
 	def get_weight(self):
 		weight = self.session.playAndGetDigits(
-			2, 7, 3, 4000, "#",
+			2, 7, 2, 4000, "#",
 			os.path.join(VOICE_PATH, 'weight', '2.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]*" )                
@@ -269,7 +269,7 @@ class CallHandler:
 
 	def get_drug_size(self):
 		drug_size = self.session.playAndGetDigits(
-			1, 5, 3, 4000, "#",
+			1, 5, 2, 4000, "#",
 			os.path.join(VOICE_PATH, 'drug', '2.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]" )  
@@ -291,7 +291,7 @@ class CallHandler:
 
 	def get_drug_amount(self):
 		drug_amount = self.session.playAndGetDigits(
-			1, 5, 3, 4000, "#",
+			1, 5, 2, 4000, "#",
 			os.path.join(VOICE_PATH, 'drug', '4.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]*" ) 
@@ -327,7 +327,7 @@ class CallHandler:
 
 	def get_pressure_up(self):
 		pressure_up = self.session.playAndGetDigits(
-			2, 5, 3, 4000, "#",
+			2, 5, 2, 4000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '3.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]" )  
@@ -348,7 +348,7 @@ class CallHandler:
 
 	def get_pressure_down(self):
 		pressure_down = self.session.playAndGetDigits(
-			2, 5, 3, 4000, "#",
+			2, 5, 2, 4000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '6.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]" ) 
