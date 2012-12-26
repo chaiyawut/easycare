@@ -8,14 +8,21 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
         if msg_type == 'sms' or msg_type == 'both':
                 #send sms with KMUTT trunk
                 try:
+
                         from pysimplesoap.client import SoapClient
+
                         Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
                         Mobile = contact_number
                         Message = reply_messages
-                        from pysimplesoap.client import SoapClient
-                        client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=True)
-                        client.SendSMS(Key, Mobile, Message)
+
+                        print Mobile, Message
+
+                        client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
+                        response = client.SendSMS(Key, Mobile, Message)
+
+                        print Mobile, Message, reponse
                 except Exception, e:
+                        print e
                         return False
                 
                 """
