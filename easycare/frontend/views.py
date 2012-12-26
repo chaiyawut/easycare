@@ -137,17 +137,17 @@ def record_create(request):
 		lasix_drug_formset = DrugFormSet(
 							prefix='lasix_drugs',
 							initial = [ 	
-								{'period': u'morning', 'name':u'lasix'},
-								{'period': u'afternoon', 'name':u'lasix'},
-								{'period': u'evening', 'name':u'lasix'},
+								{'period': 'morning', 'name':'lasix'},
+								{'period': 'afternoon', 'name':'lasix'},
+								{'period': 'evening', 'name':'lasix'},
 							]
 						)
 		pressure_formset = PressureFormSet(
 							prefix='pressures',
 							initial = [ 	
-								{'period': u'morning'},
-								{'period': u'afternoon'},
-								{'period': u'evening'},
+								{'period': 'morning'},
+								{'period': 'afternoon'},
+								{'period': 'evening'},
 							]
 						)
 	return render(request, 'record/create.html', {
@@ -293,7 +293,7 @@ class RecordResponseView(CreateView):
 		contact_email = self.record.patient.email
 		msg_type = self.record.patient.confirm_by
 
-		reply_messages = '#'+ str(self.record.id) + ' ' + form.cleaned_data['reply_text']
+		reply_messages = '#'+ str(self.record.id) + ' ' + str(form.cleaned_data['reply_text'])
 	
 		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
 		sent = send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages)
