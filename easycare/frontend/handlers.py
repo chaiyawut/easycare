@@ -196,8 +196,6 @@ class CallHandler:
 
 		#end the call
 		self.session.destroy()
-		
-		
 
 
 	def conclude_menu(self, period):
@@ -205,7 +203,6 @@ class CallHandler:
 		self.session.streamFile(os.path.join(VOICE_PATH, 'conclude', '2.mp3'))
 		return self.save_menu
 		
-
 
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
@@ -242,19 +239,27 @@ class CallHandler:
 			"[0-9]*" )                
 		if weight:  
 			weight_int, weight_dec = re.match(r"(\d+)\*?(\d+)?", weight).group(1), re.match(r"(\d+)\*?(\d+)?", weight).group(2)
-			if weight_dec:
+			weight_int_sound_path = os.path.join(VOICE_PATH, 'number', weight_int + '.mp3')
+			weight_dec_sound_path = os.path.join(VOICE_PATH, 'number', weight_dec + '.mp3')
+			if os.path.exists(weight_int_sound_path) and os.path.exists(weight_dec_sound_path):
 				self.weight['weight'] = weight_int + '.' + weight_dec
 				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
-				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
+				self.session.streamFile(weight_int_sound_path)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'dot.mp3'))
-				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_dec + '.mp3'))
+				self.session.streamFile(weight_dec_sound_path)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
-			else:
+			elif os.path.exists(weight_int_sound_path):
 				self.weight['weight'] = weight_int
 				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
-				self.session.streamFile(os.path.join(VOICE_PATH, 'number', weight_int + '.mp3'))
+				self.session.streamFile(weight_int_sound_path)
+				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
+			else:
+				self.weight['weight'] = '0'
+				self.session.sleep(200)
+				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', '3.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', '0.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'weight', 'kg.mp3'))
 			return self.weight
 	
@@ -264,12 +269,19 @@ class CallHandler:
 			1, 5, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'drug', '2.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
-			"[0-9]" )                
-		if drug_size:  
+			"[0-9]" )  
+		drug_size_sound_path = os.path.join(VOICE_PATH, 'number', drug_size + '.mp3')   
+		if os.path.exists(drug_size_sound_path):  
 			self.drug['size'] = drug_size
 			self.session.sleep(200)
 			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '3.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_size + '.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'mg.mp3'))
+		else:
+			self.drug['size'] = '0'
+			self.session.sleep(200)
+			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '3.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number', '0.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'mg.mp3'))
 		return self.drug['size']
 
@@ -282,19 +294,27 @@ class CallHandler:
 			"[0-9]*" ) 
 		if drug_amount:
 			drug_amount_int, drug_amount_dec = re.match(r"(\d+)\*?(\d+)?", drug_amount).group(1), re.match(r"(\d+)\*?(\d+)?", drug_amount).group(2)
-			if drug_amount_dec:
+			drug_amount_int_sound_path = os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3')
+			drug_amount_dec_sound_path = os.path.join(VOICE_PATH, 'number', drug_amount_dec + '.mp3')
+			if os.path.exists(drug_amount_int_sound_path) and os.path.exists(drug_amount_dec_sound_path):
 				self.drug['amount'] = drug_amount_int + '.' + drug_amount_dec
 				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
-				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3'))
+				self.session.streamFile(drug_amount_int_sound_path)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'dot.mp3'))
-				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_dec + '.mp3'))
+				self.session.streamFile(drug_amount_dec_sound_path)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
-			else:
+			elif os.path.exists(drug_amount_int_sound_path):
 				self.drug['amount'] = drug_amount_int
 				self.session.sleep(200)
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
-				self.session.streamFile(os.path.join(VOICE_PATH, 'number', drug_amount_int + '.mp3'))
+				self.session.streamFile(drug_amount_int_sound_path)
+				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
+			else:
+				self.drug['amount'] = '0'
+				self.session.sleep(200)
+				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', '5.mp3'))
+				self.session.streamFile(os.path.join(VOICE_PATH, 'number', '0.mp3'))
 				self.session.streamFile(os.path.join(VOICE_PATH, 'drug', 'med.mp3'))
 		return self.drug['amount']
 
@@ -304,12 +324,19 @@ class CallHandler:
 			2, 5, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '3.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
-			"[0-9]" )                
-		if pressure_up:  
+			"[0-9]" )  
+		pressure_up_sound_path = os.path.join(VOICE_PATH, 'number', pressure_up + '.mp3')           
+		if os.path.exists(pressure_up_sound_path):  
 			self.pressure['up'] = pressure_up
 			self.session.sleep(200)
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '4.mp3'))
-			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_up + '.mp3'))
+			self.session.streamFile(pressure_up_sound_path)
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
+		else:
+			self.pressure['up'] = '0'
+			self.session.sleep(200)
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '4.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number',  '0.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
 		return self.pressure['up']
 
@@ -318,12 +345,19 @@ class CallHandler:
 			2, 5, 3, 4000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '6.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
-			"[0-9]" )                
-		if pressure_down:  
+			"[0-9]" ) 
+		pressure_down_sound_path = os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3')               
+		if os.path.exists(pressure_down_sound_path):  
 			self.pressure['down'] = pressure_down
 			self.session.sleep(200)
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '7.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
+		else:
+			self.pressure['down'] = '0'
+			self.session.sleep(200)
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '4.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'number',  '0.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
 		return self.pressure['down']
 
