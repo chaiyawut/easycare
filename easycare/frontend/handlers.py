@@ -163,15 +163,15 @@ class CallHandler:
 		if weight and period in patient.get_today_submitted_periods(entry='weight'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = ["ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว "]
+			messages = "ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว "
 		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = ["ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"]
+			messages = "ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"
 		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
+			messages =  "ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"
 		else:
 			record = patient.create_new_record()
 			entry_messages = "p:" + PERIODS[period] + " "
@@ -187,7 +187,7 @@ class CallHandler:
 			if voicemail:
 				record.voicemail = voicemail['path']
 				record.save()
-			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
+			messages =  "#"+ str(record.id) +" " + entry_messages
 			html_messages = render_to_string('email/confirm_record.html', { 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
@@ -421,22 +421,22 @@ class ChatHandler:
 
 		if period == '':
 			html_messages = 'ท่านทำรายการไม่ถูกต้อง'
-			messages = ["ท่านทำรายการไม่ถูกต้อง"]
+			messages = "ท่านทำรายการไม่ถูกต้อง"
 		elif weight and period in patient.get_today_submitted_periods(entry='weight'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = ["ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว"]
+			messages = "ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว"
 		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = ["ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"]
+			messages = "ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"
 		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
 			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages =  ["ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"]
+			messages =  "ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"
 		elif not weight and not pressure and not drug:
 			html_messages = "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
-			messages =  ["ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"]
+			messages =  "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
 		else:
 			record = patient.create_new_record()
 			entry_messages = "p:" + PERIODS[period] + " "
@@ -449,7 +449,7 @@ class ChatHandler:
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip(period, drug=drug)
 				entry_messages = entry_messages + "l" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
-			messages =  ["Ref:"+ str(record.id) +" " + entry_messages]
+			messages =  "#"+ str(record.id) +" " + entry_messages
 			html_messages = render_to_string('email/confirm_record.html', { 'record': record })
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 			record.save()

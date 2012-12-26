@@ -87,24 +87,23 @@ def record_create(request):
 						if save_weights and save_drugs and save_pressures:
 							html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
 
-							reply_messages = []
-							reply_messages.append('หมายเลขอ้างอิง: ' + str(new_record.id))
+							reply_messages = '#' + str(new_record.id) + ' '
 
 							if new_record.weight_set.all():
 								weight_message = "น้ำหนัก"
 								for data in new_record.weight_set.all():
 									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight)
-								reply_messages.append(weight_message)
+								reply_messages = reply_messages + weight_message
 							if new_record.drug_set.all():
 								drug_message = "ยาลาซิก"
 								for data in new_record.drug_set.all():
 									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'/'+str(data.amount)
-								reply_messages.append(drug_message)
+								reply_messages = reply_messages + drug_message
 							if new_record.pressure_set.all():
 								pressure_message = "ความดัน"
 								for data in new_record.pressure_set.all():
 									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down)
-								reply_messages.append(pressure_message)
+								reply_messages = reply_messages + pressure_message
 							
 							sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
 							if sent:
@@ -295,11 +294,7 @@ class RecordResponseView(CreateView):
 		contact_email = self.record.patient.email
 		msg_type = self.record.patient.confirm_by
 
-		reply_messages = form.cleaned_data['reply_text'].split('|')
-		reply_messages = filter(None, reply_messages)
-		for i in range(len(reply_messages)):
-			reply_messages[i] = reply_messages[i].encode('utf-8')
-		reply_messages.insert(0,'ตอบกลับหมายเลขอ้างอิง: ' + str(self.record.id))
+		reply_messages = '#'+ str(self.record.id) + ' ' + form.cleaned_data['reply_text']
 	
 		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
 		sent = send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages)

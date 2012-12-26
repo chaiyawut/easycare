@@ -6,6 +6,19 @@ from django.core.mail import EmailMultiAlternatives
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
         if msg_type == 'sms' or msg_type == 'both':
+                #send sms with KMUTT trunk
+                try:
+                        from pysimplesoap.client import SoapClient
+                        Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
+                        Mobile = contact_number
+                        Message = reply_messages
+                        from pysimplesoap.client import SoapClient
+                        client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=True)
+                        client.SendSMS(Key, Mobile, Message)
+                except Exception, e:
+                        return False
+                
+                """
                 try:
                         from ESL import *
                         con = ESLconnection("202.44.9.119", "8021", "ClueCon")
@@ -27,6 +40,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
                                 return False
         	except Exception, e:
                         return False
+                """
         
         if msg_type == 'email' or msg_type == 'both':
                 try:

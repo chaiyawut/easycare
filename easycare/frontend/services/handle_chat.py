@@ -31,5 +31,5 @@ def chat(message, args):
 	if contact_number in storeNumber and period:
 		handler.save_and_get_messages(period = period)
 	else:
-		send_messages_to_patient('sms', contact_number, '', 'ท่านทำรายการไม่ถูกต้อง', '')
+		send_messages_to_patient('sms', patient.contact_number, patient.email, 'ท่านทำรายการไม่ถูกต้อง', 'ท่านทำรายการไม่ถูกต้อง')
 
