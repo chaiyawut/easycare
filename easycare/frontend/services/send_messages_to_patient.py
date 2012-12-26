@@ -12,8 +12,8 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
                         from pysimplesoap.client import SoapClient
 
                         Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
-                        Mobile = contact_number
-                        Message = reply_messages
+                        Mobile = '0860216060'
+                        Message = 'test ฟหกด'
 
                         client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
                         response = client.SendSMS(Key, Mobile, Message)
