@@ -12,7 +12,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 
 		Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
 		Mobile = contact_number
-		Message = u'สวัสดีครับ'
+		Message = 'สวัสดีครับ'.encode('utf-8')
 
 		client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
 		response = client.SendSMS(Key, Mobile, Message)
