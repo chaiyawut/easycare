@@ -7,22 +7,19 @@ from django.core.mail import EmailMultiAlternatives
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
 	if msg_type == 'sms' or msg_type == 'both':
 		#send sms with KMUTT trunk
-		try:
-			#need httplib2 lib to work
-			from pysimplesoap.client import SoapClient
+		#need httplib2 lib to work
+		from pysimplesoap.client import SoapClient
 
-			Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
-			Mobile = contact_number
-			Message = reply_messages.encode('utf-8')
+		Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
+		Mobile = contact_number
+		Message = reply_messages
 
-			client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
-			response = client.SendSMS(Key, Mobile, Message)
-			if response['SendSMSResult'] == 'No Error, the request is successful':
-				return True
-			else:
-				return False
-		except Exception, e:
-			raise e
+		client = SoapClient(wsdl="http://cronos.kmutt.ac.th/smswebservice/send.asmx?WSDL",trace=False)
+		response = client.SendSMS(Key, Mobile, Message)
+		if response['SendSMSResult'] == 'No Error, the request is successful':
+			return True
+		else:
+			return False
 		
 		"""
 		try:
