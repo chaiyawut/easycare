@@ -7,7 +7,6 @@ from django.core.mail import EmailMultiAlternatives
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
 	if msg_type == 'sms' or msg_type == 'both':
 		#send sms with KMUTT trunk
-		#need httplib2 lib to work
 		from suds.client import Client
 		Key = 'dnLjIPco1OCeOfnGFjI5dgLj8vvrhW'
 		Mobile = contact_number
@@ -15,7 +14,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 		url = 'http://cronos.kmutt.ac.th/smswebservice/send.asmx?wsdl'
 		client = Client(url)
 		response = client.service.SendSMS(Key, Mobile, Message)
-		if response.title() == u'No Error, the request is successful':
+		if response.title() == u'No Error, The Request Is Successful':
 			return True
 		else:
 			return False
