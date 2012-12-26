@@ -14,45 +14,41 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 		url = 'http://cronos.kmutt.ac.th/smswebservice/send.asmx?wsdl'
 		client = Client(url)
 		response = client.service.SendSMS(Key, Mobile, Message)
-		if response.title() == u'No Error, The Request Is Successful':
-			return True
-		else:
-			return False
-		
-		"""
-		try:
-			from ESL import *
-			con = ESLconnection("202.44.9.119", "8021", "ClueCon")
-			if con.connected():
-				for message in reply_messages:
-					if not len(message.decode('utf-8')) > 70:
-						#api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
-						api = "chat SMS|gsm01|"+contact_number+"| "+ message.decode('utf-8')
-						con.send("api " + api.encode('utf-8'))
-					else:
-						#api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
-						api = "chat SMS|gsm01|"+contact_number+"|exceed maximum lenght"
-						con.send("api " + api.encode('utf-8'))
-				#api = "gsmopen_sendsms gsm01 "+ contact_number + " Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
-				api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
-				con.send("api " + api.encode('utf-8'))
-				con.disconnect()
-			else:
-				return False
-		except Exception, e:
-			return False
-		"""
-	
+		if not response.title() == u'No Error, The Request Is Successful':
+			return False	
 	if msg_type == 'email' or msg_type == 'both':
 		try:
 			subject, from_email, to = 'สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
 			msg = EmailMultiAlternatives(subject, '', from_email, [to])
 			msg.attach_alternative(html_messages, "text/html")
 			msg.send()
-			return True
 		except Exception, e:
-			raise e
+			return False
+	return True
+
+"""
+try:
+	from ESL import *
+	con = ESLconnection("202.44.9.119", "8021", "ClueCon")
+	if con.connected():
+		for message in reply_messages:
+			if not len(message.decode('utf-8')) > 70:
+				#api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
+				api = "chat SMS|gsm01|"+contact_number+"| "+ message.decode('utf-8')
+				con.send("api " + api.encode('utf-8'))
+			else:
+				#api = "gsmopen_sendsms gsm01 "+ contact_number + " " + message.decode('utf-8')
+				api = "chat SMS|gsm01|"+contact_number+"|exceed maximum lenght"
+				con.send("api " + api.encode('utf-8'))
+		#api = "gsmopen_sendsms gsm01 "+ contact_number + " Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
+		api = "chat SMS|gsm01|"+contact_number+"|Thank you. Advance Heart failure Clinic, Chulalongkorn Hospital."
+		con.send("api " + api.encode('utf-8'))
+		con.disconnect()
+	else:
+		return False
+except Exception, e:
 	return False
+"""
 
 
 
