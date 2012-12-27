@@ -108,6 +108,7 @@ class Record(models.Model):
 	class Meta:
 		verbose_name_plural = "2. บันทึกรายวัน"
 		verbose_name = "บันทึกรายวัน"
+		get_latest_by = 'datetime'
 
 	def change_status(self, status):
 		self.status = status

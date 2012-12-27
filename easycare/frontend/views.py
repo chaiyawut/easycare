@@ -192,7 +192,7 @@ class PatientUpdateView(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super(PatientUpdateView, self).get_context_data(**kwargs)
 		patient = super(PatientUpdateView, self).get_queryset()
-		context['record'] = Record.objects.filter(patient=patient).latest('datetime')
+		context['record'] = Record.objects.filter(patient=patient).latest()
 		return context
 
 
