@@ -8,6 +8,9 @@
 		<li class="{% if page == 'register' %}active{% endif %}">
 			<a href="{% url 'patient-register' %}"><i class="icon-plus"></i> เพิ่มผู้ป่วย</a>
 		</li>
+		<li class="{% if page == 'patient_list' %}active{% endif %}">
+			<a href="{% url 'patient' %}"><i class="icon-user"></i> ผู้ป่วยทั้งหมด</a>
+		</li>
 		<li class="divider"></li>		
 		<li class="nav-header">
 			คำร้องขอ

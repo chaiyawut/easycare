@@ -1,0 +1,21 @@
+{% load tz %}
+{% load url from future %}
+
+<table class="table table table-bordered">
+	<thead>
+		<tr>
+			<th width="10%">ดูข้อมูล</th>
+			<th width="30%">หมายเลขผู้ป่วยนอก</th>
+			<th >ชื่อ-นามสกุล</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for patient in page_obj %}
+		<tr>
+			<td ><a href="/patients/{{ patient.id }}/"><i class="icon-search"></i></a></td>
+			<td>{{ patient.hn }}</td>
+			<td>{{ patient.firstname }} {{ patient.lastname }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

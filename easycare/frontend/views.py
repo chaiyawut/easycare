@@ -228,6 +228,12 @@ class PatientReisterCreateView(CreateView):
 
 		return super(PatientReisterCreateView, self).form_valid(form)
 
+class PatientListView(ListView):
+	model = Patient
+	template_name = 'patient/list.html'
+	paginate_by = 10
+	date_field = 'datetime'
+
 
 class HistoryListView(ListView, FormMixin):
 	model = Record
