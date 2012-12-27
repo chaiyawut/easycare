@@ -91,17 +91,17 @@ def record_create(request):
 							if new_record.weight_set.all():
 								weight_message = "น้ำหนัก"
 								for data in new_record.weight_set.all():
-									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight)
+									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight) + ' '
 								reply_messages = reply_messages + weight_message
 							if new_record.drug_set.all():
 								drug_message = "ยาลาซิก"
 								for data in new_record.drug_set.all():
-									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'/'+str(data.amount)
+									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'/'+str(data.amount) + ' '
 								reply_messages = reply_messages + drug_message
 							if new_record.pressure_set.all():
 								pressure_message = "ความดัน"
 								for data in new_record.pressure_set.all():
-									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down)
+									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down) + ' '
 								reply_messages = reply_messages + pressure_message
 							
 							sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
@@ -194,6 +194,19 @@ class PatientUpdateView(UpdateView):
 		patient = super(PatientUpdateView, self).get_object()
 		context['record'] = Record.objects.filter(patient=patient).latest()
 		return context
+
+	def form_valid(self, form):
+		messages.success(self.request, "ประวัติคนไข้ถูกแก้ไขแล้ว", extra_tags='alert alert-success')
+
+		if not form.cleaned_data['sound_for_name']:
+			import requests
+			r = requests.get('http://translate.google.co.th/translate_tts?ie=UTF-8&q=%E0%B8%84%E0%B8%B8%E0%B8%93'+ form.cleaned_data['firstname'] +'&tl=th&total=1&idx=0&textlen=6&prev=input&sa=N', stream=True)
+			sound = r.raw.read()
+			myFile = open(PROJECT_PATH + '/media/voices/sounds_for_name/'+ form.cleaned_data['hn'].replace('/', '_') +'.mp3', 'w')
+			myFile.write(sound)
+			myFile.close() 
+
+		return super(PatientUpdateView, self).form_valid(form)
 
 
 class PatientReisterCreateView(CreateView):
