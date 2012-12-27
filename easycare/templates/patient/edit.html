@@ -26,7 +26,7 @@ content: "แก้ไขข้อมูลผู้ป่วย";
 				<div class="span10">
 					<legend>ข้อมูลผู้ป่วย</legend>
 					<div class="row-fluid">
-						<div class="span8 ">
+						<div class="span8 offset1">
 							<form class="bs-docs-example form-horizontal" enctype="multipart/form-data" method="post" >{% csrf_token %} 
 					            {{ form.non_field_errors }}
 					            {% for hidden in form.hidden_fields %}
