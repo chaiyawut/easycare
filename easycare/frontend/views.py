@@ -182,33 +182,6 @@ class RecordPendingListView(ListView):
 		url = "?" + q.urlencode()
 		return url
 
-
-class PatientUpdateView(UpdateView):
-	model = Patient
-	context_object_name = 'patient'
-	template_name = 'patient/edit.html'
-	success_url = '/records/pending/'
-
-	def get_context_data(self, **kwargs):
-		context = super(PatientUpdateView, self).get_context_data(**kwargs)
-		patient = super(PatientUpdateView, self).get_object()
-		context['record'] = Record.objects.filter(patient=patient).latest()
-		return context
-
-	def form_valid(self, form):
-		messages.success(self.request, "ประวัติคนไข้ถูกแก้ไขแล้ว", extra_tags='alert alert-success')
-
-		if not form.cleaned_data['sound_for_name']:
-			import requests
-			r = requests.get('http://translate.google.co.th/translate_tts?ie=UTF-8&q=%E0%B8%84%E0%B8%B8%E0%B8%93'+ form.cleaned_data['firstname'] +'&tl=th&total=1&idx=0&textlen=6&prev=input&sa=N', stream=True)
-			sound = r.raw.read()
-			myFile = open(PROJECT_PATH + '/media/voices/sounds_for_name/'+ form.cleaned_data['hn'].replace('/', '_') +'.mp3', 'w')
-			myFile.write(sound)
-			myFile.close() 
-
-		return super(PatientUpdateView, self).form_valid(form)
-
-
 class PatientReisterCreateView(CreateView):
 	form_class = PatientForm
 	model = Patient
@@ -227,6 +200,36 @@ class PatientReisterCreateView(CreateView):
 			myFile.close() 
 
 		return super(PatientReisterCreateView, self).form_valid(form)
+
+class PatientUpdateView(UpdateView):
+	model = Patient
+	context_object_name = 'patient'
+	template_name = 'patient/edit.html'
+	success_url = '/records/pending/'
+
+	def get_context_data(self, **kwargs):
+		context = super(PatientUpdateView, self).get_context_data(**kwargs)
+		patient = super(PatientUpdateView, self).get_object()
+		records = Record.objects.filter(patient=patient)
+		if records:
+			record = records.latest()
+		else:
+			record = None
+		context['record'] = record
+		return context
+
+	def form_valid(self, form):
+		messages.success(self.request, "ประวัติคนไข้ถูกแก้ไขแล้ว", extra_tags='alert alert-success')
+
+		if not form.cleaned_data['sound_for_name']:
+			import requests
+			r = requests.get('http://translate.google.co.th/translate_tts?ie=UTF-8&q=%E0%B8%84%E0%B8%B8%E0%B8%93'+ form.cleaned_data['firstname'] +'&tl=th&total=1&idx=0&textlen=6&prev=input&sa=N', stream=True)
+			sound = r.raw.read()
+			myFile = open(PROJECT_PATH + '/media/voices/sounds_for_name/'+ form.cleaned_data['hn'].replace('/', '_') +'.mp3', 'w')
+			myFile.write(sound)
+			myFile.close() 
+
+		return super(PatientUpdateView, self).form_valid(form)
 
 class PatientListView(ListView):
 	model = Patient
