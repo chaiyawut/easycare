@@ -47,6 +47,7 @@ content: "แก้ไขข้อมูลผู้ป่วย";
 					          </form>
 						</div>
 					</div>
+					{% if record %}
 					<div class="row-fluid">
 						<div class="span10">
 							<div class="well">
@@ -71,9 +72,10 @@ content: "แก้ไขข้อมูลผู้ป่วย";
 							</div>
 						</div>
 					</div>
-					</div
+					{% endif %}
 				</div>
 			</div>
 		</div>
-	</section>
-	{% endblock %}
+	</div>
+</section>
+{% endblock %}
