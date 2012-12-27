@@ -89,17 +89,17 @@ def record_create(request):
 							reply_messages = '#' + str(new_record.id) + ' '
 
 							if new_record.weight_set.all():
-								weight_message = "น้ำหนัก"
+								weight_message = "w:"
 								for data in new_record.weight_set.all():
 									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight) + ' '
 								reply_messages = reply_messages + weight_message
 							if new_record.drug_set.all():
-								drug_message = "ยาลาซิก"
+								drug_message = "l:"
 								for data in new_record.drug_set.all():
-									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'/'+str(data.amount) + ' '
+									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'mg'+str(data.amount) + ' '
 								reply_messages = reply_messages + drug_message
 							if new_record.pressure_set.all():
-								pressure_message = "ความดัน"
+								pressure_message = "bp:"
 								for data in new_record.pressure_set.all():
 									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down) + ' '
 								reply_messages = reply_messages + pressure_message

@@ -27,9 +27,8 @@ def chat(message, args):
 	patient = handler.get_patient()
 	period = handler.get_period()
 	storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
-	print received_number, received_body, contact_number, patient, period
 	if contact_number in storeNumber and period:
 		handler.save_and_get_messages(period = period)
 	else:
-		send_messages_to_patient('sms', patient.contact_number, patient.email, 'ท่านทำรายการไม่ถูกต้อง', 'ท่านทำรายการไม่ถูกต้อง')
+		send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, 'ท่านทำรายการไม่ถูกต้อง', 'ท่านทำรายการไม่ถูกต้อง')
 

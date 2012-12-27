@@ -177,13 +177,13 @@ class CallHandler:
 			entry_messages = "p:" + PERIODS[period] + " "
 			if weight:
 				weight_entry = record.create_entry_for_record_from_voip(period, weight=weight)
-				entry_messages = entry_messages + "w" + str(weight_entry.weight) + " "
-			if pressure:
-				pressure_entry = record.create_entry_for_record_from_voip(period, pressure=pressure)
-				entry_messages = entry_messages + "bp" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
+				entry_messages = entry_messages + "w:" + str(weight_entry.weight) + " "
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip(period, drug=drug)
-				entry_messages = entry_messages + "l" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
+				entry_messages = entry_messages + "l:" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
+			if pressure:
+				pressure_entry = record.create_entry_for_record_from_voip(period, pressure=pressure)
+				entry_messages = entry_messages + "bp:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			if voicemail:
 				record.voicemail = voicemail['path']
 				record.save()
@@ -482,13 +482,13 @@ class ChatHandler:
 			entry_messages = "p:" + PERIODS[period] + " "
 			if weight:
 				weight_entry = record.create_entry_for_record_from_voip(period, weight=weight)
-				entry_messages = entry_messages + "w" + str(weight_entry.weight) + " "
-			if pressure:
-				pressure_entry = record.create_entry_for_record_from_voip(period, pressure=pressure)
-				entry_messages = entry_messages + "bp" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
+				entry_messages = entry_messages + "w:" + str(weight_entry.weight) + " "
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip(period, drug=drug)
-				entry_messages = entry_messages + "l" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
+				entry_messages = entry_messages + "l:" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
+			if pressure:
+				pressure_entry = record.create_entry_for_record_from_voip(period, pressure=pressure)
+				entry_messages = entry_messages + "bp:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			messages =  "#"+ str(record.id) +" " + entry_messages
 			html_messages = render_to_string('email/confirm_record.html', { 'record': record })
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
