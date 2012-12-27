@@ -183,6 +183,19 @@ class RecordPendingListView(ListView):
 		return url
 
 
+class PatientUpdateView(UpdateView):
+	model = Patient
+	context_object_name = 'patient'
+	template_name = 'patient/edit.html'
+	success_url = '/records/pending/'
+
+	def get_context_data(self, **kwargs):
+		context = super(PatientUpdateView, self).get_context_data(**kwargs)
+		patient = super(PatientUpdateView, self).get_queryset()
+		context['record'] = Record.objects.filter(patient=patient).latest('datetime')
+		return context
+
+
 class PatientReisterCreateView(CreateView):
 	form_class = PatientForm
 	model = Patient
@@ -199,8 +212,6 @@ class PatientReisterCreateView(CreateView):
 			myFile = open(PROJECT_PATH + '/media/voices/sounds_for_name/'+ form.cleaned_data['hn'].replace('/', '_') +'.mp3', 'w')
 			myFile.write(sound)
 			myFile.close() 
-			
-
 
 		return super(PatientReisterCreateView, self).form_valid(form)
 

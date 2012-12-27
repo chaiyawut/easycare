@@ -7,9 +7,8 @@
 			<th width="10%">เลขอ้างอิง</th>
 			<th width="15%">วันที่</th>
 			<th width="15%">เวลา</th>
-			<th width="10%">HN</th>
-			<th >ชื่อผู้ป่วย</th>
-			<th width="15%">สถานะ</th>
+			<th >ผู้ป่วย</th>
+			<th width="20%">สถานะ</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,8 +19,7 @@
 			<td>{{ record.datetime|date }}</td>
 			<td>{{ record.datetime|time }}</td>
 			{% endlocaltime %}
-			<td >{{ record.patient.hn }}</td>
-			<td>{{ record.patient.fullname }}</td>
+			<td ><a href="/patients/{{ record.patient.id }}/">{{ record.patient.hn }} - {{ record.patient.fullname }}</a></td>
 			<td>{% if not record.response %}<a href="{% url 'record-reply' record.id %}" class="label label-important"><i class=" icon-hand-right icon-white"></i> {{ record.status }}</a>{% else %}{{ record.status }}{% endif %}</td>
 		</tr>
 		{% endfor %}
