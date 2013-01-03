@@ -49,7 +49,8 @@ class CallHandler:
 			return self.period_menu
 		else:
 			self.session.streamFile(os.path.join(VOICE_PATH, 'login', 'user_not_found.mp3'))
-			return self.login_menu
+			#end call
+			self.session.destroy()
 
 	def period_menu(self, period): #must have 2 arguemnts because while loop
 		self.period = self.get_period()
