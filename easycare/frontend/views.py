@@ -29,7 +29,10 @@ def json_encode_decimal(obj):
 def homepage(request):
 	if request.path == "/":
 		return redirect('/homepage/')
-	return render(request, 'homepage.html')
+
+	first_patient = Patient.objects.get(pk=1)
+
+	return render(request, 'homepage.html', {'first_patient':first_patient})
 
 def aboutus(request):
 	return render(request, 'aboutus.html')
