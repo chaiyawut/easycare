@@ -48,7 +48,7 @@ def record_create(request):
 					new_record = patient.create_new_record()
 					if new_record.create_entry_for_record_from_web(form):
 						html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
-						reply_messages = '#' + str(new_record.id) + ' p:' + PERIODS[data.period] + ' '
+						reply_messages = '#' + str(new_record.id) + ' p:' + PERIODS[period] + ' '
 						if new_record.weight_set.all():
 							weight_message = "w:"
 							for data in new_record.weight_set.all():
