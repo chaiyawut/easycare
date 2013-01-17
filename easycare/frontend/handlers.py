@@ -350,20 +350,20 @@ class CallHandler:
 	def get_pressure_down(self):
 		pressure_down = self.session.playAndGetDigits(
 			2, 5, 2, 4000, "#",
-			os.path.join(VOICE_PATH, 'pressure', '6.mp3'),
+			os.path.join(VOICE_PATH, 'pressure', '5.mp3'),
 			os.path.join(VOICE_PATH, 'share', 'fail.mp3'),
 			"[0-9]" ) 
 		pressure_down_sound_path = os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3')               
 		if os.path.exists(pressure_down_sound_path):  
 			self.pressure['down'] = pressure_down
 			self.session.sleep(200)
-			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '7.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '6.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
 		else:
 			self.pressure['down'] = '0'
 			self.session.sleep(200)
-			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '4.mp3'))
+			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', '6.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'number',  '0.mp3'))
 			self.session.streamFile(os.path.join(VOICE_PATH, 'pressure', 'mmhg.mp3'))
 		return self.pressure['down']
