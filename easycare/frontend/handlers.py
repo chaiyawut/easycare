@@ -162,7 +162,7 @@ class CallHandler:
 		voicemail = self.voicemail
 
 		if not patient.check_for_no_duplicate_period(period):
-			submitted_records = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
+			submitted_records = patient.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
 			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		else:
@@ -456,7 +456,7 @@ class ChatHandler:
 			html_messages = 'ท่านทำรายการไม่ถูกต้อง กรุณาระบุช่วงเวลาด้วยสัญลักษณ์ p หรือ P'
 			messages = "ท่านทำรายการไม่ถูกต้อง กรุณาระบุช่วงเวลา"
 		elif not patient.check_for_no_duplicate_period(period):
-			submitted_records = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
+			submitted_records = patient.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
 			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		elif not weight and not pressure and not drug:
