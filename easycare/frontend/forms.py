@@ -57,7 +57,7 @@ class PatientForm(forms.ModelForm):
 			return uploaded_file
 
 class RecordForm(forms.Form):
-	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'081234567'}))
+	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'ตัวอย่าง 081234567'}))
 	period = forms.ChoiceField(choices=PEROIDS, widget=forms.Select(attrs={'class': 'input-medium',}))
 	weight = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-small',}))
 	drug_name = forms.CharField(initial="lasix",widget=forms.HiddenInput())
