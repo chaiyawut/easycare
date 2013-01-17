@@ -55,9 +55,6 @@ class PatientForm(forms.ModelForm):
 			if fileExtension != '.mp3':
 				raise forms.ValidationError("ไฟล์เสียงสำหรับชื่อต้องเป็น .mp3 เท่านั้น")
 			return uploaded_file
-	
-
-
 
 class WeightForm(forms.ModelForm):
 	class Meta:
