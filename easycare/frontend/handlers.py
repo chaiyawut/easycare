@@ -161,18 +161,10 @@ class CallHandler:
 		drug = self.drug
 		voicemail = self.voicemail
 
-		if weight and period in patient.get_today_submitted_periods(entry='weight'):
-			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = "ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว "
-		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
-			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = "ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"
-		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
-			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages =  "ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"
+		if not patient.check_for_no_duplicate_period(period):
+			submitted_records = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
+			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		else:
 			record = patient.create_new_record()
 			entry_messages = "p:" + PERIODS[period] + " "
@@ -461,20 +453,12 @@ class ChatHandler:
 		drug = self.get_drug()
 
 		if period == '':
-			html_messages = 'ท่านทำรายการไม่ถูกต้อง'
-			messages = "ท่านทำรายการไม่ถูกต้อง"
-		elif weight and period in patient.get_today_submitted_periods(entry='weight'):
-			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), weight__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = "ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว"
-		elif pressure and period in patient.get_today_submitted_periods(entry='pressure'):
-			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), pressure__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages = "ท่านได้ส่งข้อมูลความดันของช่วงเวลานี้แล้ว"
-		elif drug and period in patient.get_today_submitted_periods(entry='drug'):
-			submitted_record = Record.objects.get( datetime__gte=datetime.date.today(), drug__period=period)
-			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว ตามประวัติด้านล่าง','record': submitted_record })
-			messages =  "ท่านได้ส่งข้อมูลยาของช่วงเวลานี้แล้ว"
+			html_messages = 'ท่านทำรายการไม่ถูกต้อง กรุณาระบุช่วงเวลาด้วยสัญลักษณ์ p หรือ P'
+			messages = "ท่านทำรายการไม่ถูกต้อง กรุณาระบุช่วงเวลา"
+		elif not patient.check_for_no_duplicate_period(period):
+			submitted_records = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
+			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		elif not weight and not pressure and not drug:
 			html_messages = "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
 			messages =  "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
