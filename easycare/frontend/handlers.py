@@ -476,8 +476,9 @@ class ChatHandler:
 				entry_messages = entry_messages + "bp:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			messages =  "#"+ str(record.id) +" " + entry_messages
 			html_messages = render_to_string('email/confirm_record.html', { 'record': record })
-			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
-			record.save()
 		
-		send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
+		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
+		if not sent:
+			record.status = "ระบบส่งข้อความผิดพลาด! ผู้ป่วยยังไม่ได้รับ SMS ยืนยัน"
+			record.save()
 			
