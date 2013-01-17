@@ -87,6 +87,7 @@ class Record(models.Model):
 	datetime = models.DateTimeField(default=datetime.datetime.now(), verbose_name='เวลา')
 	voicemail = models.CharField(blank=True, max_length=200, verbose_name='ข้อมูลฝากเสียง')
 	status = models.CharField(default='รอการตอบกลับ', max_length=200, verbose_name='สถานะ')
+	period = models.CharField(max_length=200, choices=PEROIDS, verbose_name='ช่วงเวลา')
 
 	def __unicode__(self):
 		return "id: " + str(self.id) + " timestamp: " + str(self.datetime)#.astimezone(timezone('Asia/Bangkok')).strftime("%d/%m/%y %H:%M:%S"))
@@ -168,7 +169,6 @@ class Response(models.Model):
 
 class RecordElementBase(models.Model):
 	record = models.ForeignKey(Record)
-	period = models.CharField(max_length=200, choices=PEROIDS, verbose_name='ช่วงเวลา')
 
 	class Meta:
 		abstract = True
