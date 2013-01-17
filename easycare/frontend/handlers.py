@@ -163,7 +163,7 @@ class CallHandler:
 
 		if not patient.check_for_no_duplicate_period(period):
 			submitted_records = patient.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
-			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
+			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'เกิดข้อผิดพลาด! ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว รายการทั้งหมดที่ท่านส่งเข้ามาวันนี้ค่ะ','submitted_records': submitted_records })
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		else:
 			record = patient.create_new_record()
@@ -457,7 +457,7 @@ class ChatHandler:
 			messages = "ท่านทำรายการไม่ถูกต้อง กรุณาระบุช่วงเวลา"
 		elif not patient.check_for_no_duplicate_period(period):
 			submitted_records = patient.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
-			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'ท่านได้ส่งข้อมูลน้ำหนักของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
+			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'เกิดข้อผิดพลาด! ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว รายการทั้งหมดที่ท่านส่งเข้ามาวันนี้ค่ะ','submitted_records': submitted_records })
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		elif not weight and not pressure and not drug:
 			html_messages = "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
