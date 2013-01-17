@@ -169,7 +169,7 @@ class CallHandler:
 			record = patient.create_new_record(period)
 			entry_messages = "p:" + PERIODS[period] + " "
 			if weight:
-				weight_entry = record.create_entry_for_record_from_voip(weight=wght)
+				weight_entry = record.create_entry_for_record_from_voip(weight=weight)
 				entry_messages = entry_messages + "w:" + str(weight_entry.weight) + " "
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip( drug=drug)
