@@ -4,6 +4,7 @@ from django import forms
 from frontend.fields import ResponseAutoCompleteField
 from django.core import validators 
 import os
+from frontend.models import DRUG_SIZES, DRUG_AMOUNTS, PEROIDS
 
 AUTO_REPLY = (
 	('', '----------'),
@@ -47,7 +48,6 @@ class PatientForm(forms.ModelForm):
 		model = Patient
 		fields = ['hn','firstname','lastname', 'contact_number', 'email', 'confirm_by', 'sound_for_name']
 
-	
 	def clean_sound_for_name(self):
 		if self.cleaned_data['sound_for_name']:
 			uploaded_file = self.cleaned_data['sound_for_name']
@@ -56,88 +56,59 @@ class PatientForm(forms.ModelForm):
 				raise forms.ValidationError("ไฟล์เสียงสำหรับชื่อต้องเป็น .mp3 เท่านั้น")
 			return uploaded_file
 
-class WeightForm(forms.ModelForm):
-	class Meta:
-		model = Weight
-		exclude = ('record',)
-		widgets = {
-			'period': forms.HiddenInput(),
-			'weight': forms.TextInput(attrs={'class': 'input-medium',})
-		}
-
-	def __init__(self, *args, **kwargs):
-		super(WeightForm, self).__init__(*args, **kwargs)
-		self.fields['weight'].validators.append(validators.MinValueValidator(0))
-		self.fields['weight'].validators.append(validators.MaxValueValidator(200))
-
-class DrugForm(forms.ModelForm):
-	class Meta:
-		model = Drug
-		exclude = ('record',)
-		widgets = {
-			'period': forms.HiddenInput(),
-			'name': forms.HiddenInput(),
-			'size': forms.Select(attrs={'class': 'input-small',}),
-			'amount': forms.Select(attrs={'class': 'input-small',}),
-		}
-
-	def clean(self):
-		cleaned_data = super(DrugForm, self).clean()
-		size = cleaned_data.get("size")
-		amount = cleaned_data.get("amount")
-
-		if size and not amount:
-			msg = u"กรุณาใส่จำนวนยา"
-			self._errors["amount"] = self.error_class([msg])
-			del cleaned_data["size"]
-		elif amount and not size:
-			msg = u"กรุณาใส่ขนาดยา"
-			self._errors["size"] = self.error_class([msg])
-			del cleaned_data["amount"]
-		return cleaned_data
-
-class PressureForm(forms.ModelForm):
-	class Meta:
-		model = Pressure
-		exclude = ('record',)
-		widgets = {
-			'period': forms.HiddenInput(),
-			'name': forms.HiddenInput(),
-			'up': forms.TextInput(attrs={'class': 'input-mini',}),
-			'down': forms.TextInput(attrs={'class': 'input-mini',})
-		}
-
-	def clean(self):
-		cleaned_data = super(PressureForm, self).clean()
-		up = cleaned_data.get("up")
-		down = cleaned_data.get("down")
-
-		if up and not down:
-			msg = u"กรุณาใส่ความดันตัวล่าง"
-			self._errors["down"] = self.error_class([msg])
-			del cleaned_data["up"]
-		elif down and not up:
-			msg = u"กรุณาใส่ความดันตัวบน"
-			self._errors["down"] = self.error_class([msg])
-			del cleaned_data["down"]
-		return cleaned_data
-
-	def __init__(self, *args, **kwargs):
-		super(PressureForm, self).__init__(*args, **kwargs)
-		self.fields['up'].validators.append(validators.MinValueValidator(0))
-		self.fields['up'].validators.append(validators.MaxValueValidator(200))
-		self.fields['down'].validators.append(validators.MinValueValidator(0))
-		self.fields['down'].validators.append(validators.MaxValueValidator(200))
-
 class RecordForm(forms.Form):
-	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder':'หมายเลขโทรศัพท์ - 08xx, 02xx'}))
+	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'081234567'}))
+	period = forms.ChoiceField(choices=PEROIDS, widget=forms.Select(attrs={'class': 'input-medium',}))
+	weight = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-small',}))
+	drug_name = forms.CharField(initial="lasix",widget=forms.HiddenInput())
+	drug_size = forms.ChoiceField(required=True, choices=DRUG_SIZES, widget=forms.Select(attrs={'class': 'input-small',}))
+	drug_amount = forms.ChoiceField(required=True, choices=DRUG_AMOUNTS, widget=forms.Select(attrs={'class': 'input-small',}))
+	pressure_up = forms.IntegerField(max_value=200,required=False, min_value=0, widget=forms.TextInput(attrs={'class': 'input-small',}))
+	pressure_down = forms.IntegerField(max_value=200, min_value=0,required=False, widget=forms.TextInput(attrs={'class': 'input-small',}))
 
-	def get_patient_from_hn(self):
+	def get_patient_from_contact_number(self):
 		contact_number = self.cleaned_data['contact_number']
 		try:
 			return Patient.objects.get(contact_number=contact_number)
 		except Exception, e:
 			return False
+
+	def clean(self):
+		cleaned_data = super(RecordForm, self).clean()
+		pressure_up = cleaned_data.get("pressure_up")
+		pressure_down = cleaned_data.get("pressure_down")
+		drug_size = cleaned_data.get("drug_size")
+		drug_amount = cleaned_data.get("drug_amount")
+
+		if pressure_up and not pressure_down:
+			msg = u"กรุณาใส่ความดันตัวล่าง"
+			self._errors["pressure_down"] = self.error_class([msg])
+			del cleaned_data["pressure_up"]
+		elif pressure_down and not pressure_up:
+			msg = u"กรุณาใส่ความดันตัวบน"
+			self._errors["pressure_up"] = self.error_class([msg])
+			del cleaned_data["pressure_down"]
+
+		if drug_size and not drug_amount:
+			msg = u"กรุณาใส่จำนวนยา"
+			self._errors["drug_amount"] = self.error_class([msg])
+			del cleaned_data["drug_size"]
+		elif drug_amount and not drug_size:
+			msg = u"กรุณาใส่ขนาดยา"
+			self._errors["drug_size"] = self.error_class([msg])
+			del cleaned_data["drug_amount"]
+
+		return cleaned_data
+
+	"""
+	def __init__(self, *args, **kwargs):
+		super(RecordForm, self).__init__(*args, **kwargs)
+		self.fields['pressure_up'].validators.append(validators.MinValueValidator(0))
+		self.fields['pressure_up'].validators.append(validators.MaxValueValidator(200))
+		self.fields['pressure_down'].validators.append(validators.MinValueValidator(0))
+		self.fields['pressure_down'].validators.append(validators.MaxValueValidator(200))
+	"""
+
 
 class HNFilterForm(forms.Form):
 	hn = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'input-medium search-query','placeholder':'จากรหัสผู้ป่วยนอก'}))

@@ -38,125 +38,50 @@ def contactus(request):
 	return render(request, 'contactus.html')
 
 def record_create(request):
-	WeightFormSet = formset_factory(WeightForm, extra=0)
-	DrugFormSet = formset_factory(DrugForm, extra=0)
-	PressureFormSet = formset_factory(PressureForm, extra=0)
-
-	if request.method == 'POST':
-		weight_formset = WeightFormSet(
-							request.POST,
-							prefix='weights',
-							initial = [ 	
-								{'period': u'morning'},
-								{'period': u'afternoon'},
-								{'period': u'evening'},
-							]
-						)
-		lasix_drug_formset = DrugFormSet(
-							request.POST,
-							prefix='lasix_drugs',
-							initial = [ 	
-								{'period': u'morning', 'name':u'lasix'},
-								{'period': u'afternoon', 'name':u'lasix'},
-								{'period': u'evening', 'name':u'lasix'},
-							]
-						)
-		pressure_formset = PressureFormSet(
-							request.POST,
-							prefix='pressures',
-							initial = [ 	
-								{'period': u'morning'},
-								{'period': u'afternoon'},
-								{'period': u'evening'},
-							]
-						)
-		record_form = RecordForm(request.POST, prefix='record')
-		if weight_formset.is_valid() and lasix_drug_formset.is_valid() and pressure_formset.is_valid() and record_form.is_valid():
-			patient = record_form.get_patient_from_hn()
+	if request.method == 'POST': # If the form has been submitted...
+		form = RecordForm(request.POST) # A form bound to the POST data
+		if form.is_valid(): # All validation rules pass
+			period = form.cleaned_data['period']
+			patient = form.get_patient_from_contact_number()
 			if patient:
-				if weight_formset.has_changed() or lasix_drug_formset.has_changed() or pressure_formset.has_changed():
-					no_duplicate_weight, weight_message  = patient.check_for_no_duplicate_period_in_formset(entry='weight', field_name='weight',formset= weight_formset)
-					no_duplicate_pressure, pressure_message = patient.check_for_no_duplicate_period_in_formset(entry='pressure', field_name='up',formset= pressure_formset)
-					no_duplicate_drug, drug_message = patient.check_for_no_duplicate_period_in_formset(entry='drug', field_name='size',formset= lasix_drug_formset)
-					if no_duplicate_weight and no_duplicate_pressure and no_duplicate_drug:
-						new_record = patient.create_new_record()
-						save_weights = new_record.create_entry_for_record_from_web(entry='weight', formset= weight_formset )
-						save_drugs = new_record.create_entry_for_record_from_web(entry='drug', formset= lasix_drug_formset )
-						save_pressures = new_record.create_entry_for_record_from_web(entry='pressure', formset= pressure_formset )
-						if save_weights and save_drugs and save_pressures:
-							html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
-
-							reply_messages = '#' + str(new_record.id) + ' '
-
-							if new_record.weight_set.all():
-								weight_message = "w:"
-								for data in new_record.weight_set.all():
-									weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight) + ' '
-								reply_messages = reply_messages + weight_message
-							if new_record.drug_set.all():
-								drug_message = "l:"
-								for data in new_record.drug_set.all():
-									drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'mg'+str(data.amount) + ' '
-								reply_messages = reply_messages + drug_message
-							if new_record.pressure_set.all():
-								pressure_message = "bp:"
-								for data in new_record.pressure_set.all():
-									pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down) + ' '
-								reply_messages = reply_messages + pressure_message
-							
-							sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
-							if sent:
-								messages.success(request, "คำร้องขอถูกสร้างแล้ว", extra_tags='alert alert-success')
-							else:
-								messages.success(request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
-							return render(request, 'record/create_success.html', { 'record': new_record })
+				if patient.check_for_no_duplicate_period(period):
+					new_record = patient.create_new_record()
+					if new_record.create_entry_for_record_from_web(form):
+						html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
+						reply_messages = '#' + str(new_record.id) + ' '
+						if new_record.weight_set.all():
+							weight_message = "w:"
+							for data in new_record.weight_set.all():
+								weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight) + ' '
+							reply_messages = reply_messages + weight_message
+						if new_record.drug_set.all():
+							drug_message = "l:"
+							for data in new_record.drug_set.all():
+								drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'mg'+str(data.amount) + ' '
+							reply_messages = reply_messages + drug_message
+						if new_record.pressure_set.all():
+							pressure_message = "bp:"
+							for data in new_record.pressure_set.all():
+								pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down) + ' '
+							reply_messages = reply_messages + pressure_message
+						sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
+						if sent:
+							messages.success(request, "คำร้องขอถูกสร้างแล้ว", extra_tags='alert alert-success')
 						else:
-							messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
+							messages.success(request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
+						return render(request, 'record/create_success.html', { 'record': new_record })
 					else:
-						messages.error(request, weight_message, extra_tags='alert alert-error')
-						messages.error(request, pressure_message, extra_tags='alert alert-error')
-						messages.error(request, drug_message, extra_tags='alert alert-error')
+						messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
 				else:
-					messages.error(request, 'ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล', extra_tags='alert alert-error')	
-			if not patient:
+					messages.error(request, "ท่านได้ส่งข้อมูลสำหรับช่วงเวลา" + PERIODS[period] + "แล้ว", extra_tags='alert alert-error')
+			else:
 				messages.error(request, 'หมายเลขโทรศัพท์ของท่านยังไม่ได้ทำการลงทะเบียนเอาไว้ค่ะ', extra_tags='alert alert-error')
-		else:
-			messages.error(request, 'ท่านกรอกข้อมูลไม่ถูกต้อง', extra_tags='alert alert-error')
 	else:
-		weight_formset = WeightFormSet(
-							prefix='weights',
-							initial = [ 	
-								{'period': u'morning'},
-								{'period': u'afternoon'},
-								{'period': u'evening'},
-							]
-						)
-		record_form = RecordForm(
-			prefix='record',
-		)
-		lasix_drug_formset = DrugFormSet(
-							prefix='lasix_drugs',
-							initial = [ 	
-								{'period': 'morning', 'name':'lasix'},
-								{'period': 'afternoon', 'name':'lasix'},
-								{'period': 'evening', 'name':'lasix'},
-							]
-						)
-		pressure_formset = PressureFormSet(
-							prefix='pressures',
-							initial = [ 	
-								{'period': 'morning'},
-								{'period': 'afternoon'},
-								{'period': 'evening'},
-							]
-						)
-	return render(request, 'record/create.html', {
-		'weight_formset': weight_formset,
-		'record_form': record_form,
-		'lasix_drug_formset': lasix_drug_formset,
-		'pressure_formset': pressure_formset,
-	})
+		form = RecordForm() # An unbound form
 
+	return render(request, 'record/create.html', {
+		'form': form,
+	})
 
 class RecordPendingListView(ListView):
 	model = Record

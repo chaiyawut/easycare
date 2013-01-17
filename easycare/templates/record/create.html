@@ -24,7 +24,7 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 {% endblock %}
 
 {% block content %}
-<div class='row'>
+<div class='row-fluid'>
 	<div class="span12">
 		<section>
 			<ul class="thumbnails">
@@ -40,132 +40,85 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 
 {% include 'record/generic.message.html' %}
 
-<form method="post" class="bs-docs-example">{% csrf_token %}
-	<legend>หมายเลขโทรศัพท์ที่ท่านลงทะเบียนไว้</legend>
-	<div class="row-fluid">
-		<div class="span12">
-			<fieldset>
-				{{ record_form.contact_number }}
-				{% if record_form.contact_number.errors %}
-				<span class="help-block">{{ record_form.contact_number.errors }}</span>
-				{% endif %}
-			</fieldset>
-			<br>
-		</div>
-	</div>
-	<legend>ข้อมูลผู้ป่วย</legend>
-	<div class="row-fluid">
-		<div class="span12">
+<div class="row-fluid">
+	<div class="span6 offset3">
+		<form class="bs-docs-example form-horizontal" method="post" >{% csrf_token %}
+			{{ form.non_field_errors }}
 			<div class="row-fluid">
-				<div class="span4">
-					<fieldset>
-						{{ weight_formset.management_form }}
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="10%">เวลา</th>
-									<th>น้ำหนัก  <br>(กิโลกรัม)</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for form in weight_formset %}
-								{{ form.non_field_errors }}
-								{{ form.period }}
-								<tr >
-									<td >{{ form.period.value|to_thai }}</td>
-									<td>
-										{{ form.weight }}
-										{% if form.weight.errors %}
-										<span class="help-inline alert alert-error">{{ form.weight.errors }}</span>
-										{% endif %}
-									</td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</fieldset>
+				<div class="span12">
+					<legend>ข้อมูลผู้ป่วย</legend>
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="control-group">
+								<label class="control-label" ><strong>หมายเลขโทรศัพท์</strong></label>
+								<div class="controls">
+									{{ form.contact_number }}
+									{% if form.contact_number.errors %}
+									<span class="help-inline ">{{ form.contact_number.errors }}</span>
+									{% endif %}
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" ><strong>ช่วงเวลา</strong></label>
+								<div class="controls">
+									{{ form.period }}
+									{% if form.period.errors %}
+									<span class="help-inline ">{{ form.period.errors }}</span>
+									{% endif %}
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" ><strong>น้ำหนัก</strong></label>
+								<div class="controls">
+									<div class="input-append">
+									  {{ form.weight }}
+									  <span class="add-on">กิโลกรัม</span>
+									</div>
+									{% if form.weight.errors %}
+									<span class="help-inline ">{{ form.weight.errors }}</span>
+									{% endif %}
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" ><strong>ยาลาซิก</strong></label>
+								<div class="controls">
+									{{ form.drug_name}}
+									{{ form.drug_size }}
+									{{ form.drug_amount}}
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" ><strong>ความดัน</strong></label>
+								<div class="controls">
+									<div class="input-prepend input-append">
+									  <span class="add-on">ตัวบน</span>
+									  {{ form.pressure_up }}
+									  <span class="add-on">มม.ปรอท</span>
+									</div>
+									{% if form.pressure_up.errors  %}
+									<span class="help-inline ">{{ form.pressure_up.errors }}</span>
+									{% endif %}
+								</div>
+								<br>
+								<div class="controls">
+									<div class="input-prepend input-append">
+									  <span class="add-on">ตัวล่าง</span>
+									  {{ form.pressure_down }}
+									  <span class="add-on">มม.ปรอท</span>
+									</div>
+									{% if form.pressure_down.errors %}
+									<span class="help-inline ">{{ form.pressure_down.errors }}</span>
+									{% endif %}
+								</div>
+							</div>
+							<div class="control-group">
+								<hr>
+								<button type="submit" class="btn btn-primary btn-large btn-block " >เพิ่มข้อมูล</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="span4">
-					<fieldset>
-						{{ pressure_formset.management_form }}
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="10%">เวลา</th>
-									<th>ความดันตัวบน <br>(มม.ปรอท)</th>
-									<th>ความดันตัวล่าง <br>(มม.ปรอท)</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for form in pressure_formset %}
-								{{ form.non_field_errors }}
-								{{ form.period }}
-								<tr >
-									<td >{{ form.period.value|to_thai }}</td>
-									<td >
-										{{ form.up }}
-										{% if form.up.errors %}
-										<span class="help-inline alert alert-error">{{ form.up.errors }}</span>
-										{% endif %}
-									</td>
-									<td>
-										{{ form.down }}
-										{% if form.down.errors %}
-										<span class="help-inline alert alert-error">{{ form.down.errors }}</span>
-										{% endif %}
-									</td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</fieldset>
-				</div>
-				<div class="span4">
-					<fieldset>
-						{{ lasix_drug_formset.management_form }}
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="10%">เวลา</th>
-									<th>ขนาด <br>(มก.)</th>
-									<th>จำนวน <br>(เม็ด)</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for form in lasix_drug_formset %}
-								{{ form.non_field_errors }}
-								{{ form.period }}
-								{{ form.name }}
-								<tr >
-									<td >{{ form.period.value|to_thai }}</td>
-									<td >
-										{{ form.size }}
-										{% if form.size.errors %}
-										<span class="help-inline alert alert-error">{{ form.size.errors }}</span>
-										{% endif %}
-									</td>
-									<td>
-										{{ form.amount }}
-										{% if form.amount.errors %}
-										<span class="help-inline alert alert-error">{{ form.amount.errors }}</span>
-										{% endif %}
-									</td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</fieldset>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
-	<hr >
-
-	<div class="row-fluid">
-		<div class="span6 offset3">
-			<button type="submit" class="btn btn-large btn-block " >เพิ่มข้อมูล</button>
-		</div>
-	</div>
-</form>
-
-{% endblock %}
+	{% endblock %}

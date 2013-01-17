@@ -70,27 +70,13 @@ class Patient(models.Model):
 		verbose_name_plural = "1. ผู้ป่วย"
 		verbose_name = "ผู้ป่วย"
 
-	def check_for_no_duplicate_period_in_formset(self, entry, field_name, formset):
-		today_submitted_periods = self.get_today_submitted_periods(entry)
-		for form in formset:
-			if form.cleaned_data[field_name] != None and form.cleaned_data['period'] in today_submitted_periods:
-				return False, "ท่านได้ส่ง"+ str(form._meta.model._meta.verbose_name) +"สำหรับช่วงเวลา" + dict(PEROIDS)[form.cleaned_data['period']] + "แล้ว"
-		return True, ""
-
-	def get_today_submitted_periods(self, entry):
+	def check_for_no_duplicate_period(self, period):
 		submitted_records = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
-		today_submitted_periods = []
 		for record in submitted_records:
-			if entry == 'weight':
-				periods = record.weight_set.values_list('period', flat=True)
-			elif entry == 'pressure':
-				periods = record.pressure_set.values_list('period', flat=True)
-			elif entry == 'drug':
-				periods = record.drug_set.values_list('period', flat=True)
-			for period in periods:
-				if not period in today_submitted_periods:
-					today_submitted_periods.append(period)
-		return today_submitted_periods
+			if period in record.weight_set.values_list('period', flat=True) or period in record.pressure_set.values_list('period', flat=True) or period in record.drug_set.values_list('period', flat=True):
+				return False
+		return True
+
 
 	def create_new_record(self):
 		return self.record_set.create()
@@ -136,35 +122,35 @@ class Record(models.Model):
 		return entry
 
 
-	def create_entry_for_record_from_web(self, entry, formset):
-		for form in formset:
-			if entry == 'weight' and form.cleaned_data['weight'] != None:
-				try:
-					self.weight_set.create(
-						period = form.cleaned_data['period'],
-						weight = form.cleaned_data['weight']
-					)
-				except Exception, e:
-					return None
-			elif entry == 'drug' and form.cleaned_data['amount'] != None:
-				try:
-					self.drug_set.create(
-						name = form.cleaned_data['name'],
-						period = form.cleaned_data['period'],
-						size = form.cleaned_data['size'],
-						amount = form.cleaned_data['amount']
-					)
-				except Exception, e:
-					return None
-			elif entry == 'pressure' and form.cleaned_data['up'] != None:
-				try:
-					self.pressure_set.create(
-						period = form.cleaned_data['period'],
-						up = form.cleaned_data['up'],
-						down = form.cleaned_data['down']
-					)
-				except Exception, e:
-					return None
+	def create_entry_for_record_from_web(self, form):
+		if form.cleaned_data['weight']:
+			try:
+				self.weight_set.create(
+					period = form.cleaned_data['period'],
+					weight = form.cleaned_data['weight']
+				)
+			except Exception, e:
+				raise e
+		if form.cleaned_data['drug_size'] and form.cleaned_data['drug_amount']:
+			try:
+				self.drug_set.create(
+					name = form.cleaned_data['drug_name'],
+					period = form.cleaned_data['period'],
+					size = form.cleaned_data['drug_size'],
+					amount = form.cleaned_data['drug_amount']
+				)
+			except Exception, e:
+				raise e
+		if form.cleaned_data['pressure_up'] and form.cleaned_data['pressure_down']:
+			try:
+				self.pressure_set.create(
+					period = form.cleaned_data['period'],
+					up = form.cleaned_data['pressure_up'],
+					down = form.cleaned_data['pressure_down']
+				)
+			except Exception, e:
+				raise e
+		
 		return True
 
 class Response(models.Model):
