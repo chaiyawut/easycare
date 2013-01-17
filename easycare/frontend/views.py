@@ -69,7 +69,7 @@ def record_create(request):
 							messages.success(request, "คำร้องขอถูกสร้างแล้ว", extra_tags='alert alert-success')
 						else:
 							messages.success(request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
-						return render(request, 'record/create_success.html', { 'record': new_record })
+						return render(request, 'record/create_success.html', { 'HEADER':'ระบบบันทึกข้อมูลของท่านเรียบร้อยแล้วค่ะ', 'record': new_record })
 					else:
 						messages.error(request, 'ไม่สามารถเซฟได้กรุณาจดเลข "' + str(new_record.id) + '" และติดต่อพยาบาล', extra_tags='alert alert-error')
 				else:

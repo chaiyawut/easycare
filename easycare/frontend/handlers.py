@@ -181,7 +181,7 @@ class CallHandler:
 				record.voicemail = voicemail['path']
 				record.save()
 			messages =  "#"+ str(record.id) +" " + entry_messages
-			html_messages = render_to_string('email/confirm_record.html', { 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ระบบบันทึกข้อมูลของท่านเรียบร้อยแล้วค่ะ', 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
@@ -475,7 +475,7 @@ class ChatHandler:
 				pressure_entry = record.create_entry_for_record_from_voip(pressure=pressure)
 				entry_messages = entry_messages + "bp:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			messages =  "#"+ str(record.id) +" " + entry_messages
-			html_messages = render_to_string('email/confirm_record.html', { 'record': record })
+			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ระบบบันทึกข้อมูลของท่านเรียบร้อยแล้วค่ะ', 'record': record })
 		
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
