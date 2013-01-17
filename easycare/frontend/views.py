@@ -48,21 +48,21 @@ def record_create(request):
 					new_record = patient.create_new_record()
 					if new_record.create_entry_for_record_from_web(form):
 						html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
-						reply_messages = '#' + str(new_record.id) + ' '
+						reply_messages = '#' + str(new_record.id) + ' p:' + PERIODS[data.period] + ' '
 						if new_record.weight_set.all():
 							weight_message = "w:"
 							for data in new_record.weight_set.all():
-								weight_message = weight_message + ' ' + PERIODS[data.period] +' '+str(data.weight) + ' '
+								weight_message = weight_message + ' '+str(data.weight) + ' '
 							reply_messages = reply_messages + weight_message
 						if new_record.drug_set.all():
 							drug_message = "l:"
 							for data in new_record.drug_set.all():
-								drug_message = drug_message + ' ' + PERIODS[data.period] +' '+ str(data.size)+'mg'+str(data.amount) + ' '
+								drug_message = drug_message + ' '+ str(data.size)+'mg'+str(data.amount) + ' '
 							reply_messages = reply_messages + drug_message
 						if new_record.pressure_set.all():
 							pressure_message = "bp:"
 							for data in new_record.pressure_set.all():
-								pressure_message = pressure_message + ' ' + PERIODS[data.period] +' '+ str(data.up)+'/'+str(data.down) + ' '
+								pressure_message = pressure_message + ' ' + str(data.up)+'/'+str(data.down) + ' '
 							reply_messages = reply_messages + pressure_message
 						sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
 						if sent:
