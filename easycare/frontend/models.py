@@ -71,15 +71,14 @@ class Patient(models.Model):
 		verbose_name = "ผู้ป่วย"
 
 	def check_for_no_duplicate_period(self, period):
-		submitted_records = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True)
-		for record in submitted_records:
-			if period in record.weight_set.values_list('period', flat=True) or period in record.pressure_set.values_list('period', flat=True) or period in record.drug_set.values_list('period', flat=True):
+		submitted_periods = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True).values_list('period', flat=True)
+		if period in submitted_periods:
 				return False
 		return True
 
 
-	def create_new_record(self):
-		return self.record_set.create()
+	def create_new_record(self, period):
+		return self.record_set.create(period=period)
 
 
 class Record(models.Model):
@@ -101,22 +100,19 @@ class Record(models.Model):
 		self.status = status
 		self.save()
 
-	def create_entry_for_record_from_voip(self, period, weight=None, pressure=None, drug=None):
+	def create_entry_for_record_from_voip(self, weight=None, pressure=None, drug=None):
 		if weight:
 			entry = self.weight_set.create(
-				period = period,
 				weight = weight['weight']
 			)
 		elif drug:
 			entry = self.drug_set.create(
 				name = drug['name'],
-				period = period,
 				size = drug['size'],
 				amount = drug['amount']
 			)
 		elif pressure:
 			entry = self.pressure_set.create(
-				period = period,
 				up = pressure['up'],
 				down = pressure['down']
 			)
@@ -127,7 +123,6 @@ class Record(models.Model):
 		if form.cleaned_data['weight']:
 			try:
 				self.weight_set.create(
-					period = form.cleaned_data['period'],
 					weight = form.cleaned_data['weight']
 				)
 			except Exception, e:
@@ -136,7 +131,6 @@ class Record(models.Model):
 			try:
 				self.drug_set.create(
 					name = form.cleaned_data['drug_name'],
-					period = form.cleaned_data['period'],
 					size = form.cleaned_data['drug_size'],
 					amount = form.cleaned_data['drug_amount']
 				)
@@ -145,7 +139,6 @@ class Record(models.Model):
 		if form.cleaned_data['pressure_up'] and form.cleaned_data['pressure_down']:
 			try:
 				self.pressure_set.create(
-					period = form.cleaned_data['period'],
 					up = form.cleaned_data['pressure_up'],
 					down = form.cleaned_data['pressure_down']
 				)
@@ -179,7 +172,7 @@ class Drug(RecordElementBase):
 	amount = models.DecimalField(max_digits=2, decimal_places=1, choices=DRUG_AMOUNTS, blank=True, null=True, verbose_name='จำนวนยา')
 
 	def __unicode__(self):
-		return "Record: " + str(self.record.id) + " " + self.period + " " + self.name + " " + str(self.size) + " " + str(self.amount)
+		return "Record: " + str(self.record.id) + " "  + self.name + " " + str(self.size) + " " + str(self.amount)
 
 	class Meta:
 		verbose_name_plural = "5. ยา"
@@ -190,7 +183,7 @@ class Pressure(RecordElementBase):
 	down = models.IntegerField(blank=True, null=True, verbose_name='ความดันตัวล่าง')
 
 	def __unicode__(self):
-		return "Record: " + str(self.record.id) + " " + self.period + " " + str(self.up) + " " + str(self.down)
+		return "Record: " + str(self.record.id) + " " + str(self.up) + " " + str(self.down)
 
 	class Meta:
 		verbose_name_plural = "6. ความดัน"
@@ -200,7 +193,7 @@ class Weight(RecordElementBase):
 	weight = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name='น้ำหนัก')
 
 	def __unicode__(self):
-		return "Record: " + str(self.record.id) + " " + self.period + " " + str(self.weight)
+		return "Record: " + str(self.record.id) + " " + str(self.weight)
 
 	class Meta:
 		verbose_name_plural = "4. น้ำหนัก"

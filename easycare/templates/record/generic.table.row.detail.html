@@ -28,7 +28,7 @@
 			<tbody>
 				{% for data in record.weight_set.all %}
 				<tr class="info">
-					<td width="30%">{{ data.period|to_thai }}</td>
+					<td width="30%">{{ record.period|to_thai }}</td>
 					<td> {{ data.weight }} กิโลกรัม </td>
 				</tr>
 				{% endfor %}
@@ -45,7 +45,7 @@
 			<tbody>
 				{% for data in record.drug_set.all %}
 				<tr class="info">
-					<td width="30%">{{ data.period|to_thai }}</td>
+					<td width="30%">{{ record.period|to_thai }}</td>
 					<td> {{ data.size }} มก .</td>
 					<td> {{ data.amount }} เม็ด </td>
 				</tr>
@@ -63,7 +63,7 @@
 			<tbody>
 				{% for data in record.pressure_set.all %}
 				<tr class="info">
-					<td width="30%">{{ data.period|to_thai }}</td>
+					<td width="30%">{{ record.period|to_thai }}</td>
 					<td> {{ data.up }}/{{ data.down }} มม.ปรอท</td>
 				</tr>
 				{% endfor %}
