@@ -25,28 +25,6 @@ content: "แก้ไขข้อมูลผู้ป่วย";
 				</div>
 				<div class="span10">
 					<legend>ข้อมูลผู้ป่วย</legend>
-					<div class="row-fluid">
-						<div class="span8 offset1">
-							<form class="bs-docs-example form-horizontal" enctype="multipart/form-data" method="post" >{% csrf_token %} 
-					            {{ form.non_field_errors }}
-					            {% for hidden in form.hidden_fields %}
-								{{ hidden }}
-								{% endfor %}
-					            {% for field in form %}
-					            <div class="control-group">
-					              <label class="control-label" >{{ field.label }}</label>
-					              <div class="controls">
-					                {{ field }}
-					                {% if field.errors %}
-					                <span class="help-inline">{{ field.errors }}</span>
-					                {% endif %}
-					              </div>
-					            </div>
-					            {% endfor %}
-					            <button type="submit" class="btn btn-large btn-block btn-danger">ทำการแก้ไข</button>
-					          </form>
-						</div>
-					</div>
 					{% if record %}
 					<div class="row-fluid">
 						<div class="span10">
@@ -73,6 +51,28 @@ content: "แก้ไขข้อมูลผู้ป่วย";
 						</div>
 					</div>
 					{% endif %}
+					<div class="row-fluid">
+						<div class="span8 offset1">
+							<form class="bs-docs-example form-horizontal" enctype="multipart/form-data" method="post" >{% csrf_token %} 
+					            {{ form.non_field_errors }}
+					            {% for hidden in form.hidden_fields %}
+								{{ hidden }}
+								{% endfor %}
+					            {% for field in form %}
+					            <div class="control-group">
+					              <label class="control-label" >{{ field.label }}</label>
+					              <div class="controls">
+					                {{ field }}
+					                {% if field.errors %}
+					                <span class="help-inline">{{ field.errors }}</span>
+					                {% endif %}
+					              </div>
+					            </div>
+					            {% endfor %}
+					            <button type="submit" class="btn btn-large btn-block btn-danger">ทำการแก้ไข</button>
+					          </form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
