@@ -111,7 +111,7 @@ class PatientReisterCreateView(CreateView):
 	form_class = PatientForm
 	model = Patient
 	template_name = 'patient/register.html'
-	success_url = '/patient/register/'
+	success_url = reverse_lazy('patient-register')
 
 	def form_valid(self, form):
 		messages.success(self.request, "ประวัติคนไข้ถูกสร้างแล้ว", extra_tags='alert alert-success')
@@ -130,7 +130,7 @@ class PatientUpdateView(UpdateView):
 	model = Patient
 	context_object_name = 'patient'
 	template_name = 'patient/edit.html'
-	success_url = '/records/pending/'
+	success_url = reverse_lazy('record-pending')
 
 	def get_context_data(self, **kwargs):
 		context = super(PatientUpdateView, self).get_context_data(**kwargs)
