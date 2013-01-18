@@ -167,20 +167,19 @@ class CallHandler:
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		else:
 			record = patient.create_new_record(period)
-			entry_messages = "p:" + PERIODS[period] + " "
+			entry_messages = '#' + str(record.id) + ' ช่วง:' + PERIODS[period] + ' '
 			if weight:
 				weight_entry = record.create_entry_for_record_from_voip(weight=weight)
-				entry_messages = entry_messages + "w:" + str(weight_entry.weight) + " "
+				entry_messages = entry_messages + "น้ำหนัก:" + str(weight_entry.weight) + " "
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip( drug=drug)
-				entry_messages = entry_messages + "l:" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
+				entry_messages = entry_messages + "ยา:" + str(drug_entry.size)+"มก."+ str(drug_entry.amount) + "เม็ด "
 			if pressure:
 				pressure_entry = record.create_entry_for_record_from_voip( pressure=pressure)
-				entry_messages = entry_messages + "bp:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
+				entry_messages = entry_messages + "ความดัน:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			if voicemail:
 				record.voicemail = voicemail['path']
 				record.save()
-			messages =  "#"+ str(record.id) +" " + entry_messages
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ระบบบันทึกข้อมูลของท่านเรียบร้อยแล้วค่ะ', 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
@@ -464,17 +463,16 @@ class ChatHandler:
 			messages =  "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
 		else:
 			record = patient.create_new_record(period)
-			entry_messages = "p:" + PERIODS[period] + " "
+			entry_messages = '#' + str(record.id) + ' ช่วง:' + PERIODS[period] + ' '
 			if weight:
 				weight_entry = record.create_entry_for_record_from_voip(weight=weight)
-				entry_messages = entry_messages + "w:" + str(weight_entry.weight) + " "
+				entry_messages = entry_messages + "น้ำหนัก:" + str(weight_entry.weight) + " "
 			if drug:
 				drug_entry = record.create_entry_for_record_from_voip(drug=drug)
-				entry_messages = entry_messages + "l:" + str(drug_entry.size)+"mg"+ str(drug_entry.amount) + " "
+				entry_messages = entry_messages + "ยา:" + str(drug_entry.size)+"มก."+ str(drug_entry.amount) + "เม็ด "
 			if pressure:
 				pressure_entry = record.create_entry_for_record_from_voip(pressure=pressure)
-				entry_messages = entry_messages + "bp:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
-			messages =  "#"+ str(record.id) +" " + entry_messages
+				entry_messages = entry_messages + "ความดัน:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			html_messages = render_to_string('email/confirm_record.html', { 'HEADER':'ระบบบันทึกข้อมูลของท่านเรียบร้อยแล้วค่ะ', 'record': record })
 		
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
