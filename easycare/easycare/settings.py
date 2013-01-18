@@ -35,11 +35,11 @@ except ImportError:
        has been imported." % current_env
 ###############################################################################
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('Chaiyawut Sookplang', 'chaiyawut.so@gmail.com'),
 )
 
 MANAGERS = ADMINS
