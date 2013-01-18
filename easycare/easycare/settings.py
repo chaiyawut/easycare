@@ -35,7 +35,7 @@ except ImportError:
        has been imported." % current_env
 ###############################################################################
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
