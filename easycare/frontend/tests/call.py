@@ -19,3 +19,5 @@ class CallHandlerTest(TestCase):
 	def setUp(self):
 		self.user = User.objects.create_user('easycall', 'easycall@thevcgroup.com', 'powerall')
 
+	
+

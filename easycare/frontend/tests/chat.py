@@ -19,6 +19,8 @@ class SMSHandlerTest(TestCase):
 	def setUp(self):
 		self.user = User.objects.create_user('easycall', 'easycall@thevcgroup.com', 'powerall')
 
+
+	"""
 	def test_save_record_from_sms(self):
 		received_number = "+66860216060"
 		received_body = "p1 w55.5 bp120/80 l500mg1.5"
@@ -114,3 +116,4 @@ class SMSHandlerTest(TestCase):
 		period = handler.get_period()
 		storeNumber = Patient.objects.all().values_list('contact_number', flat=True)
 		self.assertNotIn(contact_number, storeNumber)
+	"""
