@@ -35,8 +35,6 @@ except ImportError:
        has been imported." % current_env
 ###############################################################################
 
-TEMPLATE_DEBUG = DEBUG
-
 ADMINS = (
     # ('Chaiyawut Sookplang', 'chaiyawut.so@gmail.com'),
 )
