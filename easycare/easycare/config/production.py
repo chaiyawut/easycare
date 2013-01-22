@@ -9,3 +9,5 @@ DATABASES = {
     }
 }
 
+DEBUG = False
+

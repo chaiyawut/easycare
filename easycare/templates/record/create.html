@@ -50,7 +50,7 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="control-group">
-								<label class="control-label" ><strong>หมายเลขโทรศัพท์</strong></label>
+								<label class="control-label" ><strong>หมายเลขโทรศัพท์*</strong></label>
 								<div class="controls">
 									{{ form.contact_number }}
 									{% if form.contact_number.errors %}
@@ -59,7 +59,7 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" ><strong>ช่วงเวลา</strong></label>
+								<label class="control-label" ><strong>ช่วงเวลา*</strong></label>
 								<div class="controls">
 									{{ form.period }}
 									{% if form.period.errors %}
@@ -68,7 +68,7 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" ><strong>น้ำหนัก</strong></label>
+								<label class="control-label" ><strong>น้ำหนัก*</strong></label>
 								<div class="controls">
 									<div class="input-append">
 									  {{ form.weight }}
@@ -80,7 +80,7 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" ><strong>ยาลาซิก</strong></label>
+								<label class="control-label" ><strong>ยาลาซิก*</strong></label>
 								<div class="controls">
 									{{ form.drug_name}}
 									{{ form.drug_size }}

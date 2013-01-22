@@ -166,7 +166,7 @@ class CallHandler:
 			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'เกิดข้อผิดพลาด! ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
 		else:
-			record = patient.create_new_record(period)
+			record = patient.create_new_record(period, 'ivr')
 			entry_messages = '#' + str(record.id) + ' ช่วง:' + PERIODS[period] + ' '
 			if weight:
 				weight_entry = record.create_entry_for_record_from_voip(weight=weight)
@@ -462,7 +462,7 @@ class ChatHandler:
 			html_messages = "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
 			messages =  "ผิดพลาด ท่านไม่ได้ใส่ข้อมูลเลย กรุณาใส่ข้อมูล"
 		else:
-			record = patient.create_new_record(period)
+			record = patient.create_new_record(period, 'sms')
 			entry_messages = '#' + str(record.id) + ' ช่วง:' + PERIODS[period] + ' '
 			if weight:
 				weight_entry = record.create_entry_for_record_from_voip(weight=weight)

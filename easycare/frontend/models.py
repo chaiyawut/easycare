@@ -42,6 +42,12 @@ DRUG_AMOUNTS = (
 	(5, '5 เม็ด'),
 )
 
+SUBMIT_OPTIONS = (
+	('sms', 'เอสเอ็มเอส'),
+	('web', 'เวปไซด์'),
+	('ivr', 'ไอวีอาร์'),
+)
+
 def get_file_path(instance, filename):
 	path = 'voices/sounds_for_name/'
 	format = str(instance.hn).replace('/', '_')  + ".mp3"
@@ -77,8 +83,8 @@ class Patient(models.Model):
 		return True
 
 
-	def create_new_record(self, period):
-		return self.record_set.create(period=period)
+	def create_new_record(self, period, submitted_by):
+		return self.record_set.create(period=period, submitted_by=submitted_by)
 
 
 class Record(models.Model):
@@ -87,6 +93,7 @@ class Record(models.Model):
 	voicemail = models.CharField(blank=True, max_length=200, verbose_name='ข้อมูลฝากเสียง')
 	status = models.CharField(default='รอการตอบกลับ', max_length=200, verbose_name='สถานะ')
 	period = models.CharField(max_length=200, choices=PEROIDS, verbose_name='ช่วงเวลา')
+	submitted_by = models.CharField(max_length=200, choices=SUBMIT_OPTIONS, verbose_name='ได้รับข้อมูลทาง')
 
 	def __unicode__(self):
 		return "id: " + str(self.id) + " timestamp: " + str(self.datetime)#.astimezone(timezone('Asia/Bangkok')).strftime("%d/%m/%y %H:%M:%S"))

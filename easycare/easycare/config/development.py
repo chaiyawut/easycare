@@ -12,3 +12,4 @@ DATABASES = {
     }
 }
 
+DEBUG = True

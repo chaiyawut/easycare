@@ -45,7 +45,7 @@ def record_create(request):
 			patient = form.get_patient_from_contact_number()
 			if patient:
 				if patient.check_for_no_duplicate_period(period):
-					new_record = patient.create_new_record(period)
+					new_record = patient.create_new_record(period, 'web')
 					if new_record.create_entry_for_record_from_web(form):
 						html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
 						reply_messages = '#' + str(new_record.id) + ' ช่วง:' + PERIODS[period] + ' '
