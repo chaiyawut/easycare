@@ -283,7 +283,20 @@ class RecordDeleteView(CreateView):
 	def form_valid(self, form):
 		redirect_url = super(RecordDeleteView, self).form_valid(form)
 		self.record.change_status('ลบ')
-		messages.success(self.request, "คำร้องขอถูกลบเรียบร้อยแล้ว", extra_tags='alert alert-success')
+
+		contact_number = self.record.patient.contact_number
+		contact_email = self.record.patient.email
+		msg_type = self.record.patient.confirm_by
+
+		reply_messages = '#'+ str(self.record.id) + ' คำร้องขอถูกลบเรียบร้อยแล้ว'
+		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
+
+		sent = send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages)
+		if sent:
+			messages.success(self.request, "คำร้องขอถูกลบเรียบร้อยแล้ว", extra_tags='alert alert-success')
+		else:
+			messages.success(self.request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
+
 		return redirect_url
 
 
