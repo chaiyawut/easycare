@@ -81,7 +81,7 @@ class RecordModelTestCase(TestCase):
 
 	def create_entry_for_record_from_web(self):
 
-		#need to do form test
+		#need to do form and graph test
 
 		pass
 
