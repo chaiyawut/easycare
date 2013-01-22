@@ -1,0 +1,71 @@
+{% extends "base/homepage_base.html" %}
+{% load url from future %}
+
+{% block style-local %}
+
+.bs-docs-example::after {
+content: "ลงทะเบียนผู้ป่วย";
+}
+
+{% endblock %}
+
+{% block script-local %}
+<script>
+$(function() {
+		$( "#id_date" ).datepicker({
+			dateFormat: 'yy-mm-dd',
+			changeMonth: true,
+			changeYear: true,
+		});
+	});
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<section>
+	<div class="row">
+		<div class="span12">
+			<div class="row-fluid">
+				<div class="span2">
+					{% include "dashboard/navlist.html" with page="visit" %}
+				</div>
+				<div class="span10">
+					<legend>เพิ่มผู้ป่วยใหม่</legend>
+					{% if messages %}
+					{% for message in messages %}
+					<div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+						{{ message }}
+					</div>
+					{% endfor %}
+					{% endif %}
+
+					<div class="row-fluid">
+						<div class="span8 offset1">
+							<form class="bs-docs-example form-horizontal" enctype="multipart/form-data" method="post" >{% csrf_token %} 
+					            {{ form.non_field_errors }}
+					            {% for field in form %}
+					            <div class="control-group">
+					              <label class="control-label" >{{ field.label }}</label>
+					              <div class="controls">
+					                {{ field }}
+					                {% if field.errors %}
+					                <span class="help-inline">{{ field.errors }}</span>
+					                {% endif %}
+					              </div>
+					            </div>
+					            {% endfor %}
+					            <button type="submit" class="btn btn-large btn-block btn-primary">เพิ่มข้อมูล</button>
+					          </form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+<!-- Blocks for logged in user -->

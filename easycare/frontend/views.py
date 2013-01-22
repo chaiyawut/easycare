@@ -107,6 +107,25 @@ class RecordPendingListView(ListView):
 		url = "?" + q.urlencode()
 		return url
 
+class PatientVisitCreateView(CreateView):
+	form_class = VisitForm
+	model = Visit
+	template_name = 'patient/visit.html'
+	success_url = reverse_lazy('patient-visit')
+
+	def form_valid(self, form):
+		contact_number = form.cleaned_data['contact_number']
+		date = form.cleaned_data['date']
+		visit_type = form.cleaned_data['visit_type']	
+		Visit.objects.create(
+			patient = Patient.objects.get(contact_number= contact_number),
+			date = date,
+			visit_type = visit_type
+		)
+		messages.success(self.request, "ประวัติการเข้ารับบริการของคนไข้ถูกสร้างแล้ว", extra_tags='alert alert-success')
+		return redirect(self.success_url)
+
+
 class PatientReisterCreateView(CreateView):
 	form_class = PatientForm
 	model = Patient

@@ -13,6 +13,13 @@
 		</li>
 		<li class="divider"></li>		
 		<li class="nav-header">
+			การเข้ารับบริการ
+		</li>
+		<li class="{% if page == 'visit' %}active{% endif %}">
+			<a href="{% url 'patient-visit' %}"><i class="icon-plus"></i> เพิ่มข้อมูล</a>
+		</li>
+		<li class="divider"></li>
+		<li class="nav-header">
 			คำร้องขอ
 		</li>
 		<li class="{% if page == 'pending' %}active{% endif %}"> 

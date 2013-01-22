@@ -1,5 +1,5 @@
 #-*-coding: utf-8 -*-
-from frontend.models import Patient, Record, Weight, Pressure, Drug, Response
+from frontend.models import *
 from django import forms
 from frontend.fields import ResponseAutoCompleteField
 from django.core import validators 
@@ -55,6 +55,26 @@ class PatientForm(forms.ModelForm):
 			if fileExtension != '.mp3':
 				raise forms.ValidationError("ไฟล์เสียงสำหรับชื่อต้องเป็น .mp3 เท่านั้น")
 			return uploaded_file
+
+class VisitForm(forms.ModelForm):
+	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'ตัวอย่าง 081234567'}))
+	
+	class Meta:
+		model = Visit
+		fields = ['contact_number','date','visit_type']
+
+	def __init__(self, *args, **kwargs):
+		super(VisitForm, self).__init__(*args, **kwargs)
+		self.fields['contact_number'].label = "เบอร์โทรศัพท์ผู้ป่วย"
+
+	def clean_contact_number(self):
+		contact_number = self.cleaned_data['contact_number']
+		try:
+			Patient.objects.get(contact_number=contact_number)
+			return contact_number
+		except Exception, e:
+			raise forms.ValidationError("เบอร์ผู้ป่วยไม่ได้ลงทะเบียนไว้")
+		
 
 class RecordForm(forms.Form):
 	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'ตัวอย่าง 081234567'}))

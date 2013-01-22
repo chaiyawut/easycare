@@ -8,4 +8,5 @@ admin.site.register(Drug)
 admin.site.register(Pressure)
 admin.site.register(Weight)
 admin.site.register(Sign)
+admin.site.register(Visit)
 

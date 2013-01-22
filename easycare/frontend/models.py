@@ -48,6 +48,11 @@ SUBMIT_OPTIONS = (
 	('ivr', 'ไอวีอาร์'),
 )
 
+VISIT_TYPES = (
+	('phone', 'โทรศัพท์'),
+	('hospital', 'คลินิก'),
+)
+
 def get_file_path(instance, filename):
 	path = 'voices/sounds_for_name/'
 	format = str(instance.hn).replace('/', '_')  + ".mp3"
@@ -85,6 +90,17 @@ class Patient(models.Model):
 	def create_new_record(self, period, submitted_by):
 		return self.record_set.create(period=period, submitted_by=submitted_by)
 
+class Visit(models.Model):
+	patient = models.ForeignKey(Patient)
+	date = models.DateField(default=datetime.datetime.now().date(), verbose_name='วันที่มารับบริการ')
+	visit_type = models.CharField(max_length=200, choices=VISIT_TYPES, verbose_name='ประเภทบริการ')
+
+	def __unicode__(self):
+		return str(self.date) + ' ' + self.patient.fullname
+
+	class Meta:
+		verbose_name_plural = "8. ข้อมูลการให้บริการ"
+		verbose_name = "ข้อมูลการให้บริการ"
 
 class Record(models.Model):
 	patient = models.ForeignKey(Patient)
@@ -219,5 +235,5 @@ class Sign(RecordElementBase):
 
 	class Meta:
 		verbose_name_plural = "7. อาการอื่นๆ"
-		verbose_name = "7. อาการอื่นๆ"
+		verbose_name = "อาการอื่นๆ"
 

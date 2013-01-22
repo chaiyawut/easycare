@@ -28,6 +28,7 @@ urlpatterns = patterns('',
         url(r'^records/(?P<record_id>\d+)/graph/drug/$', 'frontend.views.graph_drug', name="record-graph-drug"),
         url(r'^records/(?P<record_id>\d+)/graph/pressure/$', 'frontend.views.graph_pressure', name="record-graph-amount"),
         url(r'^patients/register/$', login_required(PatientReisterCreateView.as_view()), name="patient-register"),
+        url(r'^patients/visit/$', login_required(PatientVisitCreateView.as_view()), name="patient-visit"),
         url(r'^patients/$', login_required(PatientListView.as_view()), name="patient"),
         url(r'^patients/(?P<pk>\d+)/$', login_required(PatientUpdateView.as_view()), name="patient-update"),
 )
