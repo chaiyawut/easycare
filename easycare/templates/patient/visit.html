@@ -4,7 +4,7 @@
 {% block style-local %}
 
 .bs-docs-example::after {
-content: "ลงทะเบียนผู้ป่วย";
+content: "เพิ่มข้อมูล";
 }
 
 {% endblock %}
@@ -34,7 +34,7 @@ $(function() {
 					{% include "dashboard/navlist.html" with page="visit" %}
 				</div>
 				<div class="span10">
-					<legend>เพิ่มผู้ป่วยใหม่</legend>
+					<legend>เพิ่มข้อมูลการให้บริการของผู้ป่วย</legend>
 					{% if messages %}
 					{% for message in messages %}
 					<div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
