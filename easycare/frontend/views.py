@@ -273,7 +273,7 @@ class RecordDeleteView(CreateView):
 	def get_initial(self):
 		self.record = Record.objects.get(id=self.kwargs['record'])
 		user = self.request.user
-		return {'record': self.record.id, 'nurse': user, 'deleted':True }
+		return {'record': self.record.id, 'nurse': user, 'deleted':True, 'reply_text':'ลบ' }
 
 	def get_context_data(self, **kwargs):
 		context = super(RecordDeleteView, self).get_context_data(**kwargs)

@@ -112,6 +112,15 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 								</div>
 							</div>
 							<div class="control-group">
+								<label class="control-label" ><strong>อาการอื่นๆ</strong></label>
+								<div class="controls">
+									{{ form.sign }}
+									{% if form.sign.errors  %}
+									<span class="help-inline ">{{ form.sign.errors }}</span>
+									{% endif %}
+								</div>
+							</div>
+							<div class="control-group">
 								<hr>
 								<button type="submit" class="btn btn-primary btn-large btn-block " >เพิ่มข้อมูล</button>
 							</div>

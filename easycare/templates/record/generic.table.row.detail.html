@@ -72,6 +72,23 @@
 	</td>
 </tr>
 {% endif %}
+{% if record.sign_set.all %}
+<tr>
+	<td width="30%"><strong>อาการอื่นๆ</strong></td>
+	<td>
+		<table class="table table-bordered">
+			<tbody>
+				{% for data in record.sign_set.all %}
+				<tr class="info">
+					<td width="30%">{{ record.period|to_thai }}</td>
+					<td> {{ data.sign }} </td>
+				</tr>
+				{% endfor %}
+			<tbody>
+		</table>
+	</td>
+</tr>
+{% endif %}
 {% if record.voicemail %}
 <tr>
 	<td width="30%"><strong>ข้อความเสียง</strong></td>

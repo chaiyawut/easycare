@@ -13,7 +13,7 @@ os.environ['DJANGO_ENV'] = 'production'
 import settings
 setup_environ(settings)
 from frontend.models import *
-from frontend.handlers import CallHandler
+from frontend.handlers.call import CallHandler
 from frontend.utils.words import *
 
 

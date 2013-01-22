@@ -127,6 +127,13 @@ class Record(models.Model):
 
 
 	def create_entry_for_record_from_web(self, form):
+		if form.cleaned_data['sign']:
+			try:
+				self.sign_set.create(
+					sign = form.cleaned_data['sign']
+				)
+			except Exception, e:
+				raise e
 		if form.cleaned_data['weight']:
 			try:
 				self.weight_set.create(
@@ -205,4 +212,14 @@ class Weight(RecordElementBase):
 	class Meta:
 		verbose_name_plural = "4. น้ำหนัก"
 		verbose_name = "น้ำหนัก"
+
+class Sign(RecordElementBase):
+	sign = models.CharField(max_length=200, blank=True, null=True, verbose_name='อาการอื่นๆ')
+
+	def __unicode__(self):
+		return "Record: " + str(self.record.id) + " "  + self.sign
+
+	class Meta:
+		verbose_name_plural = "7. อาการอื่นๆ"
+		verbose_name = "7. อาการอื่นๆ"
 

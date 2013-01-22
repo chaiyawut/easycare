@@ -14,7 +14,7 @@ import settings
 setup_environ(settings)
 
 from frontend.models import *
-from frontend.handlers import ChatHandler
+from frontend.handlers.chat import ChatHandler
 from freeswitch import *
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from frontend.utils.words import *
