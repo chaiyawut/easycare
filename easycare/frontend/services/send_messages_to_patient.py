@@ -26,6 +26,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			return False
 	return True
 
+
 """
 try:
 	from ESL import *

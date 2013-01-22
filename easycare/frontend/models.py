@@ -82,7 +82,6 @@ class Patient(models.Model):
 				return False
 		return True
 
-
 	def create_new_record(self, period, submitted_by):
 		return self.record_set.create(period=period, submitted_by=submitted_by)
 
@@ -127,13 +126,6 @@ class Record(models.Model):
 
 
 	def create_entry_for_record_from_web(self, form):
-		if form.cleaned_data['sign']:
-			try:
-				self.sign_set.create(
-					sign = form.cleaned_data['sign']
-				)
-			except Exception, e:
-				raise e
 		if form.cleaned_data['weight']:
 			try:
 				self.weight_set.create(
@@ -158,7 +150,13 @@ class Record(models.Model):
 				)
 			except Exception, e:
 				raise e
-		
+		if form.cleaned_data['sign']:
+			try:
+				self.sign_set.create(
+					sign = form.cleaned_data['sign']
+				)
+			except Exception, e:
+				raise e
 		return True
 
 class Response(models.Model):

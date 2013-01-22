@@ -1,3 +1,3 @@
-from frontend.tests.chat import *
-from frontend.tests.call import *
-from frontend.tests.tests import *
+from frontend.tests.handlers import *
+from frontend.tests.utils import *
+from frontend.tests.models import *
