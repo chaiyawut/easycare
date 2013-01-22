@@ -7,9 +7,9 @@ Replace this with more appropriate tests for your application.
 """	
 
 from django.test import TestCase
-from frontend.models import Patient, Weight, Pressure, Drug
+from frontend.models import *
 from django.contrib.auth.models import User
-from frontend.handlers import CallHandler
+from frontend.handlers.call import CallHandler
 from frontend.utils.words import *
 
 
@@ -19,5 +19,5 @@ class CallHandlerTest(TestCase):
 	def setUp(self):
 		self.user = User.objects.create_user('easycall', 'easycall@thevcgroup.com', 'powerall')
 
-	
+
 
