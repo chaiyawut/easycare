@@ -57,23 +57,23 @@ class PatientForm(forms.ModelForm):
 			return uploaded_file
 
 class VisitForm(forms.ModelForm):
-	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'ตัวอย่าง 081234567'}))
+	hn = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'ตัวอย่าง 12345/55'}))
 	
 	class Meta:
 		model = Visit
-		fields = ['contact_number','date','visit_type']
+		fields = ['hn','date','visit_type']
 
 	def __init__(self, *args, **kwargs):
 		super(VisitForm, self).__init__(*args, **kwargs)
-		self.fields['contact_number'].label = "เบอร์โทรศัพท์ผู้ป่วย"
+		self.fields['hn'].label = "หมายเลขผู้ป่วยนอก"
 
-	def clean_contact_number(self):
-		contact_number = self.cleaned_data['contact_number']
+	def clean_hn(self):
+		hn = self.cleaned_data['hn']
 		try:
-			Patient.objects.get(contact_number=contact_number)
-			return contact_number
+			Patient.objects.get(hn=hn)
+			return hn
 		except Exception, e:
-			raise forms.ValidationError("เบอร์ผู้ป่วยไม่ได้ลงทะเบียนไว้")
+			raise forms.ValidationError("หมายเลขผู้ป่วยนอกไม่ได้ลงทะเบียนไว้")
 		
 
 class RecordForm(forms.Form):

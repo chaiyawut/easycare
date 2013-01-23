@@ -114,11 +114,11 @@ class PatientVisitCreateView(CreateView):
 	success_url = reverse_lazy('patient-visit')
 
 	def form_valid(self, form):
-		contact_number = form.cleaned_data['contact_number']
+		hn = form.cleaned_data['hn']
 		date = form.cleaned_data['date']
 		visit_type = form.cleaned_data['visit_type']	
 		Visit.objects.create(
-			patient = Patient.objects.get(contact_number= contact_number),
+			patient = Patient.objects.get(hn= hn),
 			date = date,
 			visit_type = visit_type
 		)
