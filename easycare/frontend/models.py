@@ -105,8 +105,8 @@ class Visit(models.Model):
 
 class Log(models.Model):
 	created = models.DateTimeField(default=datetime.datetime.now())
-	sms_count = models.IntegerField(default=1)
-	email_count = models.IntegerField(default=1)
+	sms_count = models.IntegerField(default=0)
+	email_count = models.IntegerField(default=0)
 
 	def __unicode__(self):
 		return 'Month: ' + str(self.created.month) + ' '+str(self.created.year)
@@ -130,7 +130,14 @@ class Log(models.Model):
 					recent_log.increment_sms_count()
 					recent_log.increment_email_count()
 				return recent_log
-		return Log.objects.create()
+		if message_type == 'sms':
+			return Log.objects.create(sms_count=1)
+		elif message_type == 'email':
+			return Log.objects.create(email_count=1)
+		elif message_type == 'both':
+			return Log.objects.create(sms_count=1, email_count=1)
+		else:
+			return Log.objects.create()
 
 	def increment_sms_count(self):
 		self.sms_count = self.sms_count + 1
