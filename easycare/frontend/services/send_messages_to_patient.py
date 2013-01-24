@@ -5,13 +5,15 @@ from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
 from django.core.management import setup_environ
 
-PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
-
-sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
-os.environ['DJANGO_ENV'] = 'production'
-import settings
-setup_environ(settings)
-from frontend.models import *
+try:
+	PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
+	sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
+	os.environ['DJANGO_ENV'] = 'production'
+	import settings
+	setup_environ(settings)
+	from frontend.models import *
+except Exception, e:
+	pass
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
 	if msg_type == 'sms' or msg_type == 'both':
@@ -33,8 +35,11 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			msg.send()
 		except Exception, e:
 			return False	
-	#update month log
-	Log.update_month_log(msg_type)
+	try:
+		#update month log
+		Log.update_month_log(msg_type)
+	except Exception, e:
+		pass
 	return True
 
 
