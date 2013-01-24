@@ -109,7 +109,7 @@ class Log(models.Model):
 	email_count = models.IntegerField(default=1)
 
 	def __unicode__(self):
-		return 'Date: ' + str(self.created.month) + ' '+str(self.created.year)
+		return 'Month: ' + str(self.created.month) + ' '+str(self.created.year)
 
 	class Meta:
 		verbose_name_plural = "9. Log"
