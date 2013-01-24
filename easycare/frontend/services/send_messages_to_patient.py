@@ -1,6 +1,6 @@
 #-*-coding: utf-8 -*-
 import string
-import sys
+import sys,os
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
 from django.core.management import setup_environ
