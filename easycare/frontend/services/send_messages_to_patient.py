@@ -25,8 +25,6 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 		response = client.service.SendSMS(Key, Mobile, Message)
 		if not response.title() == u'No Error, The Request Is Successful':
 			return False
-		#update month log
-		Log.update_month_log('sms')	
 	if msg_type == 'email' or msg_type == 'both':
 		try:
 			subject, from_email, to = 'สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
@@ -34,9 +32,9 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			msg.attach_alternative(html_messages, "text/html")
 			msg.send()
 		except Exception, e:
-			return False
-		#update month log
-		Log.update_month_log('email')	
+			return False	
+	#update month log
+	Log.update_month_log(msg_type)
 	return True
 
 

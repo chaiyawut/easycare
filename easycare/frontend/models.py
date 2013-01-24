@@ -109,7 +109,7 @@ class Log(models.Model):
 	email_count = models.IntegerField(default=1)
 
 	def __unicode__(self):
-		return str(self.created.month) + ' '+str(self.created.year) + ' ' + str(self.sms_count)
+		return 'Date: ' + str(self.created.month) + ' '+str(self.created.year)
 
 	class Meta:
 		verbose_name_plural = "9. Log"
@@ -125,6 +125,9 @@ class Log(models.Model):
 				if message_type == 'sms':
 					recent_log.increment_sms_count()
 				elif message_type == 'email':
+					recent_log.increment_email_count()
+				elif message_type == 'both':
+					recent_log.increment_sms_count()
 					recent_log.increment_email_count()
 				return recent_log
 		return Log.objects.create()
