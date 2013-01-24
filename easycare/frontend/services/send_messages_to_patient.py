@@ -3,6 +3,15 @@ import string
 import sys
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
+from django.core.management import setup_environ
+
+PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
+
+sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
+os.environ['DJANGO_ENV'] = 'production'
+import settings
+setup_environ(settings)
+from frontend.models import *
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
 	if msg_type == 'sms' or msg_type == 'both':
@@ -15,7 +24,9 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 		client = Client(url)
 		response = client.service.SendSMS(Key, Mobile, Message)
 		if not response.title() == u'No Error, The Request Is Successful':
-			return False	
+			return False
+		#update month log
+		Log.update_month_log('sms')	
 	if msg_type == 'email' or msg_type == 'both':
 		try:
 			subject, from_email, to = 'สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
@@ -24,6 +35,8 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			msg.send()
 		except Exception, e:
 			return False
+		#update month log
+		Log.update_month_log('email')	
 	return True
 
 

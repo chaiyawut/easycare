@@ -103,6 +103,42 @@ class Visit(models.Model):
 		verbose_name_plural = "8. ข้อมูลการให้บริการ"
 		verbose_name = "ข้อมูลการให้บริการ"
 
+class Log(models.Model):
+	created = models.DateTimeField(default=datetime.datetime.now())
+	sms_count = models.IntegerField(default=1)
+	email_count = models.IntegerField(default=1)
+
+	def __unicode__(self):
+		return str(self.created.month) + ' '+str(self.created.year) + ' ' + str(self.sms_count)
+
+	class Meta:
+		verbose_name_plural = "9. Log"
+		verbose_name = "Log"
+		get_latest_by = 'created'
+
+	@classmethod
+	def update_month_log(cls, message_type):
+		today = datetime.datetime.now()
+		if Log.objects.all():
+			recent_log = Log.objects.latest()
+			if not recent_log.created.year != today.year or recent_log.created.year == today.year and recent_log.created.month <  today.month :
+				if message_type == 'sms':
+					recent_log.increment_sms_count()
+				elif message_type == 'email':
+					recent_log.increment_email_count()
+				return recent_log
+		return Log.objects.create()
+
+	def increment_sms_count(self):
+		self.sms_count = self.sms_count + 1
+		self.save()
+
+	def increment_email_count(self):
+		self.email_count = self.email_count + 1
+		self.save()
+
+
+
 class Record(models.Model):
 	patient = models.ForeignKey(Patient)
 	datetime = models.DateTimeField(default=datetime.datetime.now(), verbose_name='เวลา')
