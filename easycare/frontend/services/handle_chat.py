@@ -5,7 +5,7 @@ import datetime
 import re
 from django.template.loader import render_to_string
 
-PROJECT_PATH = "/home/easycare/workspace/easycare/easycare"
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 
 from django.core.management import setup_environ
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
