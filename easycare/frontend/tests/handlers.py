@@ -25,7 +25,7 @@ class SMSHandlerTest(TestCase):
 		self.handler = ChatHandler("+66860216060", "p2 w55.5 bp120/80 l500mg2.5")
 
 	def test_initial_chat_handler(self):
-		"Chat handler should be initial with patient's number and recieived text message"
+		"It should be initialized with patient's number and recieived text message"
 		from frontend.models import *
 		self.assertEqual(self.handler.get_contact_number(), "0860216060")
 		self.assertEqual(self.handler.get_patient(), Patient.objects.get(contact_number='0860216060'))
