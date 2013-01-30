@@ -6,10 +6,9 @@ from django.core.management import setup_environ
 from ESL import *
 from decimal import Decimal
 
-#cannot use relative path because of freeswitch env
+#use relative path need 2 symbolic links in freeswitch to import settings
 #PROJECT_PATH = '/home/easycare/workspace/easycare/easycare'
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
-consoleLog("info",PROJECT_PATH)
 
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
 os.environ['DJANGO_ENV'] = 'production'
