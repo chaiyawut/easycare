@@ -6,7 +6,7 @@ from django.core.management import setup_environ
 from ESL import *
 from decimal import Decimal
 
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
 os.environ['DJANGO_ENV'] = 'production'
