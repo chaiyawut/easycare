@@ -5,7 +5,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
 from django.core.management import setup_environ
 
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
 import settings
 setup_environ(settings)
