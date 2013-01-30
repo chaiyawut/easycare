@@ -18,13 +18,13 @@
 						<div class="pagination">
 							<ul>
 								{% if page_obj.has_previous %}
-								<li ><a href="{{ previous_page_url }}">ย้อนกลับ</a></li>
+								<li ><a href="?page={{ page_obj.previous_page_number }}">ย้อนกลับ</a></li>
 								{% else %}
 								<li class="disabled"><a href="">ย้อนกลับ</a></li>
 								{% endif %}
 								<li class="active"><a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
 								{% if page_obj.has_next %}
-								<li ><a href="{{ next_page_url }}">ถัดไป</a></li>
+								<li ><a href="?page={{ page_obj.next_page_number }}">ถัดไป</a></li>
 								{% else %}
 								<li class="disabled"><a href="">ถัดไป</a></li>
 								{% endif %}
