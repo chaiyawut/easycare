@@ -1,3 +1,6 @@
+#voice sound for anmes
+easycare/media/voices/sounds_for_name/*.mp3
+
 .DS_Store
 *.py[cod]
 
