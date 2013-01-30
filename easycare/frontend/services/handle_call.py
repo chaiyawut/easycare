@@ -6,8 +6,8 @@ from django.core.management import setup_environ
 from ESL import *
 from decimal import Decimal
 
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
-print PROJECT_PATH
+#cannot use relative path because of freeswitch env
+PROJECT_PATH = '/home/easycare/workspace/easycare/easycare'
 
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
 os.environ['DJANGO_ENV'] = 'production'
