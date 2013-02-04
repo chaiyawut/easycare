@@ -3,11 +3,11 @@ import re
 from frontend.models import *
 import os
 from frontend.utils.words import *
+from easycare.settings import PROJECT_PATH
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 
 class CallHandler:
 	def __init__(self, session):
