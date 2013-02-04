@@ -385,9 +385,6 @@ class CallHandler:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"
 			record.save()
 
-		#end the call
-		self.session.destroy()
-
 
 
 		
