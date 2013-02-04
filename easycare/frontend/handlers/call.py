@@ -53,7 +53,7 @@ class CallHandler:
 				self.session.streamFile(str(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')))
 			return self.period_menu
 		else:
-			if self.login_attempt < 1:
+			if self.login_attempt < 2:
 				self.session.streamFile(os.path.join(VOICE_PATH, 'error', 'user_not_found.mp3'))
 				self.login_attempt = self.login_attempt + 1
 				return self.login_menu
