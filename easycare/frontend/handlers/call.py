@@ -3,15 +3,15 @@ import re
 from frontend.models import *
 import os
 from frontend.utils.words import *
-from frontend.services.handle_call import PROJECT_PATH
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
 
 class CallHandler:
-	def __init__(self, session):
+	def __init__(self, session, PROJECT_PATH):
 		self.session = session
+		self.PROJECT_PATH = PROJECT_PATH
 		self.contact_number = ''
 		self.period = ''
 		self.weight = {}
@@ -45,7 +45,7 @@ class CallHandler:
 			if patient.sound_for_name:
 				self.session.streamFile(str(patient.sound_for_name.path))
 			else :
-				self.session.streamFile(str(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')))
+				self.session.streamFile(str(os.path.join(self.PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')))
 			return self.period_menu
 		else:
 			if self.login_attempt < 1:
@@ -339,7 +339,7 @@ class CallHandler:
 
 	def get_voicemail(self):
 		filename = str(datetime.datetime.now().date()) + "_" + str(datetime.datetime.now().strftime("%H-%M-%S")) + "_" + self.contact_number + ".mp3"
-		file_path = os.path.join(PROJECT_PATH, 'media', 'voices', 'voicemails', filename)
+		file_path = os.path.join(self.PROJECT_PATH, 'media', 'voices', 'voicemails', filename)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '2.mp3'))
 		self.session.sleep(500)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'beep.mp3'))
