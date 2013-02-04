@@ -57,7 +57,7 @@ class CallHandler:
 
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
-			8, 13, 1, 5000, "#",
+			8, 13, 1, 6000, "#",
 			os.path.join(VOICE_PATH, 'login', '1.mp3'),
 			"",
 			"")
@@ -79,7 +79,7 @@ class CallHandler:
 
 	def get_period(self):
 		period = self.session.playAndGetDigits(
-			1, 1, 3, 5000, "",
+			1, 1, 3, 6000, "",
 			os.path.join(VOICE_PATH, 'period', '1.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'period.mp3'),
 			"[123]" )
@@ -91,7 +91,7 @@ class CallHandler:
 		weight = self.get_weight()
 		if weight:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 5000, "",
+				1, 1, 3, 6000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'error', 'confirm.mp3'),
 				"[12]")          
@@ -106,7 +106,7 @@ class CallHandler:
 
 	def get_weight(self):
 		weight = self.session.playAndGetDigits(
-			2, 7, 3, 5000, "#",
+			2, 7, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'weight', '1.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'weight.mp3'),
 			"[0-9]*" )                
@@ -144,7 +144,7 @@ class CallHandler:
 		drug_size = self.get_drug_size()
 		if drug_size:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 5000, "",
+				1, 1, 3, 6000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'error', 'confirm.mp3'),
 				"[12]")          
@@ -159,7 +159,7 @@ class CallHandler:
 
 	def get_drug_size(self):
 		drug_size = self.session.playAndGetDigits(
-			1, 5, 3, 5000, "#",
+			1, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'drug', '1.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'drug_size.mp3'),
 			"[0-9]" )
@@ -183,7 +183,7 @@ class CallHandler:
 		drug_amount = self.get_drug_amount()
 		if drug_amount:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 5000, "",
+				1, 1, 3, 6000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'error', 'confirm.mp3'),
 				"[12]")          
@@ -199,7 +199,7 @@ class CallHandler:
 
 	def get_drug_amount(self):
 		drug_amount = self.session.playAndGetDigits(
-			1, 5, 3, 5000, "#",
+			1, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'drug', '3.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'drug_amount.mp3'),
 			"[0-9]*" ) 
@@ -234,7 +234,7 @@ class CallHandler:
 
 	def pressure_menu(self, period):
 		response = self.session.playAndGetDigits(
-			1, 1, 3, 5000, "",
+			1, 1, 3, 6000, "",
 			os.path.join(VOICE_PATH, 'pressure', '1.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'invalid_answer.mp3'),
 			"[12]")
@@ -249,7 +249,7 @@ class CallHandler:
 		pressure_up = self.get_pressure_up()
 		if pressure_up:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 5000, "",
+				1, 1, 3, 6000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'error', 'confirm.mp3'),
 				"[12]")          
@@ -264,7 +264,7 @@ class CallHandler:
 
 	def get_pressure_up(self):
 		pressure_up = self.session.playAndGetDigits(
-			2, 5, 3, 5000, "#",
+			2, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '2.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'pressure_up.mp3'),
 			"[0-9]" )  
@@ -288,7 +288,7 @@ class CallHandler:
 		pressure_down = self.get_pressure_down()
 		if pressure_down:
 			response = self.session.playAndGetDigits(
-				1, 1, 3, 5000, "",
+				1, 1, 3, 6000, "",
 				os.path.join(VOICE_PATH, 'share', 'confirm.mp3'),
 				os.path.join(VOICE_PATH, 'error', 'confirm.mp3'),
 				"[12]")          
@@ -303,7 +303,7 @@ class CallHandler:
 
 	def get_pressure_down(self):
 		pressure_down = self.session.playAndGetDigits(
-			2, 5, 3, 5000, "#",
+			2, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '4.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'pressure_down.mp3'),
 			"[0-9]" ) 
@@ -325,7 +325,7 @@ class CallHandler:
 
 	def voicemail_menu(self, period):
 		response = self.session.playAndGetDigits(
-			1, 1, 3, 5000, "",
+			1, 1, 3, 6000, "",
 			os.path.join(VOICE_PATH, 'voicemail', '1.mp3'),
 			os.path.join(VOICE_PATH, 'error', 'invalid_answer.mp3'),
 			"[12]")
