@@ -1,7 +1,16 @@
 #-*-coding: utf-8 -*-
-import re
+import re, sys, os
+
+#use relative path need 3 symbolic links in freeswitch to import settings
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
+
+from django.core.management import setup_environ
+sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
+os.environ['DJANGO_ENV'] = 'production'
+import settings
+setup_environ(settings)
+
 from frontend.models import *
-import os
 from frontend.utils.words import *
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string

@@ -1,9 +1,5 @@
 #-*-coding: utf-8 -*-
-import string
-import sys, os
-import datetime
-import re
-from django.template.loader import render_to_string
+from freeswitch import *
 
 #use relative path need 3 symbolic links in freeswitch to import settings
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
@@ -16,9 +12,7 @@ setup_environ(settings)
 
 from frontend.models import *
 from frontend.handlers.chat import ChatHandler
-from freeswitch import *
 from frontend.services.send_messages_to_patient import send_messages_to_patient
-from frontend.utils.words import *
 
 def chat(message, args):
 	received_number = message.getHeader("from")
