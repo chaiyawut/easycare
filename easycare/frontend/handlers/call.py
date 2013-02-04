@@ -5,13 +5,13 @@ import os
 from frontend.utils.words import *
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
+from easycare.settings import PROJECT_PATH
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
 
 class CallHandler:
-	def __init__(self, session, PROJECT_PATH):
+	def __init__(self, session):
 		self.session = session
-		self.PROJECT_PATH = PROJECT_PATH
 		self.contact_number = ''
 		self.period = ''
 		self.weight = {}
@@ -45,7 +45,7 @@ class CallHandler:
 			if patient.sound_for_name:
 				self.session.streamFile(str(patient.sound_for_name.path))
 			else :
-				self.session.streamFile(str(os.path.join(self.PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')))
+				self.session.streamFile(str(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')))
 			return self.period_menu
 		else:
 			if self.login_attempt < 1:
