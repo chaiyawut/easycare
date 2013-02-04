@@ -1,19 +1,18 @@
 #-*-coding: utf-8 -*-
+import re, datetime, sys, os
+from decimal import Decimal
+from django.template.loader import render_to_string
+from django.core.management import setup_environ
+
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
 os.environ['DJANGO_ENV'] = 'production'
 import settings
 setup_environ(settings)
-from django.template.loader import render_to_string
-from django.core.management import setup_environ
 from frontend.models import *
 from frontend.utils.words import *
 from frontend.services.send_messages_to_patient import send_messages_to_patient
-import re, datetime, sys, os
-from decimal import Decimal
-
-#need to symbolic link folder /usr/local/lib/python2.7/dist_packages as a /home/easycare/workspace/easycare (Project Path) folder
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
 
