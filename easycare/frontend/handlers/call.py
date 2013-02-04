@@ -22,8 +22,6 @@ class CallHandler:
 
 	def main_menu(self):
 		self.session.sleep(100)
-		self.session.streamFile(os.path.join(VOICE_PATH, 'login', '1.mp3'))
-		self.session.sleep(500)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
 			self.session.sleep(1000)
@@ -58,7 +56,7 @@ class CallHandler:
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
 			8, 13, 2, 5000, "#",
-			os.path.join(VOICE_PATH, 'login', '2.mp3'),
+			os.path.join(VOICE_PATH, 'login', '1.mp3'),
 			"",
 			"")
 		return contact_number

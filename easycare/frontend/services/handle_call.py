@@ -6,7 +6,7 @@ from django.core.management import setup_environ
 from ESL import *
 from decimal import Decimal
 
-#use relative path need 2 symbolic links in freeswitch to import settings
+#use relative path need 3 symbolic links in freeswitch to import settings
 #PROJECT_PATH = '/home/easycare/workspace/easycare/easycare'
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 

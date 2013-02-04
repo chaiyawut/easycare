@@ -5,7 +5,7 @@ import datetime
 import re
 from django.template.loader import render_to_string
 
-#use relative path need 2 symbolic links in freeswitch to import settings
+#use relative path need 3 symbolic links in freeswitch to import settings
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 
 from django.core.management import setup_environ
