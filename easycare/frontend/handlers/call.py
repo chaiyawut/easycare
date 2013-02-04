@@ -113,7 +113,7 @@ class CallHandler:
 		weight = self.session.playAndGetDigits(
 			2, 7, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'weight', '1.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'weight.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'timeout.mp3'),
 			"[0-9]*" )                
 		if weight:  
 			weight_int, weight_dec = re.match(r"(\d+)\*?(\d+)?", weight).group(1), re.match(r"(\d+)\*?(\d+)?", weight).group(2)
@@ -166,7 +166,7 @@ class CallHandler:
 		drug_size = self.session.playAndGetDigits(
 			1, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'drug', '1.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'drug_size.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'timeout.mp3'),
 			"[0-9]" )
 		if drug_size:
 			drug_size_sound_path = os.path.join(VOICE_PATH, 'number', drug_size + '.mp3')   
@@ -206,7 +206,7 @@ class CallHandler:
 		drug_amount = self.session.playAndGetDigits(
 			1, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'drug', '3.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'drug_amount.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'timeout.mp3'),
 			"[0-9]*" ) 
 		if drug_amount:
 			drug_amount_int, drug_amount_dec = re.match(r"(\d+)\*?(\d+)?", drug_amount).group(1), re.match(r"(\d+)\*?(\d+)?", drug_amount).group(2)
@@ -271,7 +271,7 @@ class CallHandler:
 		pressure_up = self.session.playAndGetDigits(
 			2, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '2.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'pressure_up.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'timeout.mp3'),
 			"[0-9]" )  
 		if pressure_up:
 			pressure_up_sound_path = os.path.join(VOICE_PATH, 'number', pressure_up + '.mp3')           
@@ -310,7 +310,7 @@ class CallHandler:
 		pressure_down = self.session.playAndGetDigits(
 			2, 5, 3, 6000, "#",
 			os.path.join(VOICE_PATH, 'pressure', '4.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'pressure_down.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'timeout.mp3'),
 			"[0-9]" ) 
 		if pressure_down:
 			pressure_down_sound_path = os.path.join(VOICE_PATH, 'number', pressure_down + '.mp3')               
