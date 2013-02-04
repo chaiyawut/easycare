@@ -26,7 +26,7 @@ class CallHandler:
 		self.session.sleep(100)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
-			self.session.sleep(1000)
+			self.session.sleep(2000)
 			next_menu = next_menu(self.period)
 
 	def endcall_menu(self, period):
@@ -236,7 +236,7 @@ class CallHandler:
 		response = self.session.playAndGetDigits(
 			1, 1, 3, 5000, "",
 			os.path.join(VOICE_PATH, 'pressure', '1.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'no_correct_answer.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'invalid_answer.mp3'),
 			"[12]")
 		if response == "1":
 			return self.pressure_up_menu
@@ -327,7 +327,7 @@ class CallHandler:
 		response = self.session.playAndGetDigits(
 			1, 1, 3, 5000, "",
 			os.path.join(VOICE_PATH, 'voicemail', '1.mp3'),
-			os.path.join(VOICE_PATH, 'error', 'no_correct_answer.mp3'),
+			os.path.join(VOICE_PATH, 'error', 'invalid_answer.mp3'),
 			"[12]")
 		if response == "1":
 			voicemail = self.get_voicemail()
