@@ -57,7 +57,7 @@ class CallHandler:
 
 	def get_contact_number(self):
 		contact_number = self.session.playAndGetDigits(
-			8, 13, 3, 5000, "#",
+			8, 13, 1, 5000, "#",
 			os.path.join(VOICE_PATH, 'login', '1.mp3'),
 			"",
 			"")
