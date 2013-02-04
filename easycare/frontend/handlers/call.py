@@ -31,7 +31,7 @@ class CallHandler:
 		self.session.sleep(100)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
-			self.session.sleep(2000)
+			self.session.sleep(2500)
 			next_menu = next_menu(self.period)
 
 	def endcall_menu(self, period):
