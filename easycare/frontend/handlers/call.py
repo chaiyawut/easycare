@@ -21,9 +21,9 @@ class CallHandler:
 		self.login_attempt = 0
 
 	def main_menu(self):
-		self.session.sleep(200)
+		self.session.sleep(100)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'login', '1.mp3'))
-		self.session.sleep(1000)
+		self.session.sleep(500)
 		next_menu = self.login_menu(self.period)
 		while next_menu:
 			self.session.sleep(1000)
