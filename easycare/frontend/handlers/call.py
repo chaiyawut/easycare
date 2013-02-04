@@ -7,6 +7,8 @@ from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
 from easycare.settings import PROJECT_PATH
 
+#need to symbolic link folder /usr/local/lib/python2.7/dist_packages as a /home/easycare/workspace/easycare (Project Path) folder
+
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
 
 class CallHandler:
