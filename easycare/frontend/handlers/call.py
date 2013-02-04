@@ -19,7 +19,7 @@ class CallHandler:
 		self.pressure = {}
 		self.voicemail = {}
 		self.login_attempt = 0
-		print self.consoleLog("info", PROJECT_PATH)
+		consoleLog("info", PROJECT_PATH)
 
 	def main_menu(self):
 		self.session.sleep(100)
