@@ -44,7 +44,7 @@ class CallHandler:
 			self.session.sleep(100)
 			if patient.sound_for_name:
 				self.session.streamFile(str(patient.sound_for_name.path))
-			elif os.path.exists(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')):
+			else :
 				self.session.streamFile(str(os.path.join(PROJECT_PATH, 'media', 'voices', 'sounds_for_name', patient.hn.replace('/', '_') +'.mp3')))
 			return self.period_menu
 		else:
