@@ -339,7 +339,7 @@ class CallHandler:
 
 	def get_voicemail(self):
 		filename = str(datetime.datetime.now().date()) + "_" + str(datetime.datetime.now().strftime("%H-%M-%S")) + "_" + self.contact_number + ".mp3"
-		file_path = os.path.join(self.PROJECT_PATH, 'media', 'voices', 'voicemails', filename)
+		file_path = os.path.join(PROJECT_PATH, 'media', 'voices', 'voicemails', filename)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'voicemail', '2.mp3'))
 		self.session.sleep(500)
 		self.session.streamFile(os.path.join(VOICE_PATH, 'share', 'beep.mp3'))
