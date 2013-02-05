@@ -1,11 +1,11 @@
 #-*-coding: utf-8 -*-
 from django.db import models
-import datetime
-from pytz import timezone
 from django.contrib.auth.models import User
 from django.core.mail import send_mail, BadHeaderError
 import os
-
+import datetime
+from django.utils.timezone import utc
+now = datetime.datetime.utcnow().replace(tzinfo=utc)
 
 CONFIRM_BY = (
 	('email', 'อีเมลล์'),
@@ -83,9 +83,10 @@ class Patient(models.Model):
 		verbose_name = "ผู้ป่วย"
 
 	def check_for_no_duplicate_period(self, period):
-		submitted_periods = self.record_set.filter( datetime__gte=datetime.date.today()).exclude(response__deleted=True).values_list('period', flat=True)
+		submitted_periods = self.record_set.filter( datetime__range=(datetime.datetime.combine(now.date(), datetime.time.min).replace(tzinfo=utc),
+                            datetime.datetime.combine(now.date(), datetime.time.max).replace(tzinfo=utc))).exclude(response__deleted=True).values_list('period', flat=True)
 		if period in submitted_periods:
-				return False
+			return False
 		return True
 
 	def create_new_record(self, period, submitted_by):
@@ -93,7 +94,7 @@ class Patient(models.Model):
 
 class Visit(models.Model):
 	patient = models.ForeignKey(Patient)
-	date = models.DateField(default=datetime.datetime.now().date(), verbose_name='วันที่มารับบริการ')
+	date = models.DateField(default=now.date(), verbose_name='วันที่มารับบริการ')
 	visit_type = models.CharField(max_length=200, choices=VISIT_TYPES, verbose_name='ประเภทบริการ')
 
 	def __unicode__(self):
@@ -104,7 +105,7 @@ class Visit(models.Model):
 		verbose_name = "ข้อมูลการให้บริการ"
 
 class Log(models.Model):
-	created = models.DateTimeField(default=datetime.datetime.now())
+	created = models.DateField(default=now.date())
 	sms_count = models.IntegerField(default=0)
 	email_count = models.IntegerField(default=0)
 
@@ -118,18 +119,19 @@ class Log(models.Model):
 
 	@classmethod
 	def update_month_log(cls, message_type):
-		today = datetime.datetime.now()
+		today = now
 		if Log.objects.all():
 			recent_log = Log.objects.latest()
-			if not recent_log.created.year != today.year or recent_log.created.year == today.year and recent_log.created.month <  today.month :
-				if message_type == 'sms':
-					recent_log.increment_sms_count()
-				elif message_type == 'email':
-					recent_log.increment_email_count()
-				elif message_type == 'both':
-					recent_log.increment_sms_count()
-					recent_log.increment_email_count()
-				return recent_log
+			if recent_log.created.year == today.year:
+				if not recent_log.created.month <  today.month :
+					if message_type == 'sms':
+						recent_log.increment_sms_count()
+					elif message_type == 'email':
+						recent_log.increment_email_count()
+					elif message_type == 'both':
+						recent_log.increment_sms_count()
+						recent_log.increment_email_count()
+					return recent_log
 		if message_type == 'sms':
 			return Log.objects.create(sms_count=1)
 		elif message_type == 'email':
@@ -151,7 +153,7 @@ class Log(models.Model):
 
 class Record(models.Model):
 	patient = models.ForeignKey(Patient)
-	datetime = models.DateTimeField(default=datetime.datetime.now(), verbose_name='เวลา')
+	datetime = models.DateTimeField(default=now, verbose_name='เวลา')
 	voicemail = models.CharField(blank=True, max_length=200, verbose_name='ข้อมูลฝากเสียง')
 	status = models.CharField(default='รอการตอบกลับ', max_length=200, verbose_name='สถานะ')
 	period = models.CharField(max_length=200, choices=PEROIDS, verbose_name='ช่วงเวลา')

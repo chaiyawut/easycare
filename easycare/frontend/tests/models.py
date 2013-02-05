@@ -12,12 +12,14 @@ class PatientModelTestCase(TestCase):
 	fixtures = ['frontend.json',]
 
 	def setUp(self):
-		from frontend.models import *
+		from frontend.models import Patient, Record
 		import datetime
+		from django.utils.timezone import utc
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
 		self.patient = Patient.objects.get(contact_number='0860216060')
 		self.record = Record.objects.create(
 			patient = self.patient,
-			datetime = datetime.datetime.now(),
+			datetime = now,
 			period = 'morning',
 			submitted_by = 'sms',
 		)
@@ -48,12 +50,14 @@ class RecordModelTestCase(TestCase):
 	fixtures = ['frontend.json',]
 
 	def setUp(self):
-		from frontend.models import *
+		from frontend.models import Patient, Record
 		import datetime
+		from django.utils.timezone import utc
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
 		self.patient = Patient.objects.get(contact_number='0860216060')
 		self.record = Record.objects.create(
 			patient = self.patient,
-			datetime = datetime.datetime.now(),
+			datetime = now,
 			period = 'morning',
 			submitted_by = 'sms',
 		)
@@ -65,7 +69,7 @@ class RecordModelTestCase(TestCase):
 
 	def test_create_entry_for_record_from_voip(self):
 		"Should create entry for record for what specify"
-		from frontend.models import *
+		from frontend.models import Weight, Pressure, Drug
 		weight = self.record.create_entry_for_record_from_voip(weight={'weight':'55.6'})
 		self.assertIsInstance(weight, Weight)
 		self.assertEqual(weight.weight, '55.6')

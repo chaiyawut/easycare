@@ -11,6 +11,7 @@ from django.views.generic import *
 from django.views.generic.edit import *
 from django.core.urlresolvers import reverse_lazy
 from datetime import date, timedelta
+from django.utils.timezone import utc
 import json
 import decimal
 import re

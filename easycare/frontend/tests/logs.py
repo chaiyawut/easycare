@@ -14,8 +14,10 @@ class LogTestCase(TestCase):
 	def setUp(self):
 		from frontend.models import Log
 		import datetime
+		from django.utils.timezone import utc
+		now = datetime.datetime.utcnow().replace(tzinfo=utc)
 		self.Log = Log
-		self.today = datetime.date.today()
+		self.today = now.date()
 		self.first = datetime.date(day=1, month=self.today.month, year=self.today.year)
 		self.lastMonth = self.first - datetime.timedelta(days=10)
 
