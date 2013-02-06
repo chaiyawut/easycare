@@ -18,7 +18,6 @@ import datetime
 from django.utils import timezone
 import pytz
 
-timezone.activate(pytz.timezone("Asia/Bangkok"))
 now = timezone.now()#.replace(tzinfo=timezone.get_default_timezone())
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
