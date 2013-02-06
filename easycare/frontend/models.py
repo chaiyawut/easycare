@@ -171,7 +171,7 @@ class Record(models.Model):
 		self.status = status
 		self.save()
 
-	def create_entry_for_record_from_voip(self, weight=None, pressure=None, drug=None):
+	def create_entry_for_record_from_voip(self, weight=None, pressure=None, drug=None, sign=None):
 		if weight:
 			entry = self.weight_set.create(
 				weight = weight['weight']
@@ -186,6 +186,10 @@ class Record(models.Model):
 			entry = self.pressure_set.create(
 				up = pressure['up'],
 				down = pressure['down']
+			)
+		elif sign:
+			entry = self.sign_set.create(
+				sign = sign,
 			)
 		return entry
 
