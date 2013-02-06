@@ -5,7 +5,7 @@ from django.core.mail import send_mail, BadHeaderError
 import os
 import datetime
 from django.utils import timezone
-now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
+now = timezone.now()#.replace(tzinfo=timezone.get_default_timezone())
 
 CONFIRM_BY = (
 	('email', 'อีเมลล์'),

@@ -15,7 +15,7 @@ class LogTestCase(TestCase):
 		from frontend.models import Log
 		import datetime
 		from django.utils import timezone
-		now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
+		now = timezone.now()#.replace(tzinfo=timezone.get_default_timezone())
 		self.Log = Log
 		self.today = now.date()
 		self.first = datetime.date(day=1, month=self.today.month, year=self.today.year)
