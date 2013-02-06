@@ -11,7 +11,7 @@ from django.views.generic import *
 from django.views.generic.edit import *
 from django.core.urlresolvers import reverse_lazy
 from datetime import date, timedelta
-from django.utils.timezone import utc
+from django.utils import timezone
 import json
 import decimal
 import re
@@ -335,21 +335,21 @@ def graph_weight(request, record_id):
 		last_7_days.append(str(date.strftime('%a %d/%m/%Y')))
 
 		#build morning weight
-		morning_weight = Weight.objects.filter(record__patient=patient, record__period='morning', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		morning_weight = Weight.objects.filter(record__patient=patient, record__period='morning', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		if morning_weight:
 			last_7_days_morning_weights.append(morning_weight[0].weight)
 		else:
 			last_7_days_morning_weights.append(0)
 
 		#build afternoon weight
-		afternoon_weight = Weight.objects.filter(record__patient=patient, record__period='afternoon', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		afternoon_weight = Weight.objects.filter(record__patient=patient, record__period='afternoon', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		if afternoon_weight:
 			last_7_days_afternoon_weights.append(afternoon_weight[0].weight)
 		else:
 			last_7_days_afternoon_weights.append(0)
 
 		#build evening weight
-		evening_weight = Weight.objects.filter(record__patient=patient, record__period='evening', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		evening_weight = Weight.objects.filter(record__patient=patient, record__period='evening', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		if evening_weight:
 			last_7_days_evening_weights.append(evening_weight[0].weight)
 		else:
@@ -377,7 +377,7 @@ def graph_drug(request, record_id):
 		last_7_days.append(str(date.strftime('%a %d/%m/%Y')))
 
 		#build drug consuming amount
-		drugs = Drug.objects.filter(record__patient=patient, record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		drugs = Drug.objects.filter(record__patient=patient, record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		total_drug_for_today = 0
 		if drugs:
 			for drug in drugs:
@@ -410,7 +410,7 @@ def graph_pressure(request, record_id):
 		last_7_days.append(str(date.strftime('%a %d/%m/%Y')))
 
 		#build morning pressure
-		morning_pressure = Pressure.objects.filter(record__patient=patient, record__period='morning', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		morning_pressure = Pressure.objects.filter(record__patient=patient, record__period='morning', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		if morning_pressure:
 			last_7_days_morning_pressure_up.append(morning_pressure[0].up)
 			last_7_days_morning_pressure_down.append(-morning_pressure[0].down)
@@ -419,7 +419,7 @@ def graph_pressure(request, record_id):
 			last_7_days_morning_pressure_down.append(0)
 
 		#build afternoon pressure
-		afternoon_pressure = Pressure.objects.filter(record__patient=patient, record__period='afternoon', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		afternoon_pressure = Pressure.objects.filter(record__patient=patient, record__period='afternoon', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		if afternoon_pressure:
 			last_7_days_afternoon_pressure_up.append(afternoon_pressure[0].up)
 			last_7_days_afternoon_pressure_down.append(-afternoon_pressure[0].down)
@@ -428,7 +428,7 @@ def graph_pressure(request, record_id):
 			last_7_days_afternoon_pressure_down.append(0)
 
 		#build morning pressure
-		evening_pressure = Pressure.objects.filter(record__patient=patient, record__period='evening', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=utc),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=utc))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
+		evening_pressure = Pressure.objects.filter(record__patient=patient, record__period='evening', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
 		if evening_pressure:
 			last_7_days_evening_pressure_up.append(evening_pressure[0].up)
 			last_7_days_evening_pressure_down.append(-evening_pressure[0].down)

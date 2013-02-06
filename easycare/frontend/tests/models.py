@@ -14,8 +14,8 @@ class PatientModelTestCase(TestCase):
 	def setUp(self):
 		from frontend.models import Patient, Record
 		import datetime
-		from django.utils.timezone import utc
-		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		from django.utils import timezone
+		now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
 		self.patient = Patient.objects.get(contact_number='0860216060')
 		self.record = Record.objects.create(
 			patient = self.patient,
@@ -52,8 +52,8 @@ class RecordModelTestCase(TestCase):
 	def setUp(self):
 		from frontend.models import Patient, Record
 		import datetime
-		from django.utils.timezone import utc
-		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		from django.utils import timezone
+		now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
 		self.patient = Patient.objects.get(contact_number='0860216060')
 		self.record = Record.objects.create(
 			patient = self.patient,

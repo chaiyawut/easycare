@@ -15,9 +15,11 @@ from django.template.loader import render_to_string
 from decimal import Decimal
 import re
 import datetime
-from django.utils.timezone import utc
+from django.utils import timezone
+import pytz
 
-now = datetime.datetime.utcnow().replace(tzinfo=utc)
+timezone.activate(pytz.timezone("Asia/Bangkok"))
+now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
 
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
 

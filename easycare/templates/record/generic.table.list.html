@@ -15,10 +15,8 @@
 		{% for record in page_obj %}
 		<tr class="{% if not record.response %}warning{% elif record.response.deleted %}error{% else %}success{% endif %}">
 			<td><a class="btn btn-link" href="{% url 'record-detail' record.id %}">{{ record.id }}  <i class="icon-search"></i></a></td>
-			{% localtime on %}
 			<td>{{ record.datetime|date }}</td>
 			<td>{{ record.datetime|time }}</td>
-			{% endlocaltime %}
 			<td ><a href="/patients/{{ record.patient.id }}/">{{ record.patient.hn }} - {{ record.patient.fullname }}</a></td>
 			<td>{% if not record.response %}<a href="{% url 'record-reply' record.id %}" class="label label-important"><i class=" icon-hand-right icon-white"></i> {{ record.status }}</a>{% else %}{{ record.status }}{% endif %}</td>
 		</tr>

@@ -14,8 +14,8 @@ class LogTestCase(TestCase):
 	def setUp(self):
 		from frontend.models import Log
 		import datetime
-		from django.utils.timezone import utc
-		now = datetime.datetime.utcnow().replace(tzinfo=utc)
+		from django.utils import timezone
+		now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
 		self.Log = Log
 		self.today = now.date()
 		self.first = datetime.date(day=1, month=self.today.month, year=self.today.year)

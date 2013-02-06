@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail, BadHeaderError
 import os
 import datetime
-from django.utils.timezone import utc
-now = datetime.datetime.utcnow().replace(tzinfo=utc)
+from django.utils import timezone
+now = datetime.datetime.now().replace(tzinfo=timezone.get_default_timezone())
 
 CONFIRM_BY = (
 	('email', 'อีเมลล์'),
@@ -83,8 +83,8 @@ class Patient(models.Model):
 		verbose_name = "ผู้ป่วย"
 
 	def check_for_no_duplicate_period(self, period):
-		submitted_periods = self.record_set.filter( datetime__range=(datetime.datetime.combine(now.date(), datetime.time.min).replace(tzinfo=utc),
-                            datetime.datetime.combine(now.date(), datetime.time.max).replace(tzinfo=utc))).exclude(response__deleted=True).values_list('period', flat=True)
+		submitted_periods = self.record_set.filter( datetime__range=(datetime.datetime.combine(now.date(), datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),
+                            datetime.datetime.combine(now.date(), datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(response__deleted=True).values_list('period', flat=True)
 		if period in submitted_periods:
 			return False
 		return True
