@@ -283,8 +283,8 @@ class RecordResponseView(CreateView):
 		return redirect_url
 
 	def form_invalid(self, form):
-		for hidden in form.hidden_fields: 
-			if hidden.errors
+		for hidden in form.hidden_fields(): 
+			if hidden.errors:
 				messages.success(self.request, "คำร้องขอถูกตอบกลับเรียบร้อยแล้ว", extra_tags='alert alert-success')
 				return redirect(self.success_url)
 		redirect_url = super(RecordResponseView, self).form_invalid(form)
