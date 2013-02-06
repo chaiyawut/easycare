@@ -138,7 +138,15 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'frontend',
+    'djcelery',
+    'djcelery_email',
 )
+
+
+import djcelery
+djcelery.setup_loader()
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -175,7 +183,3 @@ LOGGING = {
     }
 }
 
-import warnings
-warnings.filterwarnings(
-        'error', r"DateTimeField received a naive datetime",
-        RuntimeWarning, r'django\.db\.models\.fields')
