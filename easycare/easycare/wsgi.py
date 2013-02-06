@@ -15,6 +15,8 @@ framework.
 """
 import os
 import sys
+import djcelery
+djcelery.setup_loader()
 
 path = '/usr/src/freeswitch/libs/esl/python'
 if path not in sys.path:
