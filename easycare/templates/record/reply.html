@@ -36,9 +36,6 @@ $('#id_auto_text').change(function () {
 						<div class="span5">
 							<form action="" method='post' >{% csrf_token %}
 								{{ form.non_field_errors }}
-								{% for hidden in form.hidden_fields %}
-								{{ hidden }}
-								{% endfor %}
 								<table class="table table-bordered">
 									<tbody>
 										{% for field in form.visible_fields %}
@@ -50,6 +47,12 @@ $('#id_auto_text').change(function () {
 											</td>
 										</tr>
 										{% endfor %}
+										<tr>
+											{% for hidden in form.hidden_fields %}
+											{{ hidden }}
+											{{ hidden.errors }}
+											{% endfor %}
+										</tr>
 										<tr>
 											<td colspan="2">
 												<div class="form-actions">

@@ -276,13 +276,18 @@ class RecordResponseView(CreateView):
 	
 		html_messages = render_to_string('email/reply_record.html', { 'record': self.record })
 		sent = send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages)
-
 		if sent:
 			messages.success(self.request, "คำร้องขอถูกตอบกลับเรียบร้อยแล้ว", extra_tags='alert alert-success')
-			return redirect_url
 		else:
 			messages.success(self.request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
+		return redirect_url
+
+	def form_invalid(self, form):
+		if form.hidden_fields()[0].errors: #if record has been saved
+			messages.success(self.request, "คำร้องขอถูกตอบกลับเรียบร้อยแล้ว", extra_tags='alert alert-success')
 			return redirect(self.success_url)
+		redirect_url = super(RecordResponseView, self).form_invalid(form)
+		return redirect_url
 
 class RecordDeleteView(CreateView):
 	model = Response
