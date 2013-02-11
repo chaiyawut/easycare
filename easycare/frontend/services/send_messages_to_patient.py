@@ -12,9 +12,6 @@ from frontend.models import *
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
 import string
-import djcelery
-djcelery.setup_loader()
-
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
 	if msg_type == 'sms' or msg_type == 'both':
