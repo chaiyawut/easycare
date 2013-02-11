@@ -1,9 +1,6 @@
 #-*-coding: utf-8 -*-
 from freeswitch import *
 import sys, os
-import djcelery
-djcelery.setup_loader()
-
 
 #use relative path need 3 symbolic links in freeswitch to import settings
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
