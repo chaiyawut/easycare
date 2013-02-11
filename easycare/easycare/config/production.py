@@ -12,6 +12,9 @@ DATABASES = {
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+import djcelery
+djcelery.setup_loader()
+
 INSTALLED_APPS += (
 	'djcelery',
     'djcelery_email',
