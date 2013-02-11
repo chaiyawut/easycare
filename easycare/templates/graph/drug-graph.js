@@ -2,44 +2,80 @@
 $(function () {
     var chart;
     $(document).ready(function() {
-    	$.getJSON('/records/{{ record.id }}/graph/drug/', function(data) {
-    		chart = new Highcharts.Chart({
-	            chart: {
-	                renderTo: 'drug_graph_container',
-	                type: 'areaspline',
-	            },
-	            title: {
-	                text: 'สรุปการรับประทานยาย้อนหลัง 7 วัน'
-	            },
-	            xAxis: {
-	                categories: data.last_7_days,
-	                labels: {
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
+        $.getJSON('/records/drug_graph/{{ record.patient.id }}/', function(data) {
+            var drugs = [];
 
-	            },
-	            yAxis: {
-	                title: {
-	                    text: 'ขนาด (มก.)'
-	                },
-	            },
-	            plotOptions: {
-	                areaspline: {
-	                    fillOpacity: 0.5,
-	                    dataLabels: {
-	                        enabled: true
-	                    },
-	                },
-	            },
-	            series: [{
-	                name: 'ลาซิก',
-	                data: data.last_7_days_drug_consume_amounts
-	            }]
-	        });
-    	});
+            data.drugs.forEach(function(entry, idx) {
+                drugs.push([Date.UTC(entry.year,  entry.month-1, entry.day), entry.total]);
+            });
+
+            console.log(drugs[0]);
+
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'drug_graph_container',
+                    zoomType: 'x',
+                    spacingRight: 20
+                },
+                title: {
+                    text: 'ข้อมูลการรับประทานยาของผู้ป่วย'
+                },
+                subtitle: {
+                    text: document.ontouchstart === undefined ?
+                        'Click and drag in the plot area to zoom in' :
+                        'Drag your finger over the plot to zoom in'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    maxZoom: 9 * 24 * 3600000, // fourteen days
+                    title: {
+                        text: null
+                    },
+                },
+                yAxis: {
+                    title: {
+                        text: 'ยาลิซิก (มิลิกรัม)'
+                    },
+                    showFirstLabel: false
+                },
+                tooltip: {
+                    shared: true
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+        
+                series: [{
+                    type: 'area',
+                    name: 'ปริมาณยาลิซิก',
+                    //pointInterval: 24 * 3600 * 1000,
+                    //pointStart: Date.UTC(2013, 0, 01),
+                    //data: data.morning_weights
+                    data: drugs
+                }]
+            });
+        });
     });
 });
 </script>
