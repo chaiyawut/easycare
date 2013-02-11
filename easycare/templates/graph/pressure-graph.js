@@ -2,154 +2,96 @@
 $(function () {
     var chart;
     $(document).ready(function() {
-        $.getJSON('/records/{{ record.id }}/graph/pressure/', function(data) {
+        $.getJSON('/records/pressure_graph/{{ record.patient.id }}/', function(data) {
+            var pressures_up = [];
+            var pressures_down = [];
+
+            data.pressures.up.forEach(function(entry, idx) {
+                pressures_up.push([Date.UTC(entry.year,  entry.month-1, entry.day), entry.value]);
+            });
+            data.pressures.down.forEach(function(entry, idx) {
+                pressures_down.push([Date.UTC(entry.year,  entry.month-1, entry.day), entry.value]);
+            });
 
             chart = new Highcharts.Chart({
                 chart: {
                     renderTo: 'pressure_graph_container',
-                    type: 'column'
+                    zoomType: 'x',
+                    spacingRight: 20
                 },
                 title: {
-                    text: 'สรุปความดันย้อนหลัง 7 วัน'
+                    text: 'ข้อมูลความดันของผู้ป่วย'
                 },
-                xAxis: [{
-                    categories: data.last_7_days,
-                    labels: {
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
-                }],
+                subtitle: {
+                    text: document.ontouchstart === undefined ?
+                        'Click and drag in the plot area to zoom in' :
+                        'Drag your finger over the plot to zoom in'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    maxZoom: 9 * 24 * 3600000, // fourteen days
+                    title: {
+                        text: null
+                    },
+                },
                 yAxis: {
                     title: {
-                        text: 'ความดัน (มม.ปรอท.)'
-                    },
-                    labels: {
-                        formatter: function(){
-                            return Math.abs(this.value);
-                        }
+                        text: 'ความดัน (มม.ปรอท)'
                     },
                 },
-        
-                plotOptions: {
-                    series: {
-                        stacking: 'normal'
-                    }
-                },
-        
                 tooltip: {
-                    formatter: function(){
-                        return this.point.category +'<br/>'+
-                            '<b>' + this.series.name + '</b>: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
-                    }
+                    shared: true
                 },
-        
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        lineWidth: 1,
+                        fillColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, 'rgba(2,0,0,0)']
+                            ]
+                        },
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        dataLabels: {
+                            enabled: true
+                        },
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    },
+                },
                 series: [{
-                    name: 'ตัวบนเช้า',
-                    data: data.last_7_days_morning_pressure_up,
-                    stack: 'morning',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: -90,
-                        color: '#FFFFFF',
-                        x: 3,
-                        formatter: function() {
-                            return Highcharts.numberFormat(Math.abs(this.y), 0);
-                        },
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
-                }, {
-                    name: 'ตัวล่างเช้า',
-                    data: data.last_7_days_morning_pressure_down,
-                    stack: 'morning',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: -90,
-                        color: '#FFFFFF',
-                        x: 3,
-                        formatter: function() {
-                            return Highcharts.numberFormat(Math.abs(this.y), 0);
-                        },
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
+                    type: 'area',
+                    name: 'ความดันตัวบน',
+                    //pointInterval: 24 * 3600 * 1000,
+                    //pointStart: Date.UTC(2013, 0, 01),
+                    //data: data.morning_weights
+                    data: pressures_up
                 },{
-                    name: 'ตัวบนกลางวัน',
-                    data: data.last_7_days_afternoon_pressure_up,
-                    stack: 'afternoon',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: -90,
-                        color: '#FFFFFF',
-                        x: 3,
-                        formatter: function() {
-                            return Highcharts.numberFormat(Math.abs(this.y), 0);
-                        },
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
-                }, {
-                    name: 'ตัวล่างกลางวัน',
-                    data: data.last_7_days_afternoon_pressure_down,
-                    stack: 'afternoon',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: -90,
-                        color: '#FFFFFF',
-                        x: 3,
-                        formatter: function() {
-                            return Highcharts.numberFormat(Math.abs(this.y), 0);
-                        },
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
-                },{
-                    name: 'ตัวบนเย็น',
-                    data: data.last_7_days_evening_pressure_up,
-                    stack: 'evening',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: -90,
-                        color: '#FFFFFF',
-                        x: 3,
-                        formatter: function() {
-                            return Highcharts.numberFormat(Math.abs(this.y), 0);
-                        },
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
-                }, {
-                    name: 'ตัวล่างเย็น',
-                    data: data.last_7_days_evening_pressure_down,
-                    stack: 'evening',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: -90,
-                        color: '#FFFFFF',       
-                        x: 3,
-                        formatter: function() {
-                            return Highcharts.numberFormat(Math.abs(this.y), 0);
-                        },
-                        style: {
-                            fontSize: '13px',
-                            fontFamily: 'Verdana, sans-serif'
-                        }
-                    }
+                    type: 'area',
+                    name: 'ความดันตัวล่าง',
+                    //pointInterval: 24 * 3600 * 1000,
+                    //pointStart: Date.UTC(2013, 0, 01),
+                    //data: data.morning_weights
+                    data: pressures_down
                 }]
             });
-
         });
     });
 });

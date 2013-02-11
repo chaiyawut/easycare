@@ -36,7 +36,7 @@ $(function () {
                     title: {
                         text: 'ยาลิซิก (มิลิกรัม)'
                     },
-                    showFirstLabel: false
+                    min:0
                 },
                 tooltip: {
                     shared: true
@@ -46,6 +46,13 @@ $(function () {
                 },
                 plotOptions: {
                     area: {
+                        fillColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, 'rgba(2,0,0,0)']
+                            ]
+                        },
                         lineWidth: 1,
                         marker: {
                             enabled: false,
@@ -55,6 +62,9 @@ $(function () {
                                     radius: 5
                                 }
                             }
+                        },
+                        dataLabels: {
+                            enabled: true
                         },
                         shadow: false,
                         states: {

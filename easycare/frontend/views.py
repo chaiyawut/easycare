@@ -329,25 +329,20 @@ class RecordDeleteView(CreateView):
 
 @login_required
 def graph_weight(request, patient_id):
-	morning_weights = []
-	afternoon_weights = []
-	evening_weights = []
-
 	patient_records = Record.objects.filter(patient__id= patient_id).exclude(response__isnull=True).exclude(response__deleted=True).order_by('datetime')
+	weights = {'morning':[], 'afternoon':[], 'evening':[]}
 
 	for record in patient_records:
 		if record.weight_set.all():
 			if record.period == 'morning':
-				morning_weights.append({'day':record.datetime.date().day, 'month':record.datetime.date().month, 'year':record.datetime.date().year, 'weight':record.weight_set.get().weight})
+				weights['morning'].append({'day':record.datetime.day, 'month':record.datetime.month, 'year':record.datetime.year, 'weight':record.weight_set.get().weight})
 			elif record.period == 'afternoon':
-				afternoon_weights.append({'day':record.datetime.date().day, 'month':record.datetime.date().month, 'year':record.datetime.date().year, 'weight':record.weight_set.get().weight})
+				weights['afternoon'].append({'day':record.datetime.day, 'month':record.datetime.month, 'year':record.datetime.year, 'weight':record.weight_set.get().weight})
 			elif record.period == 'evening':
-				evening_weights.append({'day':record.datetime.date().day, 'month':record.datetime.date().month, 'year':record.datetime.date().year, 'weight':record.weight_set.get().weight})
+				weights['evening'].append({'day':record.datetime.day, 'month':record.datetime.month, 'year':record.datetime.year, 'weight':record.weight_set.get().weight})
 
 	response = json.dumps({
-		'morning_weights':morning_weights,
-		'afternoon_weights':afternoon_weights,
-		'evening_weights':evening_weights,
+		'weights':weights,
 	}, cls=DjangoJSONEncoder)
 	return HttpResponse(response)
 
@@ -364,12 +359,13 @@ def graph_drug(request, patient_id):
 			drug_amount = record.drug_set.get().amount
 			total = drug_size * drug_amount
 			if record.datetime.date() in checked_date:
+				#Replace old value in the same day
 				from operator import itemgetter
 				idx = map(itemgetter('date'), drugs).index(record.datetime.date())
 				drugs[idx]['total'] = drugs[idx]['total'] + total
 			else:
 				checked_date.append(record.datetime.date())
-				drugs.append({'date':record.datetime.date(), 'day':record.datetime.date().day, 'month':record.datetime.date().month, 'year':record.datetime.date().year, 'total':total})
+				drugs.append({'date':record.datetime.date(), 'day':record.datetime.day, 'month':record.datetime.month, 'year':record.datetime.year, 'total':total})
 
 	response = json.dumps({
 		'drugs':drugs,
@@ -377,58 +373,29 @@ def graph_drug(request, patient_id):
 	return HttpResponse(response)
 
 @login_required
-def graph_pressure(request, record_id):
-	record = Record.objects.get(id=record_id)
-	patient = record.patient
-	start_date = record.datetime.date() - timedelta(days=6)
-	last_7_days = []
-	last_7_days_morning_pressure_up = []
-	last_7_days_morning_pressure_down = []
-	last_7_days_afternoon_pressure_up = []
-	last_7_days_afternoon_pressure_down = []
-	last_7_days_evening_pressure_up = []
-	last_7_days_evening_pressure_down = []
+def graph_pressure(request, patient_id):
+	patient_records = Record.objects.filter(patient__id= patient_id).exclude(response__isnull=True).exclude(response__deleted=True).order_by('datetime')
+	pressures = {'up':[], 'down':[]}
+	checked_date = []
 
-	for i in range(7):
-		date = start_date + timedelta(days=i)
-		last_7_days.append(str(date.strftime('%a %d/%m/%Y')))
+	for record in patient_records:
+		if record.pressure_set.all():
+			if record.datetime.date() in checked_date:
+				#Replace old value in the same day
+				from operator import itemgetter
+				idx_up = map(itemgetter('date'), pressures['up']).index(record.datetime.date())
+				idx_down = map(itemgetter('date'), pressures['down']).index(record.datetime.date())
+				pressures['up'][idx_up]['value'] = record.pressure_set.get().up
+				pressures['down'][idx_down]['value'] = record.pressure_set.get().down
+			else:
+				checked_date.append(record.datetime.date())
+				pressures['up'].append({'date':record.datetime.date(), 'day':record.datetime.day, 'month':record.datetime.month, 'year':record.datetime.year, 'value':record.pressure_set.get().up})
+				pressures['down'].append({'date':record.datetime.date(), 'day':record.datetime.day, 'month':record.datetime.month, 'year':record.datetime.year, 'value':record.pressure_set.get().down})
 
-		#build morning pressure
-		morning_pressure = Pressure.objects.filter(record__patient=patient, record__period='morning', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
-		if morning_pressure:
-			last_7_days_morning_pressure_up.append(morning_pressure[0].up)
-			last_7_days_morning_pressure_down.append(-morning_pressure[0].down)
-		else:
-			last_7_days_morning_pressure_up.append(0)
-			last_7_days_morning_pressure_down.append(0)
-
-		#build afternoon pressure
-		afternoon_pressure = Pressure.objects.filter(record__patient=patient, record__period='afternoon', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
-		if afternoon_pressure:
-			last_7_days_afternoon_pressure_up.append(afternoon_pressure[0].up)
-			last_7_days_afternoon_pressure_down.append(-afternoon_pressure[0].down)
-		else:
-			last_7_days_afternoon_pressure_up.append(0)
-			last_7_days_afternoon_pressure_down.append(0)
-
-		#build morning pressure
-		evening_pressure = Pressure.objects.filter(record__patient=patient, record__period='evening', record__datetime__range=(datetime.datetime.combine(date, datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),datetime.datetime.combine(date, datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(record__response__isnull=True).exclude(record__response__deleted=True)
-		if evening_pressure:
-			last_7_days_evening_pressure_up.append(evening_pressure[0].up)
-			last_7_days_evening_pressure_down.append(-evening_pressure[0].down)
-		else:
-			last_7_days_evening_pressure_up.append(0)
-			last_7_days_evening_pressure_down.append(0)
-	
 	response = json.dumps({
-		'last_7_days':last_7_days,
-		'last_7_days_morning_pressure_up':last_7_days_morning_pressure_up,
-		'last_7_days_morning_pressure_down':last_7_days_morning_pressure_down,
-		'last_7_days_afternoon_pressure_up':last_7_days_afternoon_pressure_up,
-		'last_7_days_afternoon_pressure_down':last_7_days_afternoon_pressure_down,
-		'last_7_days_evening_pressure_up':last_7_days_evening_pressure_up,
-		'last_7_days_evening_pressure_down':last_7_days_evening_pressure_down,
-	}, default=json_encode_decimal)
+		'pressures':pressures,
+	}, cls=DjangoJSONEncoder)
 	return HttpResponse(response)
+
 
 

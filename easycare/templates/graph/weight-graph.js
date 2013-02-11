@@ -7,13 +7,13 @@ $(function () {
             var afternoon_weights = [];
             var evening_weights = [];
 
-            data.morning_weights.forEach(function(entry, idx) {
+            data.weights.morning.forEach(function(entry, idx) {
                 morning_weights.push([Date.UTC(entry.year,  entry.month-1, entry.day), entry.weight]);
             });
-            data.afternoon_weights.forEach(function(entry, idx) {
+            data.weights.afternoon.forEach(function(entry, idx) {
                 afternoon_weights.push([Date.UTC(entry.year,  entry.month-1, entry.day), entry.weight]);
             });
-            data.evening_weights.forEach(function(entry, idx) {
+            data.weights.evening.forEach(function(entry, idx) {
                 evening_weights.push([Date.UTC(entry.year,  entry.month-1, entry.day), entry.weight]);
             });
 
@@ -42,7 +42,6 @@ $(function () {
                     title: {
                         text: 'น้ำหนัก (กิโลกรัม)'
                     },
-                    showFirstLabel: false
                 },
                 tooltip: {
                     shared: true
@@ -60,6 +59,9 @@ $(function () {
                             ]
                         },
                         lineWidth: 1,
+                        dataLabels: {
+                            enabled: true
+                        },
                         marker: {
                             enabled: true,
                             states: {
@@ -78,7 +80,6 @@ $(function () {
                         threshold: null
                     }
                 },
-        
                 series: [{
                     type: 'area',
                     name: 'น้ำหนัก (เช้า)',
