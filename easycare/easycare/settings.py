@@ -142,6 +142,9 @@ INSTALLED_APPS = (
     'djcelery_email',
 )
 
+import djcelery
+djcelery.setup_loader()
+
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 EMAIL_USE_TLS = True
