@@ -138,8 +138,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'frontend',
-    'djcelery',
-    'djcelery_email',
 )
 
 EMAIL_USE_TLS = True
