@@ -138,6 +138,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'frontend',
+    'djcelery',
+    'djcelery_email',
 )
 
 
