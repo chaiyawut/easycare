@@ -3,7 +3,7 @@ import sys, os
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
-os.environ['DJANGO_ENV'] = 'production'
+os.environ['DJANGO_ENV'] = 'freeswitch'
 import settings
 from django.core.management import setup_environ
 setup_environ(settings)

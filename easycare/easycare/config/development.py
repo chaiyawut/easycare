@@ -17,3 +17,4 @@ TEMPLATE_DEBUG = DEBUG
 
 import djcelery
 djcelery.setup_loader()
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
