@@ -12,4 +12,9 @@ DATABASES = {
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+INSTALLED_APPS += (
+	'djcelery',
+    'djcelery_email',
+)
+
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
