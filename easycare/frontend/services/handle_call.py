@@ -1,6 +1,9 @@
 #-*-coding: utf-8 -*-
 from freeswitch import *
 from frontend.handlers.call import CallHandler
+import djcelery
+djcelery.setup_loader()
+
 
 def input_callback_record_file_pound_stop(session, type, obj):
 	return "stop"
