@@ -383,7 +383,7 @@ class CallHandler:
 			if voicemail:
 				record.voicemail = voicemail['path']
 				record.save()
-			html_messages = render_to_string('email/confirm_record.html', 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
+			html_messages = render_to_string('email/confirm_record.html', { 'record': record, 'MEDIA_URL':'http://easycare.sit.kmutt.ac.th/media/' })
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
 			record.status = "รอการตอบกลับ และยังไม่ได้รับ SMS ยืนยัน"

@@ -107,7 +107,7 @@ class ChatHandler:
 				messages = messages + "ความดัน:" + str(pressure_entry.up)+"/"+ str(pressure_entry.down) + " "
 			#save the whole message to Sign
 			record.create_entry_for_record_from_voip(sign=self.received_body)
-			html_messages = render_to_string('email/confirm_record.html', 'record': record })
+			html_messages = render_to_string('email/confirm_record.html', { 'record': record })
 		
 		sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, html_messages)
 		if not sent:
