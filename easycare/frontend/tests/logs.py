@@ -23,14 +23,16 @@ class LogTestCase(TestCase):
 
 	def test_no_log(self):
 		"It should return new month log when no log entry"
+		current_sms = self.Log.objects.latest().sms_count
+		current_email = self.Log.objects.latest().email_count
 		log = self.Log.update_month_log('sms')
 		self.assertEqual(log.created.month, self.today.month)
 		self.assertEqual(log.created.year, self.today.year)
-		self.assertEqual(log.sms_count, 1)
+		self.assertEqual(log.sms_count, current_sms+1)
 		log = self.Log.update_month_log('email')
 		self.assertEqual(log.created.month, self.today.month)
 		self.assertEqual(log.created.year, self.today.year)
-		self.assertEqual(log.email_count, 1)
+		self.assertEqual(log.email_count, current_email+1)
 
 	def test_log_exist(self):
 		"It should return existing month log and increment by 1"
@@ -46,15 +48,17 @@ class LogTestCase(TestCase):
 
 	def test_log_last_month(self):
 		"It should return new month log when entering new month"
+		current_sms = self.Log.objects.latest().sms_count
+		current_email = self.Log.objects.latest().email_count
 		self.Log.objects.create(created=self.lastMonth)
 		log = self.Log.update_month_log('sms')
 		self.assertEqual(log.created.month, self.today.month)
 		self.assertEqual(log.created.year, self.today.year)
-		self.assertEqual(log.sms_count, 1)
+		self.assertEqual(log.sms_count, current_sms+1)
 		log = self.Log.update_month_log('email')
 		self.assertEqual(log.created.month, self.today.month)
 		self.assertEqual(log.created.year, self.today.year)
-		self.assertEqual(log.email_count, 1)
+		self.assertEqual(log.email_count, current_email+1)
 
 	def test_add_both(self):
 		"It should increment both email and sms value when using both"
