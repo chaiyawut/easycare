@@ -12,6 +12,9 @@ DATABASES = {
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+import djcelery
+djcelery.setup_loader()
+
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 #CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
