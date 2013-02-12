@@ -1,5 +1,15 @@
 #-*-coding: utf-8 -*-
 from freeswitch import *
+import sys, os
+
+#use relative path need 3 symbolic links in freeswitch to import settings
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
+sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
+os.environ['DJANGO_ENV'] = 'production'
+import settings
+from django.core.management import setup_environ
+setup_environ(settings)
+
 from frontend.handlers.call import CallHandler
 
 def input_callback_record_file_pound_stop(session, type, obj):

@@ -1,13 +1,4 @@
 #-*-coding: utf-8 -*-
-import sys,os
-
-#use relative path need 3 symbolic links in freeswitch to import settings
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
-sys.path.append(os.path.join(PROJECT_PATH, "easycare"))
-import settings
-from django.core.management import setup_environ
-setup_environ(settings)
-
 from frontend.models import *
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives

@@ -13,3 +13,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+#CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+#CELERY_ALWAYS_EAGER = True
+#BROKER_BACKEND = 'memory'
