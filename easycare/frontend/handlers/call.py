@@ -364,7 +364,7 @@ class CallHandler:
 		voicemail = self.voicemail
 
 		if not patient.check_for_no_duplicate_period(period):
-			submitted_records = Record.objects.filter( datetime__range=(datetime.datetime.combine(now.date(), datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),
+			submitted_records = patient.record_set.filter( datetime__range=(datetime.datetime.combine(now.date(), datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),
                             datetime.datetime.combine(now.date(), datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(response__deleted=True)
 			html_messages = render_to_string('email/duplicate_records.html', { 'HEADER':'เกิดข้อผิดพลาด! ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว','submitted_records': submitted_records })
 			messages = "ท่านได้ส่งข้อมูลของช่วงเวลานี้แล้ว "
