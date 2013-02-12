@@ -10,6 +10,9 @@ import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 
+from django.conf import settings
+settings.configure(CELERY_EAGER_PROPAGATES_EXCEPTIONS = True, CELERY_ALWAYS_EAGER = True, BROKER_BACKEND = 'memory')
+
 from frontend.handlers.call import CallHandler
 
 def input_callback_record_file_pound_stop(session, type, obj):
