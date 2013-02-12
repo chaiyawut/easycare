@@ -5,7 +5,6 @@ from django.core.mail import send_mail, BadHeaderError
 import os
 import datetime
 from django.utils import timezone
-now = timezone.now()#.replace(tzinfo=timezone.get_default_timezone())
 
 CONFIRM_BY = (
 	('email', 'อีเมลล์'),
@@ -83,6 +82,7 @@ class Patient(models.Model):
 		verbose_name = "ผู้ป่วย"
 
 	def check_for_no_duplicate_period(self, period):
+		now = timezone.now()
 		submitted_periods = self.record_set.filter( datetime__range=(datetime.datetime.combine(now.date(), datetime.time.min).replace(tzinfo=timezone.get_default_timezone()),
                             datetime.datetime.combine(now.date(), datetime.time.max).replace(tzinfo=timezone.get_default_timezone()))).exclude(response__deleted=True).values_list('period', flat=True)
 		if period in submitted_periods:
@@ -94,7 +94,7 @@ class Patient(models.Model):
 
 class Visit(models.Model):
 	patient = models.ForeignKey(Patient)
-	date = models.DateField(default=now.date(), verbose_name='วันที่มารับบริการ')
+	date = models.DateField(verbose_name='วันที่มารับบริการ')
 	visit_type = models.CharField(max_length=200, choices=VISIT_TYPES, verbose_name='ประเภทบริการ')
 
 	def __unicode__(self):
@@ -105,7 +105,7 @@ class Visit(models.Model):
 		verbose_name = "ข้อมูลการให้บริการ"
 
 class Log(models.Model):
-	created = models.DateField(default=now.date())
+	created = models.DateField(auto_now_add=True)
 	sms_count = models.IntegerField(default=0)
 	email_count = models.IntegerField(default=0)
 
@@ -119,7 +119,7 @@ class Log(models.Model):
 
 	@classmethod
 	def update_month_log(cls, message_type):
-		today = now
+		today = timezone.now()
 		if Log.objects.all():
 			recent_log = Log.objects.latest()
 			if recent_log.created.year == today.year:
@@ -153,7 +153,7 @@ class Log(models.Model):
 
 class Record(models.Model):
 	patient = models.ForeignKey(Patient)
-	datetime = models.DateTimeField(default=now, verbose_name='เวลา')
+	datetime = models.DateTimeField(auto_now_add=True, verbose_name='เวลา')
 	voicemail = models.CharField(blank=True, max_length=200, verbose_name='ข้อมูลฝากเสียง')
 	status = models.CharField(default='รอการตอบกลับ', max_length=200, verbose_name='สถานะ')
 	period = models.CharField(max_length=200, choices=PEROIDS, verbose_name='ช่วงเวลา')
