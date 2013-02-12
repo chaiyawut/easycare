@@ -8,10 +8,10 @@ import re
 import datetime
 from django.utils import timezone
 import pytz
-from frontend.services.handle_call import PROJECT_PATH
-
 now = timezone.now()#.replace(tzinfo=timezone.get_default_timezone())
 
+#use relative path need 3 symbolic links in freeswitch to import settings
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 VOICE_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'services', 'sounds'))
 
 class CallHandler:
