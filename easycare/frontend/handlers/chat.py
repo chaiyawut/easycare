@@ -4,6 +4,8 @@ from frontend.utils.words import *
 from frontend.services.send_messages_to_patient import send_messages_to_patient
 from django.template.loader import render_to_string
 import re
+from django.utils import timezone
+now = timezone.now()
 
 class ChatHandler:
 	def __init__(self, received_number, received_body):
