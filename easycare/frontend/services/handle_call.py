@@ -11,7 +11,9 @@ from django.core.management import setup_environ
 setup_environ(settings)
 
 from django.conf import settings
-settings.configure(CELERY_EAGER_PROPAGATES_EXCEPTIONS = True, CELERY_ALWAYS_EAGER = True, BROKER_BACKEND = 'memory')
+settings.CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+settings.CELERY_ALWAYS_EAGER = True
+settings.BROKER_BACKEND = 'memory'
 
 from frontend.handlers.call import CallHandler
 
