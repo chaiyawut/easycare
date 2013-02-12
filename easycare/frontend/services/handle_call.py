@@ -10,7 +10,6 @@ import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 
-
 from frontend.handlers.call import CallHandler
 
 def input_callback_record_file_pound_stop(session, type, obj):

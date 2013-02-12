@@ -8,6 +8,7 @@ import re
 import datetime
 from django.utils import timezone
 import pytz
+from frontend.services.handle_call import PROJECT_PATH
 
 now = timezone.now()#.replace(tzinfo=timezone.get_default_timezone())
 
