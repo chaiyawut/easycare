@@ -42,7 +42,7 @@ border:1px solid #DDD;
 													{% else %}
 													<tr class="success">
 														<td width="30%">{{ record.response.nurse.first_name }}</td>
-														<td>{{ record.response.reply_text }}</td>
+														<td>{{ record.response.get_reply_text }}</td>
 													</tr>
 													{% endif %}
 												<tbody>

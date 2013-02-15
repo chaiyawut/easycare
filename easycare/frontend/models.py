@@ -241,6 +241,9 @@ class Response(models.Model):
 		verbose_name_plural = "3. ตอบกลับบันทึก"
 		verbose_name = "ตอบกลับบันทึก"
 
+	def get_reply_text(self):
+		return self.reply_text.replace('|',' ')
+
 class RecordElementBase(models.Model):
 	record = models.ForeignKey(Record)
 

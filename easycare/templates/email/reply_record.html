@@ -8,7 +8,7 @@
 		{% if record.response %}
 		<tr>
 			<td><strong>ผลการตอบกลับ</strong></td>
-			<td>{{ record.response.reply_text }}</td>
+			<td>{{ record.response.get_reply_text }}</td>
 		</tr>
 		{% endif %}
 	</tbody>
