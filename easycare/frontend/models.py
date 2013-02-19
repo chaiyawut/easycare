@@ -233,9 +233,10 @@ class Response(models.Model):
 	nurse = models.ForeignKey(User)
 	reply_text = models.CharField(blank=True, max_length=200, verbose_name='ข้อความตอบกลับ')
 	deleted = models.BooleanField(default=False, verbose_name='ลบ')
+	timestamp = models.DateTimeField(auto_now_add=True, verbose_name='เวลาที่ตอบกลับ')
 
 	def __unicode__(self):
-		return str(self.record.id) +" "+self.nurse.username
+		return str(self.record.id) +" "+self.nurse.username + " timestamp: " + str(self.timestamp)
 
 	class Meta:
 		verbose_name_plural = "3. ตอบกลับบันทึก"
