@@ -30,15 +30,25 @@ DRUG_SIZES = (
 
 DRUG_AMOUNTS = (
 	(0, '0 เม็ด'),
+	(0.25, '0.25 เม็ด'),
 	(0.5, '0.5 เม็ด'),
+	(0.75, '0.75 เม็ด'),
 	(1, '1 เม็ด'),
+	(1.25, '1.25 เม็ด'),
 	(1.5, '1.5 เม็ด'),
+	(1.75, '1.75 เม็ด'),
 	(2, '2 เม็ด'),
+	(2.25, '2.25 เม็ด'),
 	(2.5, '2.5 เม็ด'),
+	(2.75, '2.75 เม็ด'),
 	(3, '3 เม็ด'),
+	(3.25, '3.25 เม็ด'),
 	(3.5, '3.5 เม็ด'),
+	(3.75, '3.75 เม็ด'),
 	(4, '4 เม็ด'),
+	(4.25, '4.25 เม็ด'),
 	(4.5, '4.5 เม็ด'),
+	(4.75, '4.75 เม็ด'),
 	(5, '5 เม็ด'),
 )
 
@@ -63,6 +73,7 @@ class Patient(models.Model):
 	contact_number = models.CharField(blank=True, unique=True, max_length=200, verbose_name='หมายเลขโทรศัพท์ติดต่อ')
 	firstname = models.CharField(max_length=200, verbose_name='ชื่อ')
 	lastname = models.CharField(blank=True, max_length=200, verbose_name='นามสกุล')
+	age = models.CharField(blank=True, max_length=200, verbose_name='อายุ')
 	email = models.CharField(blank=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
 	confirm_by = models.CharField(max_length=200, choices=CONFIRM_BY, verbose_name='ติดต่อผ่านทาง')
 	sound_for_name = models.FileField(blank=True, upload_to=get_file_path, verbose_name='ไฟล์เสียงสำหรับชื่อคนไข้')

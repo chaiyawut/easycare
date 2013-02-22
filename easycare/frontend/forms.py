@@ -46,7 +46,7 @@ class DeleteForm(forms.ModelForm):
 class PatientForm(forms.ModelForm):
 	class Meta:
 		model = Patient
-		fields = ['hn','firstname','lastname', 'contact_number', 'email', 'confirm_by', 'sound_for_name']
+		fields = ['hn','firstname','lastname', 'age', 'contact_number', 'email', 'confirm_by', 'sound_for_name']
 
 	def clean_sound_for_name(self):
 		if self.cleaned_data['sound_for_name']:
