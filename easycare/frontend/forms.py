@@ -77,7 +77,7 @@ class VisitForm(forms.ModelForm):
 		
 
 class RecordForm(forms.Form):
-	submitted_date = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-small search-query'}))
+	submitted_date = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'style':'background-color: #eeeeee;', 'class': 'input-small '}))
 	contact_number = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-medium','placeholder':'ตัวอย่าง 081234567'}))
 	period = forms.ChoiceField(choices=PEROIDS, widget=forms.Select(attrs={'class': 'input-medium',}))
 	weight = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'input-small',}))
