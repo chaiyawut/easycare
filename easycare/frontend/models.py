@@ -106,10 +106,13 @@ class Patient(models.Model):
 	def create_new_record(self, period, submitted_by):
 		if submitted_by == 'web':
 			self.web_count = self.web_count + 1
+			self.save()
 		elif submitted_by == 'ivr':
 			self.ivr_count = self.ivr_count + 1
+			self.save()
 		elif submitted_by == 'sms':
 			self.sms_count = self.sms_count + 1
+			self.save()
 		return self.record_set.create(period=period, submitted_by=submitted_by)
 
 class Visit(models.Model):
