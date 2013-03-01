@@ -77,6 +77,9 @@ class Patient(models.Model):
 	email = models.CharField(blank=True, max_length=200, verbose_name='อีเมลล์ติดต่อ')
 	confirm_by = models.CharField(max_length=200, choices=CONFIRM_BY, verbose_name='ติดต่อผ่านทาง')
 	sound_for_name = models.FileField(blank=True, upload_to=get_file_path, verbose_name='ไฟล์เสียงสำหรับชื่อคนไข้')
+	web_count = models.IntegerField(default=0)
+	ivr_count = models.IntegerField(default=0)
+	sms_count = models.IntegerField(default=0)
 
 	def __unicode__(self):
 		return self.hn+" "+self.fullname
@@ -101,6 +104,12 @@ class Patient(models.Model):
 		return True
 
 	def create_new_record(self, period, submitted_by):
+		if submitted_by == 'web':
+			self.web_count = self.web_count + 1
+		elif submitted_by == 'ivr':
+			self.ivr_count = self.ivr_count + 1
+		elif submitted_by == 'sms':
+			self.sms_count = self.sms_count + 1
 		return self.record_set.create(period=period, submitted_by=submitted_by)
 
 class Visit(models.Model):
