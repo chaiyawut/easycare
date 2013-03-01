@@ -3,9 +3,15 @@
 {% load thai_name %}
 
 {% block script-local %}
-
-
-
+<script>
+$(function() {
+	$( "#id_submitted_date" ).datepicker({
+		dateFormat: 'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true,
+	});
+});
+</script>
 {% endblock %}
 
 {% block style-local %}
@@ -49,6 +55,13 @@ content: "สำหรับผู้ป่วยที่ลงทะเบี�
 					<legend>ข้อมูลผู้ป่วย</legend>
 					<div class="row-fluid">
 						<div class="span12">
+							<div class="control-group">
+								<label class="control-label" ><strong>วันที่*</strong></label>
+								<div class="controls">
+									{{ form.submitted_date }}
+									<span class="help-inline "><!-- <input id="datenow" type="button" value="วันนี้"></input>-->{% if form.submitted_date.errors %}{{ form.submitted_date.errors }}{% endif %}</span>
+								</div>
+							</div>
 							<div class="control-group">
 								<label class="control-label" ><strong>หมายเลขโทรศัพท์*</strong></label>
 								<div class="controls">

@@ -103,7 +103,7 @@ class Patient(models.Model):
 			return False
 		return True
 
-	def create_new_record(self, period, submitted_by):
+	def create_new_record(self, period, recorded_date, submitted_by):
 		if submitted_by == 'web':
 			self.web_count = self.web_count + 1
 			self.save()
@@ -113,7 +113,7 @@ class Patient(models.Model):
 		elif submitted_by == 'sms':
 			self.sms_count = self.sms_count + 1
 			self.save()
-		return self.record_set.create(period=period, submitted_by=submitted_by)
+		return self.record_set.create(period=period, datetime=recorded_date, submitted_by=submitted_by)
 
 class Visit(models.Model):
 	patient = models.ForeignKey(Patient)
@@ -176,7 +176,7 @@ class Log(models.Model):
 
 class Record(models.Model):
 	patient = models.ForeignKey(Patient)
-	datetime = models.DateTimeField(auto_now_add=True, verbose_name='เวลา')
+	datetime = models.DateTimeField(verbose_name='เวลา')
 	voicemail = models.CharField(blank=True, max_length=200, verbose_name='ข้อมูลฝากเสียง')
 	status = models.CharField(default='รอการตอบกลับ', max_length=200, verbose_name='สถานะ')
 	period = models.CharField(max_length=200, choices=PEROIDS, verbose_name='ช่วงเวลา')

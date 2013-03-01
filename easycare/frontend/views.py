@@ -44,10 +44,17 @@ def record_create(request):
 		form = RecordForm(request.POST) # A form bound to the POST data
 		if form.is_valid(): # All validation rules pass
 			period = form.cleaned_data['period']
+			submitted_date = form.cleaned_data['submitted_date']
+
+			from django.utils.timezone import utc
+			bangkok_tz = timezone.get_default_timezone()
+			date = datetime.datetime.strptime(submitted_date, "%Y-%m-%d").date()
+			recorded_date = bangkok_tz.normalize(datetime.datetime.combine(date, datetime.datetime.utcnow().time()).replace(tzinfo=utc)) 
+
 			patient = form.get_patient_from_contact_number()
 			if patient:
 				if patient.check_for_no_duplicate_period(period):
-					new_record = patient.create_new_record(period, 'web')
+					new_record = patient.create_new_record(period, recorded_date, 'web')
 					if new_record.create_entry_for_record_from_web(form):
 						html_messages = render_to_string('email/confirm_record.html', { 'record': new_record })
 						reply_messages = '#' + str(new_record.id) + ' ช่วง:' + PERIODS[period] + ' '
@@ -79,7 +86,9 @@ def record_create(request):
 			else:
 				messages.error(request, 'หมายเลขโทรศัพท์ของท่านยังไม่ได้ทำการลงทะเบียนเอาไว้ค่ะ', extra_tags='alert alert-error')
 	else:
-		form = RecordForm() # An unbound form
+		form = RecordForm(
+			initial={'submitted_date': timezone.now().date()},
+		) # An unbound form
 
 	return render(request, 'record/create.html', {
 		'form': form,
