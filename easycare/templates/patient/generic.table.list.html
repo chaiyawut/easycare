@@ -5,16 +5,18 @@
 	<thead>
 		<tr>
 			<th width="10%">ดูข้อมูล</th>
-			<th width="30%">หมายเลขผู้ป่วยนอก</th>
-			<th >ชื่อ-นามสกุล</th>
+			<th width="20%">หมายเลขผู้ป่วยนอก</th>
+			<th width="40%">ชื่อ-นามสกุล</th>
+			<th  >แจ้งข้อความเตือน</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for patient in page_obj %}
 		<tr>
-			<td ><a href="/patients/{{ patient.id }}/"><i class="icon-search"></i></a></td>
+			<td ><a href="{% url 'patient-profile' patient.id %}"><i class="icon-search"></i></a></td>
 			<td>{{ patient.hn }}</td>
-			<td>{{ patient.firstname }} {{ patient.lastname }}</td>
+			<td><a href="{% url 'patient-profile' patient.id %}">{{ patient.firstname }} {{ patient.lastname }}</td>
+			<td><a href="{% url 'patient-remind' patient.id %}" class="btn btn-danger">แจ้งเตือน<a></td>
 		</tr>
 		{% endfor %}
 	</tbody>

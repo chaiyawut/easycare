@@ -30,5 +30,6 @@ urlpatterns = patterns('',
         url(r'^patients/register/$', login_required(PatientReisterCreateView.as_view()), name="patient-register"),
         url(r'^patients/visit/$', login_required(PatientVisitCreateView.as_view()), name="patient-visit"),
         url(r'^patients/$', login_required(PatientListView.as_view()), name="patient"),
-        url(r'^patients/(?P<pk>\d+)/$', login_required(PatientUpdateView.as_view()), name="patient-update"),
+        url(r'^patients/(?P<pk>\d+)/profile/$', login_required(PatientUpdateView.as_view()), name="patient-profile"),
+        url(r'^patients/(?P<patient_id>\d+)/remind/$', 'frontend.views.patient_remind', name="patient-remind"),
 )

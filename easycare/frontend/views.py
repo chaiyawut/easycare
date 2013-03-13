@@ -39,6 +39,19 @@ def aboutus(request):
 def contactus(request):
 	return render(request, 'contactus.html')
 
+@login_required
+def patient_remind(request, patient_id):
+	success_url = reverse_lazy('patient')
+	patient = Patient.objects.get(id= patient_id)
+	reply_messages = 'test'
+	html_messages = 'test'
+	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
+	if sent:
+		messages.success(request, "ข้อความถูกส่งไปเตือนคุณ " + patient.fullname.encode('utf-8') + " แล้ว", extra_tags='alert alert-success')
+	else:
+		messages.success(request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
+	return redirect(success_url)
+
 def record_create(request):
 	if request.method == 'POST': # If the form has been submitted...
 		form = RecordForm(request.POST) # A form bound to the POST data
@@ -191,7 +204,6 @@ class PatientListView(ListView):
 	template_name = 'patient/list.html'
 	paginate_by = 10
 	date_field = 'datetime'
-
 
 class HistoryListView(ListView, FormMixin):
 	model = Record
