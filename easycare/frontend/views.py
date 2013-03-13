@@ -47,7 +47,7 @@ def patient_remind(request, patient_id):
 	html_messages = 'อาการของท่าเป็นอย่างไรบ้างค่ะ'
 	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
 	if sent:
-		messages.success(request, reply_messages + " ถูกส่งไปเตือนคุณ " + patient.fullname.encode('utf-8') + " แล้ว", extra_tags='alert alert-success')
+		messages.success(request, reply_messages + "...ถูกส่งไปเตือนคุณ " + patient.fullname.encode('utf-8') + " แล้ว", extra_tags='alert alert-success')
 	else:
 		messages.success(request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
 	return redirect(success_url)
