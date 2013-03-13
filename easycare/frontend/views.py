@@ -43,11 +43,11 @@ def contactus(request):
 def patient_remind(request, patient_id):
 	success_url = reverse_lazy('patient')
 	patient = Patient.objects.get(id= patient_id)
-	reply_messages = 'ข้อความ...EasyCare สวัสดีค่ะ วันนี้สุขภาพของท่านเป็นอย่างไรบ้างค่ะ สามารถส่งข้อมูลบอกเราได้ทาง 1.Website 2.SMS 3.IVR ขอบคุณค่ะ'
-	html_messages = 'อาการของท่าเป็นอย่างไรบ้างค่ะ'
+	reply_messages = 'EasyCare สวัสดีค่ะ วันนี้สุขภาพของท่านเป็นอย่างไรบ้างค่ะ สามารถส่งข้อมูลบอกเราได้ทาง 1.Website 2.SMS 3.IVR ขอบคุณค่ะ'
+	html_messages = render_to_string('email/remind.html')
 	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
 	if sent:
-		messages.success(request, reply_messages + "...ถูกส่งไปเตือนคุณ " + patient.fullname.encode('utf-8') + " แล้ว", extra_tags='alert alert-success')
+		messages.success(request, "ข้อความ..." + reply_messages + "...ถูกส่งไปเตือนคุณ " + patient.fullname.encode('utf-8') + " แล้ว", extra_tags='alert alert-success')
 	else:
 		messages.success(request, "ระบบส่งข้อความผิดพลาด คนไข้จะไม่ได้รับข้อความ", extra_tags='alert alert-error')
 	return redirect(success_url)
