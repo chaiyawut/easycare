@@ -277,7 +277,7 @@ class RecordElementBase(models.Model):
 class Drug(RecordElementBase):
 	name = models.CharField(max_length=200, choices=DRUGS, blank=True, null=True, verbose_name='ชื่อยา')
 	size = models.IntegerField(choices=DRUG_SIZES, blank=True, null=True, verbose_name='ขนาดยา')
-	amount = models.DecimalField(max_digits=2, decimal_places=1, choices=DRUG_AMOUNTS, blank=True, null=True, verbose_name='จำนวนยา')
+	amount = models.DecimalField(max_digits=3, decimal_places=2, choices=DRUG_AMOUNTS, blank=True, null=True, verbose_name='จำนวนยา')
 
 	def __unicode__(self):
 		return "Record: " + str(self.record.id) + " "  + self.name + " " + str(self.size) + " " + str(self.amount)
@@ -298,7 +298,7 @@ class Pressure(RecordElementBase):
 		verbose_name = "ความดัน"
 
 class Weight(RecordElementBase):
-	weight = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name='น้ำหนัก')
+	weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='น้ำหนัก')
 
 	def __unicode__(self):
 		return "Record: " + str(self.record.id) + " " + str(self.weight)

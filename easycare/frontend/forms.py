@@ -86,7 +86,7 @@ class RecordForm(forms.Form):
 	drug_amount = forms.ChoiceField(required=True, choices=DRUG_AMOUNTS, widget=forms.Select(attrs={'class': 'input-small',}))
 	pressure_up = forms.IntegerField(max_value=200,required=False, min_value=0, widget=forms.TextInput(attrs={'class': 'input-small',}))
 	pressure_down = forms.IntegerField(max_value=200, min_value=0,required=False, widget=forms.TextInput(attrs={'class': 'input-small',}))
-	sign = forms.CharField(max_length=100, required=False, widget=forms.Textarea(attrs={'rows': '4',}))
+	sign = forms.CharField(max_length=500, required=False, widget=forms.Textarea(attrs={'rows': '4',}))
 
 	def get_patient_from_contact_number(self):
 		contact_number = self.cleaned_data['contact_number']
