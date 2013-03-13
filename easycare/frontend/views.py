@@ -43,9 +43,8 @@ def contactus(request):
 def patient_remind(request, patient_id):
 	success_url = reverse_lazy('patient')
 	patient = Patient.objects.get(id= patient_id)
-	reply_messages = 'test'
-	html_messages = 'test'
-	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, reply_messages, html_messages)
+	messages = 'อาการของท่านเป็นอย่างไรบ้างค่ะ'
+	sent = send_messages_to_patient(patient.confirm_by, patient.contact_number, patient.email, messages, messages)
 	if sent:
 		messages.success(request, "ข้อความถูกส่งไปเตือนคุณ " + patient.fullname.encode('utf-8') + " แล้ว", extra_tags='alert alert-success')
 	else:
