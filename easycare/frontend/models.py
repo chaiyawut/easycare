@@ -298,7 +298,7 @@ class Pressure(RecordElementBase):
 		verbose_name = "ความดัน"
 
 class Weight(RecordElementBase):
-	weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='น้ำหนัก')
+	weight = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name='น้ำหนัก')
 
 	def __unicode__(self):
 		return "Record: " + str(self.record.id) + " " + str(self.weight)
