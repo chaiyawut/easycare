@@ -1,7 +1,7 @@
 #-*-coding: utf-8 -*-
 from frontend.models import *
 from django.core.mail import send_mail, BadHeaderError
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 import string
 import sys, os
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
@@ -29,8 +29,8 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 	if msg_type == 'instruction':
 		try:
 			subject, from_email, to = 'ข้อความจากจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
-			msg = EmailMultiAlternatives(subject, '', from_email, [to])
-			msg.attach_alternative(html_messages, "text/html")
+			msg = EmailMessage(subject, html_messages, from_email, [to])
+			msg.content_subtype = "html"
 			msg.attach_file(os.path.join(PROJECT_PATH, 'templates','email', 'instruction.pdf'))
 			msg.send()
 		except Exception, e:
