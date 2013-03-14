@@ -3,6 +3,8 @@ from frontend.models import *
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import EmailMultiAlternatives
 import string
+import sys, os
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..'))
 
 def send_messages_to_patient(msg_type, contact_number, contact_email, reply_messages, html_messages):
 	if msg_type == 'sms' or msg_type == 'both':
@@ -21,7 +23,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			subject, from_email, to = 'สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
 			msg = EmailMultiAlternatives(subject, '', from_email, [to])
 			msg.attach_alternative(html_messages, "text/html")
-			msg.attach('email/instruction.pdf')
+			msg.attach_file(os.path.join(PROJECT_PATH, 'frontend', 'templates', 'email', 'instruction.pdf'))
 			msg.send()
 		except Exception, e:
 			return False	
