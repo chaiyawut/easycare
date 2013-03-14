@@ -23,7 +23,15 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			subject, from_email, to = 'สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
 			msg = EmailMultiAlternatives(subject, '', from_email, [to])
 			msg.attach_alternative(html_messages, "text/html")
-			msg.attach_alternative(os.path.join(PROJECT_PATH, 'templates', 'email', 'instruction.pdf'), 'application/pdf')
+			msg.send()
+		except Exception, e:
+			return False
+	if msg_type == 'instruction':
+		try:
+			subject, from_email, to = 'ข้อความจากจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
+			msg = EmailMultiAlternatives(subject, '', from_email, [to])
+			msg.attach_alternative(html_messages, "text/html")
+			msg.attach_file(os.path.join(PROJECT_PATH, 'templates','email', 'instruction.pdf'))
 			msg.send()
 		except Exception, e:
 			return False
