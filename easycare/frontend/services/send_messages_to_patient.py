@@ -20,7 +20,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			return False
 	if msg_type == 'email' or msg_type == 'both':
 		try:
-			subject, from_email, to = 'สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
+			subject, from_email, to = '[DO NOT REPLY]สรุปข้อมูลจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
 			msg = EmailMultiAlternatives(subject, '', from_email, [to])
 			msg.attach_alternative(html_messages, "text/html")
 			msg.send()
@@ -28,7 +28,7 @@ def send_messages_to_patient(msg_type, contact_number, contact_email, reply_mess
 			return False
 	if msg_type == 'instruction':
 		try:
-			subject, from_email, to = 'ข้อความจากจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
+			subject, from_email, to = '[DO NOT REPLY]ข้อความจากจากคลินิกโรคหัวใจล้มเหลวค่ะ', 'easycare.sit@gmail.com', contact_email
 			msg = EmailMessage(subject, html_messages, from_email, [to])
 			msg.content_subtype = "html"
 			msg.attach_file(os.path.join(PROJECT_PATH, 'templates','email', 'instruction.pdf'))
