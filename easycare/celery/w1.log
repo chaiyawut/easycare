@@ -1753,3 +1753,776 @@ Traceback (most recent call last):
   File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
     raise ConnectionError('Too many heartbeats missed')
 ConnectionError: Too many heartbeats missed
+[2013-04-22 15:56:39,595: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-22 19:08:06,695: INFO/MainProcess] Got task from broker: djcelery_email_send[092f7294-f91f-4d18-9cbd-c39ff021ed4d]
+[2013-04-22 19:08:11,571: INFO/MainProcess] Task djcelery_email_send[092f7294-f91f-4d18-9cbd-c39ff021ed4d] succeeded in 4.86675786972s: 1
+[2013-04-23 01:27:46,454: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-23 10:03:42,654: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-23 12:03:14,088: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-23 12:33:04,446: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-23 14:07:45,583: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-23 16:47:38,936: INFO/MainProcess] Got task from broker: djcelery_email_send[ef4674fc-0b45-45f6-961b-5a26e21cbf96]
+[2013-04-23 16:47:44,632: INFO/MainProcess] Task djcelery_email_send[ef4674fc-0b45-45f6-961b-5a26e21cbf96] succeeded in 5.656676054s: 1
+[2013-04-23 17:53:08,287: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-23 20:25:50,119: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-24 04:17:55,787: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-24 10:00:58,083: INFO/MainProcess] Got task from broker: djcelery_email_send[64739f71-9a9e-405b-afdd-d1d78f637f04]
+[2013-04-24 10:01:04,046: INFO/MainProcess] Task djcelery_email_send[64739f71-9a9e-405b-afdd-d1d78f637f04] succeeded in 5.93339896202s: 1
+[2013-04-24 18:06:31,168: INFO/MainProcess] Got task from broker: djcelery_email_send[1aaf20a4-367a-41d2-82ff-c9e645e3f4ea]
+[2013-04-24 18:06:38,101: INFO/MainProcess] Task djcelery_email_send[1aaf20a4-367a-41d2-82ff-c9e645e3f4ea] succeeded in 6.92316317558s: 1
+[2013-04-24 20:26:02,402: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-25 02:13:46,575: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-25 09:46:45,003: INFO/MainProcess] Got task from broker: djcelery_email_send[950ffa3a-6ff1-4f0b-a0eb-14c11fbfd6c7]
+[2013-04-25 09:46:50,115: INFO/MainProcess] Task djcelery_email_send[950ffa3a-6ff1-4f0b-a0eb-14c11fbfd6c7] succeeded in 5.10622191429s: 1
+[2013-04-26 10:27:59,372: INFO/MainProcess] Got task from broker: djcelery_email_send[a3095a41-350c-498b-a59f-c4c6c37337e6]
+[2013-04-26 10:28:04,363: INFO/MainProcess] Task djcelery_email_send[a3095a41-350c-498b-a59f-c4c6c37337e6] succeeded in 4.96445584297s: 1
+[2013-04-26 16:12:18,918: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-26 22:25:33,396: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-26 22:36:13,524: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-27 08:48:20,870: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-27 10:31:32,108: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-27 11:18:51,816: INFO/MainProcess] Got task from broker: djcelery_email_send[9e140931-22c6-429b-a114-8f34755cd6ab]
+[2013-04-27 11:18:58,443: INFO/MainProcess] Task djcelery_email_send[9e140931-22c6-429b-a114-8f34755cd6ab] succeeded in 6.61800980568s: 1
+[2013-04-27 15:14:50,507: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-27 15:16:30,527: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-27 15:17:20,537: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-28 05:23:40,694: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-28 13:34:26,584: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-28 22:18:22,875: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-29 04:34:07,384: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-29 08:15:40,043: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-29 08:16:10,049: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-29 18:39:28,651: INFO/MainProcess] Got task from broker: djcelery_email_send[6f227dac-83cd-44b0-b536-ccc4af4c8f62]
+[2013-04-29 18:39:36,104: INFO/MainProcess] Task djcelery_email_send[6f227dac-83cd-44b0-b536-ccc4af4c8f62] succeeded in 7.40864682198s: 1
+[2013-04-30 06:50:56,306: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-04-30 21:32:26,882: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-01 08:45:34,958: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-01 09:18:55,358: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-01 09:33:01,020: INFO/MainProcess] Got task from broker: djcelery_email_send[3de7db4d-a730-46d2-b27a-42dcebc55ef3]
+[2013-05-01 09:33:08,359: INFO/MainProcess] Task djcelery_email_send[3de7db4d-a730-46d2-b27a-42dcebc55ef3] succeeded in 7.32876801491s: 1
+[2013-05-01 14:40:24,218: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-01 14:40:54,224: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-01 16:10:15,297: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-02 00:22:01,198: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-02 07:34:36,389: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-02 12:18:29,795: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-03 07:50:34,160: INFO/MainProcess] Got task from broker: djcelery_email_send[43c7ff4f-6c43-4f5c-9fa3-77b4d0804750]
+[2013-05-03 07:50:39,817: INFO/MainProcess] Task djcelery_email_send[43c7ff4f-6c43-4f5c-9fa3-77b4d0804750] succeeded in 5.64776396751s: 1
+[2013-05-03 07:52:44,610: INFO/MainProcess] Got task from broker: djcelery_email_send[73fe5ae7-1878-4e03-af4b-da4a058e0807]
+[2013-05-03 07:52:49,522: INFO/MainProcess] Task djcelery_email_send[73fe5ae7-1878-4e03-af4b-da4a058e0807] succeeded in 4.90965294838s: 1
+[2013-05-03 07:54:01,503: INFO/MainProcess] Got task from broker: djcelery_email_send[710a2687-f658-428c-8146-67935066a9c0]
+[2013-05-03 07:54:06,560: INFO/MainProcess] Task djcelery_email_send[710a2687-f658-428c-8146-67935066a9c0] succeeded in 5.01452708244s: 1
+[2013-05-03 07:54:51,695: INFO/MainProcess] Got task from broker: djcelery_email_send[009ee929-1033-4c9b-8c1f-b04a2fed9f1d]
+[2013-05-03 07:54:56,465: INFO/MainProcess] Task djcelery_email_send[009ee929-1033-4c9b-8c1f-b04a2fed9f1d] succeeded in 4.74372792244s: 1
+[2013-05-03 07:55:52,564: INFO/MainProcess] Got task from broker: djcelery_email_send[f1fa74b9-1b4a-453e-8b3b-718b1ecfbd45]
+[2013-05-03 07:55:57,422: INFO/MainProcess] Task djcelery_email_send[f1fa74b9-1b4a-453e-8b3b-718b1ecfbd45] succeeded in 4.82118296623s: 1
+[2013-05-03 09:40:50,186: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-03 14:10:43,424: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-03 14:11:13,430: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-03 14:12:03,440: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-03 15:07:43,785: INFO/MainProcess] Got task from broker: djcelery_email_send[816550a0-90a7-4c40-ba74-157291777a6b]
+[2013-05-03 15:07:49,403: INFO/MainProcess] Task djcelery_email_send[816550a0-90a7-4c40-ba74-157291777a6b] succeeded in 5.61663413048s: 1
+[2013-05-03 23:10:34,908: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-05 13:16:52,375: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-05 18:51:06,385: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-06 08:40:14,093: INFO/MainProcess] Got task from broker: djcelery_email_send[52b42421-4742-4e74-a512-bd604314ba09]
+[2013-05-06 08:40:20,424: INFO/MainProcess] Task djcelery_email_send[52b42421-4742-4e74-a512-bd604314ba09] succeeded in 6.29643511772s: 1
+[2013-05-07 02:21:14,071: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-07 04:24:55,555: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-08 04:24:42,837: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-08 06:30:24,345: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-08 08:48:56,007: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-08 12:49:02,237: INFO/MainProcess] Got task from broker: djcelery_email_send[ce5ad833-35e2-4f4a-a648-67af1755d960]
+[2013-05-08 12:49:09,012: INFO/MainProcess] Task djcelery_email_send[ce5ad833-35e2-4f4a-a648-67af1755d960] succeeded in 6.74849891663s: 1
+[2013-05-08 12:51:40,507: INFO/MainProcess] Got task from broker: djcelery_email_send[a5401928-023b-4c8f-826b-1b29443839b1]
+[2013-05-08 12:51:45,143: INFO/MainProcess] Task djcelery_email_send[a5401928-023b-4c8f-826b-1b29443839b1] succeeded in 4.62840795517s: 1
+[2013-05-08 12:52:21,052: INFO/MainProcess] Got task from broker: djcelery_email_send[2b64da94-ba9c-4905-b64c-2362fb51e09b]
+[2013-05-08 12:52:25,987: INFO/MainProcess] Task djcelery_email_send[2b64da94-ba9c-4905-b64c-2362fb51e09b] succeeded in 4.89847302437s: 1
+[2013-05-08 13:08:09,118: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
+[2013-05-08 21:09:04,890: ERROR/MainProcess] Error in timer: ConnectionError('Too many heartbeats missed', None, None, None, '')
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 97, in apply_entry
+    entry()
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 51, in __call__
+    return self.fun(*self.args, **self.kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/celery/utils/timer2.py", line 153, in _reschedules
+    return fun(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/connection.py", line 264, in heartbeat_check
+    return self.transport.heartbeat_check(self.connection, rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/kombu/transport/pyamqp.py", line 132, in heartbeat_check
+    return connection.heartbeat_tick(rate=rate)
+  File "/usr/local/lib/python2.7/dist-packages/amqp/connection.py", line 843, in heartbeat_tick
+    raise ConnectionError('Too many heartbeats missed')
+ConnectionError: Too many heartbeats missed
